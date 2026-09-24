@@ -2,7 +2,12 @@
 name: WaterWalker
 slug: waterwalker
 area: Mobility and Logistics
-status: concept          # concept | design | prototype | tested | released
+trl: 2                   # Technology Readiness Level, see .kit/STANDARDS.md section 9
+trl_target: 3
+trl_evidence:
+  - docs/01-problem.md
+  - docs/02-concept.md
+  - docs/03-requirements.md
 shortlisted: false
 pitch: >-
   Four-wheel walk-inside water carrier. The user walks between large wheels, rollator style, pushing through a hip bar, while a low padded cradle holds four 20 L jerrycans or clay pots between the axles. Optional push-sensing hub motor assist for sand and slopes.
