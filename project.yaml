@@ -1,0 +1,17 @@
+# Card metadata consumed by https://amishchadha.com
+name: WaterWalker
+slug: waterwalker
+area: Mobility and Logistics
+status: concept          # concept | design | prototype | tested | released
+shortlisted: false
+pitch: >-
+  Four-wheel walk-inside water carrier. The user walks between large wheels, rollator style, pushing through a hip bar, while a low padded cradle holds four 20 L jerrycans or clay pots between the axles. Optional push-sensing hub motor assist for sand and slopes.
+problem: >-
+  Women and girls in rural sub-Saharan Africa and other low-income regions walk long distances carrying about 20 L of water on their heads per trip, which limits the quantity collected and causes neck and spine injuries. Design with, not for: requirements must come from co-design sessions and field trials with the intended users through a local partner.
+budget_usd: 450
+difficulty: 3  # 1 easiest, 5 hardest
+hero_image: media/hero.png
+licenses:
+  hardware: CERN-OHL-S-2.0
+  software: MIT
+tags: [mobility-and-logistics, open-hardware, cern-ohl-s]
