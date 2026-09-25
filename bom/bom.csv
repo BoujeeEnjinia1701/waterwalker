@@ -1,8 +1,13 @@
 item,qty,spec,supplier,unit_cost_usd,make_buy,notes
-Steel tube frame (bent and bolted),,,,,,
-Large-diameter wheels with puncture-proof tires (4),,,,,,
-Hip and hand push bar,,,,,,
-Adjustable padded cradle for jerrycans or clay pots,,,,,,
-Parking brake,,,,,,
-Optional 250 W hub motor with push-force sensor,,,,,,
-Optional 36 V pack,,,,,,
+1 Steel tube frame,1,"Mild steel square tube 25 x 25 x 1.5 mm, about 10 m, welded; side rails, cross members, front risers, caster arms, hip bar uprights, battery shelf",Local steel stockist and welder,45.00,make,Indicative price for material and welding consumables
+2 Rear wheel,2,"26 x 2.1 to 2.4 in bicycle wheel, 36 spokes, drum-brake hub, thorn-resistant tube and tire liner",Bicycle parts dealer,30.00,buy,Indicative price; wheel size proposed awaiting Amish
+3 Front wheel on caster fork,2,"26 in bicycle wheel, rigid bicycle fork reworked to 60 mm trail, headset bearings, drop-pin swivel lock",Bicycle parts dealer,45.00,buy,Indicative price; full-swivel casters proposed awaiting Amish
+4 Hip bar and hand grips,1,"Steel tube with foam padding, telescopic posts 850 to 1050 mm with pins, bicycle grips",Local stockist,15.00,make,Indicative price
+5 Padded adjustable cradle,1,"Plywood or steel-mesh tray about 780 x 430 mm, recycled tire rubber pad, low walls, straps and removable dividers",Local market,30.00,make,Indicative price; holds four jerrycans or two clay pots
+6 20 L jerrycan,4,"User's own containers, about 360 x 175 x 430 mm",User,0.00,buy,Not purchased; shown for scale
+7 Rear drum brake and parking latch,1,"Drum brake arms and shoes for both rear hubs, lever with parking latch, cables",Bicycle parts dealer,25.00,buy,Indicative price; hub cost included in item 2
+8 Skirt guard,2,"HDPE sheet about 540 x 420 x 3 mm, bolted inside each rear wheel",Local market,5.00,make,Indicative price
+9 Optional hub motor,1,"250 W geared rear hub motor built into a 26 in wheel, with controller",E-bike parts supplier,130.00,buy,Optional; proposed not in first prototype awaiting Amish
+10 Optional SwapCell pack,1,"36 V removable pack with BMS and fuse, capacity to be confirmed (10 Ah assumed)",SwapCell project,150.00,make,Optional; indicative price; may be shared with the SwapCell project
+11 Optional push sensor and controller,1,"Load cell in the hip bar mount, amplifier, microcontroller, brake cut-off switch",Electronics distributor,20.00,buy,Optional; indicative price
+12 Hardware and consumables,1,"Bolts, bearings, paint, reflectors, cable ties",Local market,25.00,buy,Indicative price
