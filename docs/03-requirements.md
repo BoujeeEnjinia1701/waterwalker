@@ -3,9 +3,9 @@ doc_id: WWK-REQ-001
 title: WaterWalker requirements
 project: WaterWalker
 doc_type: Requirements
-version: "0.2"
+version: "0.3"
 status: Draft
-date: '2026-09-24'
+date: '2026-09-25'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -17,30 +17,38 @@ revisions:
   date: '2026-09-24'
   author: Amish Chadha
   change: First measurable requirements for TRL 2
+- version: "0.3"
+  date: '2026-09-25'
+  author: Amish Chadha
+  change: TRL 3. Record Amish's decisions (WWK-DDR-001); redefine R1 (four jerrycans or two clay pots) and R11 (budget covers the unassisted first prototype with mounting points); add R13 (assist-ready to SwapCell interface v0.3); add status from WWK-CAL-001
 ---
 
 # WaterWalker requirements
 
-These are first-pass requirements for the concept. Targets are desk proposals for review and must be revised from co-design sessions with the intended users (WWK-PRB-001) before the design is frozen. They will be checked by calculation at TRL 3. Concept estimates against each target are in WWK-PRC-001.
+Four of the thirteen requirements are not met on paper (R2, R3, R4 and R9) and six are at risk, according to the TRL 3 calculations in WWK-CAL-001. Targets are still desk proposals and must be revised from co-design sessions with the intended users (WWK-PRB-001) before the design is frozen. On 2026-09-25 Amish decided to build the first prototype without assist but with mounting points, keep the $450 budget, and carry four jerrycans or two clay pots (WWK-DDR-001); R1 and R11 are redefined to match, and R13 is new.
 
-| ID | Requirement | Target | Verification (TRL 3 or later) |
-| --- | --- | --- | --- |
-| R1 | Carry a household's water in one trip | 80 L of water in four 20 L jerrycans; rated gross payload 90 kg including containers; also accept 20 L clay pots | Cradle layout in the parametric model; later load test |
-| R2 | Easy to push on firm ground | Sustained push force 60 N or less at rated load on a firm, level dirt path | Rolling resistance calculation; later force gauge on a field path |
-| R3 | Usable on loose sand | Sustained push force 150 N or less at rated load on loose sand, with assist if fitted | Calculation from sinkage and rolling resistance; later field test |
-| R4 | Climb and descend slopes | Climb a 10 % grade on firm ground with a push force of 180 N or less for up to 100 m; descend a 10 % grade under control with the service brake | Force calculation; brake sizing |
-| R5 | Turn without lifting | 180 degree turn within a 4.0 m diameter circle without lifting or skidding a wheel; reverse by pulling back | Geometry of the parametric model |
-| R6 | Fit narrow paths and gates | Overall width 900 mm or less | Parametric model |
-| R7 | Walk-in fit for all users | No step-over at the rear entry (50 mm or less); clear walking width 600 mm or more; hip bar height adjustable 850 to 1,050 mm; skirt guards on both rear wheels | Parametric model; later co-design fitting sessions |
-| R8 | Easy loading | Containers lifted no higher than 450 mm above the ground; loadable from either side without removing parts | Parametric model |
-| R9 | Light enough to handle empty | Empty mass 35 kg or less without assist, 42 kg or less with assist | Mass roll-up from the parametric model |
-| R10 | Safe braking and parking | Service brake on both rear wheels operable while walking; parking brake holds the rated gross mass on a 20 % grade | Brake force calculation |
-| R11 | Affordable prototype | Parts for one prototype $450 or less (`project.yaml` budget) | Priced BOM |
-| R12 | Repairable in a rural market | All wear parts (tires, tubes, spokes, bearings, cables, brake shoes) are standard 26 in bicycle parts; mild steel frame repairable by a local welder; only common hand and bicycle tools needed | Design review of the BOM; later review with a local mechanic |
+*Table 1. Requirements and status at TRL 3 (WWK-CAL-001).*
+
+| ID | Requirement | Target | Verification (TRL 3 or later) | Status at TRL 3 |
+| --- | --- | --- | --- | --- |
+| R1 | Carry a household's water in one trip | 80 L of water in four 20 L jerrycans, or 40 L in two 20 L clay pots; rated gross payload 90 kg including containers (redefined 2026-09-25, WWK-DDR-001) | Cradle layout in the parametric model; later load test | At risk: two 380 mm pots fit with 8 mm to spare |
+| R2 | Easy to push on firm ground | Sustained push force 60 N or less at rated load on a firm, level dirt path | Rolling resistance calculation; later force gauge on a field path | **Not met**: 24.6 to 61.4 N |
+| R3 | Usable on loose sand | Sustained push force 150 N or less at rated load on loose sand, with assist if fitted | Calculation from sinkage and rolling resistance; later field test | **Not met**: 242 to 368 N (no assist on the first prototype) |
+| R4 | Climb and descend slopes | Climb a 10 % grade on firm ground with a push force of 180 N or less for up to 100 m; descend a 10 % grade under control with the service brake | Force calculation; brake sizing | **Not met**: 183.4 N at the rough end; descent met on paper |
+| R5 | Turn without lifting | 180 degree turn within a 4.0 m diameter circle without lifting or skidding a wheel; reverse by pulling back | Geometry of the parametric model | Met: 3.66 m |
+| R6 | Fit narrow paths and gates | Overall width 900 mm or less | Parametric model | At risk: 898 mm |
+| R7 | Walk-in fit for all users | No step-over at the rear entry (50 mm or less); clear walking width 600 mm or more; hip bar height adjustable 850 to 1,050 mm; skirt guards on both rear wheels | Parametric model; later co-design fitting sessions | At risk: walking width 610 mm |
+| R8 | Easy loading | Containers lifted no higher than 450 mm above the ground; loadable from either side without removing parts | Parametric model | Met: 364 mm |
+| R9 | Light enough to handle empty | Empty mass 35 kg or less without assist, 42 kg or less with assist | Mass roll-up from the parametric model | **Not met**: 40.8 kg (47.3 kg) |
+| R10 | Safe braking and parking | Service brake on both rear wheels operable while walking; parking brake holds the rated gross mass on a 20 % grade | Brake force calculation | At risk: 189 N at the latch; tire friction 0.41 needed |
+| R11 | Affordable first prototype | Parts for the first prototype, without assist and with assist mounting points, $450 or less (`project.yaml` budget, kept 2026-09-25). The budget excludes the optional assist kit, which is a later second prototype, and the SwapCell pack, which is priced once in the SwapCell BOM (redefined 2026-09-25, WWK-DDR-001) | Priced BOM | At risk: $430 |
+| R12 | Repairable in a rural market | All wear parts (tires, tubes, spokes, bearings, cables, brake shoes) are standard 26 in bicycle parts; mild steel frame repairable by a local welder; only common hand and bicycle tools needed | Design review of the BOM; later review with a local mechanic | At risk: 100 mm drum hubs are less common than rim-brake hubs |
+| R13 | Assist-ready (new 2026-09-25) | The first prototype carries mounting points for a later assist kit built to SwapCell interface v0.3: a plate for a latch class V1 vehicle receiver above the tires, with the pack's back and lid faces open to air; rear dropouts that accept a 100 mm hub motor with a torque-arm tab; a boss for a push sensor at the hip bar. The receiver fits a 10 kΩ INTERLOCK coding resistor (item W), and the assist draws no more than the 15 A legacy-mode limit | Parametric model; later latch class V1 test | Not verifiable at TRL 3: geometry present, 7.6 A peak |
 
 ## Assumptions
 
 - A 20 L jerrycan weighs about 1.1 kg empty and measures about 360 x 175 x 430 mm. A 20 L clay pot is assumed to be about 380 mm in diameter and 5 to 8 kg empty.
 - Sustained push forces are set with reference to published manual-handling guidance, which suggests roughly 100 to 150 N for sustained pushing by women over long distances and more for short efforts. The limits must be confirmed with the users, including girls and older women.
 - A household of five uses about 100 L per day (about 20 L per person).
+- The first prototype has no assist (WWK-DDR-001), so R3 cannot be met by it; R3 stays as the target for the later assist prototype, which needs about 240 N of thrust (two hub motors) to meet it on the loosest sand (WWK-CAL-001).
 - R5 allows a larger circle than a compact rollator because the concept needs a long wheelbase to keep the swivelling front wheels clear of the cradle (WWK-PRC-001). A three-point turn is expected on paths narrower than 4 m.

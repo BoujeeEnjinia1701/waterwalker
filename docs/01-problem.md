@@ -3,9 +3,9 @@ doc_id: WWK-PRB-001
 title: WaterWalker problem statement
 project: WaterWalker
 doc_type: Problem statement
-version: "0.2"
+version: "0.3"
 status: Draft
-date: '2026-09-24'
+date: '2026-09-25'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -17,6 +17,10 @@ revisions:
   date: '2026-09-24'
   author: Amish Chadha
   change: Populate to TRL 2 (users, context, constraints, prior work, co-design first)
+- version: "0.3"
+  date: '2026-09-25'
+  author: Amish Chadha
+  change: TRL 3. Record Amish's decisions (WWK-DDR-001) on the budget scope, the cradle and the co-design partner; add the questions raised by WWK-CAL-001
 ---
 
 # WaterWalker problem statement
@@ -36,6 +40,8 @@ This design is for communities the author is not part of, so requirements come f
 - [ ] Validate load, distance, terrain and cost assumptions in the field
 - [ ] Revise requirements (REQ) from findings before freezing the design
 
+The partner and region are still open. By Amish's portfolio rule of 2026-09-25, community designs pick co-design partners per area later (WWK-DDR-001 item 7).
+
 Questions to bring to the first sessions (proposed, awaiting Amish):
 
 - Which containers are used: jerrycans, clay pots, buckets or a mix, and how often each?
@@ -44,6 +50,7 @@ Questions to bring to the first sessions (proposed, awaiting Amish):
 - Where would the carrier be stored at night, and who would repair it?
 - Is pushing a wheeled carrier socially acceptable for women and girls, and does anything about its look or use carry stigma or risk (for example theft or being taken over by others)?
 - What would a household or women's group pay, and would it be bought, shared or rented?
+- Added at TRL 3 (WWK-CAL-001): How heavy a carrier can users lift over a step or ditch when empty (the design is about 41 kg)? How long are the sandy stretches on the route, and would users carry two jerrycans there and make two passes? Is a hand brake that needs a firm squeeze to park acceptable, or is a lock pin better? Would users want a brake that applies when they let go (a dead-man brake)?
 
 ## The problem
 
@@ -63,11 +70,11 @@ A household of five using about 20 L per person per day (a commonly used basic-a
 
 ## Constraints
 
-- Garage-buildable prototype, about $450 USD (`project.yaml`).
+- Garage-buildable first prototype, about $450 USD (`project.yaml`). Amish decided on 2026-09-25 that this budget covers the first prototype without assist but with mounting points for it; the assist kit is a later prototype, and a SwapCell pack, if used, is priced once in the SwapCell project (WWK-DDR-001).
 - Terrain: dirt footpaths with ruts, roots and stones; loose sand in dry riverbeds and sandy regions; slopes of about 10 % on routes to water points, occasionally steeper for short distances.
 - Narrow paths: many footpaths and gates are under 1 m wide, and some are narrower.
 - Walking, not riding: no balance or riding skill needed, usable on slopes and in long skirts, and culturally acceptable for women and girls of all ages.
-- Containers: must carry the users' own 20 L jerrycans, and should accept clay pots, which are heavy and fragile.
+- Containers: must carry the users' own 20 L jerrycans (four per trip), and should accept clay pots, which are heavy and fragile (two per trip, decided 2026-09-25).
 - Local repair: wear parts must be standard bicycle parts sold in rural markets, and the frame must be mild steel that a local welder can repair.
 - Storage: small enough to keep inside or beside a house at night.
 - Optional electric assist must be removable, and the carrier must work fully without it.
@@ -91,6 +98,6 @@ A household of five using about 20 L per person per day (a commonly used basic-a
 
 ## Open questions
 
-- Which partner and which region for the first co-design sessions? Proposed, awaiting Amish.
-- How common are clay pots relative to jerrycans in the first region, and is carrying four 20 L pots a real need? This decides the cradle width (see WWK-PRC-001).
+- Which partner and which region for the first co-design sessions? Proposed, awaiting Amish; partners are picked per area later.
+- How common are clay pots relative to jerrycans in the first region, and what size are they? The cradle takes two pots of up to about 384 mm diameter (WWK-CAL-001).
 - What path width must the carrier fit? Proposed target 0.9 m, awaiting field data.

@@ -1,0 +1,69 @@
+key,value,unit_or_note
+overall_width,898,mm
+walk_width,610,mm
+riser_gap,19.5,mm
+overall_length,2197,mm
+jerrycan_spare,44,mm
+pot_spare,8,mm
+lift_height,364,mm
+frame_tube_length,8.25,m
+mass_empty,40.84,kg
+mass_empty_assist,47.34,kg
+mass_loaded,125.24,kg
+mass_loaded_assist,131.74,kg
+mass_options_total,5.21,kg
+mass_empty_with_options,35.63,kg
+x_cg,716,mm
+z_cg,364,mm
+crr_sand_lo,0.197,
+crr_sand_hi,0.300,
+fat_tire_factor,0.75,
+F_firm_hi,61.4,N
+F_sand_lo,242,N
+F_sand_hi,368,N
+F_climb_hi,183.4,N
+F_desc_hi,98,N
+F_firm_hi_options,58.9,N
+F_climb_hi_options,175.8,N
+F_sand_half_hi,244,N
+F_sand_assist1_hi,267,N
+thrust_needed_R3,237,N
+F_sand_assist2_hi,148,N
+assist_Wh_per_km_1,83,Wh/km
+assist_Wh_per_km_2,165,Wh/km
+assist_current_2,7.6,A
+assist_range_1,5.4,km
+yaw_moment,46,N m
+F_park_20,253,N
+hand_park_20,189,N
+mu_req_park,0.41,
+hand_stop_10,126,N
+hand_hold_10,73,N
+rail_stress,106,MPa
+arm_stress,112,MPa
+arm_fos,2.09,
+arm_fos_12,1.72,
+arm_stress_30sq,167,MPa
+fatigue_range,63,MPa
+frame_twist,1.71,deg
+rut_accommodated,23,mm
+axle_stress_cantilever,472,MPa
+axle_stress_fork,89,MPa
+turn_circle_inner,3.66,m
+turn_circle_spin,3.41,m
+tip_side,47,deg
+cost_base,430.00,USD
+cost_assist_kit,260.00,USD
+req_R1,at risk,"84.4 kg (jerrycans), 56 kg (pots); spare length 44 mm (cans), 8 mm (pots)"
+req_R2,not met,25 to 61.4 N
+req_R3,not met,242 to 368 N unassisted; 267 N worst with one motor
+req_R4,not met,183.4 N climb; hold-back hand force 73 N
+req_R5,met,"3.66 m (inner rear wheel pivot), 3.41 m (spin)"
+req_R6,at risk,898 mm over axle nuts
+req_R7,at risk,0 mm; 610 mm; 850 to 1050 mm; both rear wheels
+req_R8,met,364 mm
+req_R9,not met,40.8 kg (47.3 kg)
+req_R10,at risk,hand 189 N at the latch; friction needed up to 0.41
+req_R11,at risk,$430
+req_R12,at risk,"100 mm drum hubs, 26 in rims, tires, tubes, cables, headsets"
+req_R13,not verifiable at TRL 3,"mounting plate, torque-arm tab, sensor boss in the model; class V1 retention by test only"

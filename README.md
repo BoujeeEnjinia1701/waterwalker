@@ -1,14 +1,14 @@
 # WaterWalker
 
-![TRL 2](https://img.shields.io/badge/TRL-2%20of%209-0F766E) ![Hardware: CERN-OHL-S-2.0](https://img.shields.io/badge/hardware-CERN--OHL--S--2.0-111827) ![Software: MIT](https://img.shields.io/badge/software-MIT-111827)
+![TRL 3](https://img.shields.io/badge/TRL-3%20of%209-0F766E) ![Hardware: CERN-OHL-S-2.0](https://img.shields.io/badge/hardware-CERN--OHL--S--2.0-111827) ![Software: MIT](https://img.shields.io/badge/software-MIT-111827)
 
-**Area:** Mobility and Logistics · **TRL:** 2 of 9 (concept formulated) · **Prototype budget:** about $450 USD · **Difficulty:** 3 of 5
+**Area:** Mobility and Logistics · **TRL:** 3 of 9 (proof of concept on paper) · **Prototype budget:** about $450 USD · **Difficulty:** 3 of 5
 
-Four-wheel walk-inside water carrier. The user walks between large wheels, rollator style, pushing through a hip bar, while a low padded cradle holds four 20 L jerrycans or clay pots between the axles. Optional push-sensing hub motor assist for sand and slopes.
+Four-wheel walk-inside water carrier. The user walks between large wheels, rollator style, pushing through a hip bar, while a low padded cradle holds four 20 L jerrycans or two clay pots between the axles. Mounting points for a later push-sensing hub motor assist for sand and slopes.
 
 ![WaterWalker concept](media/hero.png)
 
-[Interactive 3D model](media/viewer.html) · [Concept blueprint (PDF)](media/concept-blueprint.pdf) · [Review note](docs/REVIEW.md)
+[Interactive 3D model](media/viewer.html) · [Concept blueprint (PDF)](media/concept-blueprint.pdf) · [General arrangement WWK-DWG-001 (PDF)](cad/drawings/WWK-DWG-001.pdf) · [Sizing calculations WWK-CAL-001](docs/04-calcs/01-sizing.md) · [Review note](docs/REVIEW.md)
 
 ## Problem
 
@@ -16,25 +16,27 @@ Women and girls in rural sub-Saharan Africa and other low-income regions walk lo
 
 ## Concept
 
-Four-wheel walk-inside water carrier. The user walks between large wheels, rollator style, pushing through a hip bar, while a low padded cradle holds four 20 L jerrycans or clay pots between the axles. Optional push-sensing hub motor assist for sand and slopes.
+Four-wheel walk-inside water carrier. The user walks between large wheels, rollator style, pushing through a hip bar, while a low padded cradle holds four 20 L jerrycans or two clay pots between the axles. Mounting points for a later push-sensing hub motor assist for sand and slopes.
+
+At TRL 3 the sizing calculations (WWK-CAL-001) show the first prototype is easy to push on firm ground and turns in 3.7 m, but four requirements are not met on paper: firm-ground and 10 % climb push force (just over target), loose sand (242 to 368 N against 150 N) and empty mass (40.8 kg against 35 kg). The first prototype has no assist but keeps mounting points for a kit built to SwapCell interface v0.3; its parts are about $430 against the $450 budget.
 
 Full design precis: [docs/02-concept.md](docs/02-concept.md)
 
 ## Key components
 
-- Steel tube frame (bent and bolted)
-- Large-diameter wheels with puncture-proof tires (4)
+- Welded mild steel tube frame with assist mounting points
+- 26 in bicycle wheels in rigid forks, with puncture-resistant tires (4); front forks swivel
 - Hip and hand push bar
-- Adjustable padded cradle for jerrycans or clay pots
-- Parking brake
-- Optional 250 W hub motor with push-force sensor
-- Optional 36 V pack
+- Padded cradle for four jerrycans or two clay pots
+- Rear drum brakes with a parking latch
+- Later, optional: 250 W, 48 V hub motor with push-force sensor
+- Later, optional: SwapCell pack (interface v0.3) in a class V1 receiver
 
 The working bill of materials is in [bom/bom.csv](bom/bom.csv).
 
 ## Safety
 
-> Rated load and slope limits must be marked on the frame. The brake must hold a full load on the steepest rated slope. Contains a lithium battery pack. Use a BMS with cell-level protection, fuse the pack, and charge on a non-combustible surface.
+> Rated load and slope limits must be marked on the frame. The brake must hold a full load on the steepest rated slope; on loose ground the rear tires may slide before the brake slips. The later assist kit contains a lithium battery pack: use a SwapCell pack with its BMS, cell-level protection and fuse, and charge it in a dock on a non-combustible surface.
 
 ## Repository layout
 
