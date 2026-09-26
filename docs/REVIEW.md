@@ -194,3 +194,18 @@ None. No accepted recommendation for WaterWalker needs a change in another repo;
 ### TRL 4
 
 **TRL 4 remains on hold by Amish's instruction.** `trl: 3` and `trl_target: 3` are unchanged. Revisiting R9 with users, the lock pin and spoke test, and any weld fatigue test are decided in direction but on hold. No build, test, purchasing or firmware work was done.
+
+## Session 2026-09-26: sources strengthened
+
+Amish asked to fix the weaker sources in the README (2026-09-26). Every link below was fetched and checked against the claim it supports. No controlled document changed; `docs/01-problem.md` did not cite the replaced sources.
+
+| Where | Old source | New source |
+| --- | --- | --- |
+| Burning platform | WHO drinking-water fact sheet (kept) | Same; the 2.2 billion figure is now dated 2022, as the fact sheet states |
+| Country row, Niger (was "Niger and the Sahel") | None | [UNICEF Niger, WASH](https://www.unicef.org/niger/water-sanitation-and-hygiene): 56 % have access to a drinking water source. The uncited claim about sandy routes was removed |
+| Country row, India (was "Rajasthan and other dry states") | None | [UNICEF India, clean drinking water](https://www.unicef.org/india/what-we-do/clean-drinking-water): 54 % of rural women spend about 35 min a day fetching water; under 49 % of rural people use safely managed water. The uncited claims about desert villages and bicycle repair were removed |
+| Country row, Peru (was "Peru and Bolivia") | None | Peer-reviewed study of peri-urban Lima shanty towns ([ScienceDirect, 2025](https://www.sciencedirect.com/science/article/pii/S2667010025003051)): about 350 tanker trucks a day serve some 250,000 homes; a hillside household gets about 1,100 L a month. Bolivia dropped (no verified source) |
+| Country row, Japan (Noto) | Wikipedia, 2024 Noto earthquake | [The Japan Times, 23 February 2024](https://www.japantimes.co.jp/news/2024/02/23/japan/society/noto-quake-sparks-water-debate/): up to 135,000 households without running water; nearly 24,000 still without it. The Shika six-litre ration could not be verified and was removed |
+| What sparked the idea (Aina Wifalk's rollator) | Wikipedia, Aina Wifalk | [Swedish Institute, sharingsweden.se](https://sharingsweden.se/materials/the-invention-of-the-walker) (1978 prototype, Västerås, polio, never patented) and [Svenskt UppfinnareMuseum](https://svensktuppfinnaremuseum.se/aina-wifalk/) (never patented so it would reach as many people as possible). "Presented in 1978" became "designed the prototype in 1978", as the sources state |
+
+Inspiration unchanged (same event, stronger sources). No budget change.

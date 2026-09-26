@@ -18,7 +18,7 @@ The design is open (CERN-OHL-S) and garage-buildable because the people who woul
 
 ## Burning platform
 
-According to the [WHO](https://www.who.int/news-room/fact-sheets/detail/drinking-water), 2.2 billion people still lack safely managed drinking water services. Where water is not piped to the home, the carrying falls mostly on women: the 2023 WHO/UNICEF Joint Monitoring Programme report found that women and girls are primarily responsible for water collection in [7 out of 10 households](https://www.unicef.org/press-releases/women-and-girls-bear-brunt-water-and-sanitation-crisis-new-unicef-who-report) without water on the premises, and that 1.8 billion people live in such households.
+According to the [WHO](https://www.who.int/news-room/fact-sheets/detail/drinking-water), 2.2 billion people still lacked safely managed drinking water services in 2022. Where water is not piped to the home, the carrying falls mostly on women: the 2023 WHO/UNICEF Joint Monitoring Programme report found that women and girls are primarily responsible for water collection in [7 out of 10 households](https://www.unicef.org/press-releases/women-and-girls-bear-brunt-water-and-sanitation-crisis-new-unicef-who-report) without water on the premises, and that 1.8 billion people live in such households.
 
 The time lost is vast. [UNICEF estimates](https://www.unicef.org/press-releases/unicef-collecting-water-often-colossal-waste-time-women-and-girls) that women and girls spend 200 million hours every day collecting water, time taken from school, paid work and rest. Each head-carried trip moves a single 20 L container, about 20 kg.
 
@@ -39,14 +39,14 @@ The time lost is vast. [UNICEF estimates](https://www.unicef.org/press-releases/
 | Country or region | Why it matters there |
 | --- | --- |
 | Ethiopia | Only [49.6 % of people have basic water supply](https://www.unicef.org/ethiopia/water-sanitation-and-hygiene-wash), so many households walk to a water point on dirt paths in highlands and lowlands |
-| Niger and the Sahel | Routes to wells and boreholes cross loose sand, the hardest case for any wheeled carrier and the one R3 targets |
-| India (Rajasthan and other dry states) | Women in desert and semi-arid villages carry water from wells and tanks, and bicycles are a familiar vehicle that local mechanics already repair |
-| Peru and Bolivia (Andean and peri-urban hillsides) | Households without piped supply carry water up steep paths, where the brake, parking lock and slope limits matter |
-| Japan (Noto Peninsula) | After the January 2024 Noto earthquake [more than 110,000 households were left without water](https://en.wikipedia.org/wiki/2024_Noto_earthquake), some for months, and in Shika water was rationed at six litres per person a day |
+| Niger | [Only 56 % of the population has access to a source of drinking water](https://www.unicef.org/niger/water-sanitation-and-hygiene), so the rest must carry water from a source farther away |
+| India | [Close to 54 % of rural women spend an estimated 35 minutes getting water every day](https://www.unicef.org/india/what-we-do/clean-drinking-water), equivalent to 27 days' lost wages a year, and less than 49 % of rural people use safely managed drinking water |
+| Peru (hillside settlements of peri-urban Lima) | About 350 tanker trucks a day supply some 250,000 homes on the outskirts of Lima, and [a hillside household gets about 1,100 L of water a month](https://www.sciencedirect.com/science/article/pii/S2667010025003051) from tanks and trucks rather than household taps; on steep paths the brake, parking lock and slope limits matter |
+| Japan (Noto Peninsula) | The January 2024 Noto earthquake [left up to 135,000 households without running water](https://www.japantimes.co.jp/news/2024/02/23/japan/society/noto-quake-sparks-water-debate/), and nearly 24,000 homes in Ishikawa Prefecture were still without water seven weeks later |
 
 ## What sparked the idea
 
-The idea traces back to the rollator, the four-wheeled walking frame that the Swedish inventor [Aina Wifalk](https://en.wikipedia.org/wiki/Aina_Wifalk) presented in 1978 after polio had limited her own mobility. She chose not to patent it so that it could reach as many disabled people as possible, and today people of almost any age walk inside one without training. WaterWalker borrows that stance, walking inside a wheeled frame and pushing with the body, and her open approach, and applies both to the 20 L jerrycan instead of a person's own weight.
+The idea traces back to the rollator, the four-wheeled walking frame whose prototype the Swedish inventor Aina Wifalk designed in 1978 while working at an orthopedic clinic in Västerås, after polio had limited her own mobility ([Swedish Institute](https://sharingsweden.se/materials/the-invention-of-the-walker)). She never patented it, so that it could reach as many people as possible ([Svenskt UppfinnareMuseum](https://svensktuppfinnaremuseum.se/aina-wifalk/)), and today people of almost any age walk inside one without training. WaterWalker borrows that stance, walking inside a wheeled frame and pushing with the body, and her open approach, and applies both to the 20 L jerrycan instead of a person's own weight.
 
 ## Problem
 
@@ -93,6 +93,12 @@ The working bill of materials is in [bom/bom.csv](bom/bom.csv).
 ## Documentation
 
 Controlled documents follow the portfolio [documentation standard](.kit/STANDARDS.md). Each carries a document ID (WWK-PRC-001 for the precis), a version and a revision history. Branded PDFs are built with `python .kit/render.py` and attached to GitHub Releases when a document is tagged, for example `WWK-PRC-001/v1.0`.
+
+## Credits
+
+Designed by Amish Chadha. See [CONTRIBUTORS.md](CONTRIBUTORS.md) for roles. To cite this design, use [CITATION.cff](CITATION.cff) (GitHub shows it as "Cite this repository").
+
+AI assistance (Claude) was used to accelerate concept renders, prototype documentation and first-pass sizing calculations. Design direction and all decisions are Amish Chadha's, recorded in this repository's decision records (`docs/decisions/`).
 
 ## Licenses
 
