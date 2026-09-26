@@ -25,7 +25,7 @@ PARAMS = {
     "trail": 60.0,           # front caster: swivel axis ahead of the front axle
     "swivel_clear": 15.0,    # clearance from the swept tire to the front risers
     # Frame sections: height x width x wall (mm)
-    "main": (40.0, 30.0, 1.5),   # side rails, front risers, caster arms and stubs (RHS)
+    "main": (40.0, 30.0, 1.2),   # side rails, front risers, caster arms and stubs (RHS); 1.2 mm wall, WWK-DDR-002
     "cross": (25.0, 25.0, 1.5),  # cross members and rear fork brackets
     "sleeve": (30.0, 30.0, 1.5), # hip bar upright sleeves
     "post": (25.0, 25.0, 1.5),   # telescopic hip bar posts inside the sleeves
@@ -40,11 +40,13 @@ PARAMS = {
     "sleeve_top": 820.0, "grip_back": 230.0, "hip_bar_d": 32.0, "pad_d": 90.0, "pad_len": 480.0,
     # Cradle
     "cr_x0": 350.0, "cr_hw": 215.0, "cr_z": 150.0,
-    "floor_t": 9.0, "pad_t": 4.0, "wall_t": 6.0, "wall_h": 160.0,
+    "floor_t": 6.0, "pad_t": 2.0, "wall_t": 4.0, "wall_h": 160.0,   # thinner cradle, WWK-DDR-002
     # Containers (user's own)
     "jc": (360.0, 175.0, 430.0),
     # Skirt guards
     "guard_l": 540.0, "guard_h": 420.0, "guard_t": 3.0, "guard_z": 420.0,
+    # Positive parking lock pin through the left rear wheel (WWK-DDR-002)
+    "pin_d": 10.0, "pin_x": -60.0, "pin_dz": 200.0,   # pin diameter; position behind and above the rear axle
     # Assist mounting points (SwapCell interface v0.3) and optional assist kit
     "pack": (90.0, 340.0, 80.0),        # SwapCell body, x (depth), y (length), z (width)
     "pack_handle": 35.0, "pack_plug": 18.0,
@@ -220,7 +222,19 @@ def build_parts(p=PARAMS):
         y = sy * (t2 - p["old"] / 2 + 5 + p["guard_t"] / 2)
         g = Pos(0, y, p["guard_z"]) * Box(p["guard_l"], p["guard_t"], p["guard_h"])
         g -= Pos(0, y, R) * Rot(90, 0, 0) * Cylinder(60, 10)
+        if sy > 0:                                               # hole for the parking lock pin
+            g -= Pos(p["pin_x"], y, R + p["pin_dz"]) * Rot(90, 0, 0) * Cylinder(p["pin_d"] / 2 + 2, 10)
         parts.append((bom, nm, g, "#D1D5DB", (-120, sy * 60, 0), "base"))
+
+    # 15 Positive parking lock pin: a tab on the inner blade of the left rear fork and a pin pushed
+    # from the walking space through a hole in the skirt guard and across the spokes, so the wheel
+    # cannot turn when parked. Nothing projects beyond the axle nuts (R6).
+    y_in = t2 - p["old"] / 2 - p["dropout_t"] / 2
+    pz = R + p["pin_dz"]
+    lp = Pos(p["pin_x"], t2 - 25, pz) * Rot(90, 0, 0) * Cylinder(p["pin_d"] / 2, 110)
+    lp += Pos(p["pin_x"], t2 - 84, pz) * Rot(90, 0, 0) * Cylinder(14, 8)               # pull ring
+    lp += Pos(p["pin_x"] / 2, y_in, pz) * Box(abs(p["pin_x"]) + 30, 6, 30)                   # tab welded to the fork blade
+    parts.append((15, "Parking lock pin", lp, "#DC2626", (-450, 520, 250), "base"))
 
     # 9 to 11 and 13 Optional assist kit (second prototype)
     motor = Pos(0, -t2, R) * Rot(90, 0, 0) * Cylinder(p["motor_d"] / 2, p["motor_w"])

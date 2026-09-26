@@ -35,6 +35,8 @@ Requirements not met:
 
 ### Proposed, awaiting Amish
 
+Status update (2026-09-25): items 1 to 6 are Decided by Amish, 2026-09-25: go with recommendation (WWK-DDR-001). Item 7 has no recommendation and remains Proposed, awaiting Amish.
+
 1. Wheel size: 26 x 2.1 to 2.4 in all round. Alternatives: 20 in, 26 in rear with 20 in front, 28 in.
 2. First prototype without assist, with mounting points for it. Keep the $450 budget. No budget change is proposed.
 3. Steering: full-swivel lockable front casters. This choice is why the wheelbase is long (1.52 m).
@@ -103,14 +105,16 @@ Decided by Amish, 2026-09-25: go with recommendation (WWK-DDR-001): 26 x 2.1 to 
 
 ### Still awaiting Amish
 
+Status update (2026-09-25, WWK-DDR-002): items 3 to 7 are Decided by Amish, 2026-09-25: go with recommendation. Items 1, 2 and 8 have no recommendation and remain Proposed, awaiting Amish.
+
 1. First co-design partner and region (no recommendation; per area later).
 2. Dead-man brake (no recommendation until users are asked).
-3. Rear wheels in fixed rigid forks with 100 mm drum hubs and a 770 mm track. Recommended; already in the model.
-4. Front risers moved to x = 1,150 mm, wheelbase 1,530 mm, cradle 780 mm. Recommended; already in the model.
-5. Main tube 40 x 30 x 1.5 mm. Recommended; already in the model.
-6. Mass: apply the thinner cradle and 1.2 mm main-tube wall (35.6 kg with all four options, still over 35 kg), and revisit R9 with users. Recommended.
-7. Parking: add a positive lock pin. Recommended.
-8. Budget for the later assist prototype (kit $260, or about $450 with two motors, plus a shared pack). No recommendation.
+3. Rear wheels in fixed rigid forks with 100 mm drum hubs and a 770 mm track. Recommended; already in the model. Decided by Amish, 2026-09-25: go with recommendation.
+4. Front risers moved to x = 1,150 mm, wheelbase 1,530 mm, cradle 780 mm. Recommended; already in the model. Decided by Amish, 2026-09-25: go with recommendation.
+5. Main tube 40 x 30 x 1.5 mm. Recommended; already in the model. Decided by Amish, 2026-09-25: go with recommendation (section kept; wall 1.2 mm under item 6).
+6. Mass: apply the thinner cradle and 1.2 mm main-tube wall (35.6 kg with all four options, still over 35 kg), and revisit R9 with users. Recommended. Decided by Amish, 2026-09-25: go with recommendation.
+7. Parking: add a positive lock pin. Recommended. Decided by Amish, 2026-09-25: go with recommendation.
+8. Budget for the later assist prototype (kit $260, or about $450 with two motors, plus a shared pack). No recommendation. Proposed, awaiting Amish.
 
 ### Safety concerns
 
@@ -131,3 +135,62 @@ The earlier review note listed no unchecked citations. WWK-CAL-001 relies on sta
 ### Recommended next step
 
 Amish reviews WWK-DDR-001 open items 3 to 8, above all the mass and parking proposals, and decides whether R2, R4 and R9 should be relaxed or the design lightened. Co-design with a local partner (item 1) should then confirm push-force limits, sand sinkage on real routes, clay pot sizes and the brake arrangement before any build. **TRL 4 is on hold by Amish's instruction.** For the record only, TRL 4 would need: the open decisions settled, a first-prototype build budget confirmed, sourcing of 100 mm drum hubs checked, a built frame and carrier, lab test reports (TST, `environment: lab`) for push force, parking on 20 %, frame strength and fatigue, and turning, and build-log entries.
+
+## Session 2026-09-25: recommendations accepted
+
+Amish wrote on 2026-09-25: "i accept all your recommendations, go with them across all repos." Every item with a recommendation is now **Decided by Amish, 2026-09-25: go with recommendation**; items without one stay open. Recorded in `docs/decisions/0002-recommendations-accepted.md` (WWK-DDR-002 v0.1).
+
+### Decisions applied and what changed
+
+| Item | Decision | Change in the repo |
+| --- | --- | --- |
+| Rear wheels in fixed forks (DDR-001 item 9) | Decided | Already modelled; status only |
+| Risers at x = 1,150 mm, wheelbase 1,530 mm (item 10) | Decided | Already modelled; status only |
+| Main tube 40 x 30 mm (item 11) | Decided | Section kept; wall set by item 12 |
+| Mass (item 12) | Decided: 1.2 mm main wall, thinner cradle, keep puncture protection, revisit R9 with users | Main wall 1.5 to 1.2 mm; cradle floor 9 to 6 mm, walls 6 to 4 mm, pad 4 to 2 mm. Empty mass 40.8 to 37.4 kg; loaded 125.2 to 121.8 kg. Revisiting R9 with users waits for co-design |
+| Parking (item 13) | Decided: positive lock pin, latch kept for short stops | New BOM item 15 ($5, 0.10 kg), modelled on the left rear fork, through the left skirt guard and spokes; R10 restated |
+
+Numbers before and after (WWK-CAL-001 v0.1 to v0.2): firm push 61.4 to 59.7 N; 10 % climb 183.4 to 178.3 N; loose sand 242 to 368 N to 236 to 358 N; caster arm stress 112 to 133 MPa (factor 2.09 to 1.77); weld stress range at the rear hanger 63 to 75 MPa; clay pot spare length 8 to 12 mm; parts $430 to $426. Budget: `budget_usd` unchanged at 450; no recommendation changed it.
+
+Files changed: `cad/src/model.py` and all STEP and STL exports; `cad/src/sheets.py` and WWK-DWG-001 (Rev P1 to P2); `cad/src/concept_media.py` and `media/` (hero, blueprint, exploded with callout 15, flow, `model.glb`, `viewer.html`; images checked, `media/_views*` deleted); `bom/bom.csv` and `bom/bom-notes.md`; `docs/04-calcs/sizing.py`, `results.csv` and WWK-CAL-001 v0.2; WWK-PRC-001 v0.4; WWK-REQ-001 v0.4; WWK-PRB-001 v0.4; WWK-DDR-001 v0.2; `project.yaml` (evidence list); `README.md` (concept numbers and the four write-up sections, with a new "What sparked the idea": Aina Wifalk's 1978 rollator). All PDFs regenerated with the designmolecule.com footer.
+
+### Requirement status (WWK-CAL-001 v0.2)
+
+3 met, 7 at risk, 2 **not met**, 1 not verifiable at TRL 3 (was 2, 6, 4 and 1).
+
+| ID | Status | Value against target |
+| --- | --- | --- |
+| R3 | **Not met** | Loose sand 236 to 358 N against 150 N; no assist on the first prototype |
+| R9 | **Not met** | Empty 37.4 kg against 35 kg (43.9 kg against 42 kg with assist) |
+| R1 | At risk | Two 380 mm clay pots fit with 12 mm spare |
+| R2 | At risk | Firm path 59.7 N against 60 N |
+| R4 | At risk | 10 % climb 178.3 N against 180 N |
+| R6 | At risk | 898 mm against 900 mm |
+| R7 | At risk | Walking width 610 mm against 600 mm |
+| R10 | At risk | Lock pin for parking; tire friction 0.41 needed on 20 % |
+| R12 | At risk | 100 mm drum hubs may be scarce in rural markets |
+| R5 | Met | 3.66 m against 4.0 m |
+| R8 | Met | 364 mm against 450 mm |
+| R11 | Met | $426 against $450 |
+| R13 | Not verifiable at TRL 3 | Mounting points modelled; latch class V1 retention needs a test |
+
+### Still awaiting Amish
+
+1. First co-design partner and region (no recommendation; per area later).
+2. Dead-man brake (no recommendation until users are asked).
+3. Budget for the later assist prototype (no recommendation).
+4. New finding: with the 1.2 mm wall the weld stress range at the cradle hangers is 75 MPa, above the 71 MPa of a typical fillet-welded detail at 2 million cycles. Options: gussets at the hanger and caster arm joints (recommended, small mass), a local 1.5 mm wall at those joints, or accept the risk until a fatigue test. Proposed, awaiting Amish; not applied.
+
+### Cross-repo actions
+
+None. No accepted recommendation for WaterWalker needs a change in another repo; the SwapCell interface v0.3 items were already handled in the previous session.
+
+### Safety concerns
+
+- Weld fatigue at the cradle hangers is now past the reference value (item 4 above).
+- The lock pin must be pulled before moving off, and it loads the spokes sideways (about 410 N when parked on 20 %); the pull ring sits at the inner face of the left side rail in the walking space.
+- Runaway, traction on loose ground when parked, caster sweep pinch points and the lithium pack of the later assist kit are unchanged from the previous session.
+
+### TRL 4
+
+**TRL 4 remains on hold by Amish's instruction.** `trl: 3` and `trl_target: 3` are unchanged. Revisiting R9 with users, the lock pin and spoke test, and any weld fatigue test are decided in direction but on hold. No build, test, purchasing or firmware work was done.

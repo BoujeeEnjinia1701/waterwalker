@@ -1,4 +1,4 @@
-"""WaterWalker sizing calculations, WWK-CAL-001 v0.1 (TRL 3).
+"""WaterWalker sizing calculations, WWK-CAL-001 v0.2 (TRL 3).
 
 Run from the repo root:  python docs/04-calcs/sizing.py
 Prints every number quoted in docs/04-calcs/01-sizing.md and writes
@@ -94,7 +94,7 @@ rear_wheel = sum(wheel.values()) + 0.75      # 70 mm drum hub
 front_wheel = sum(wheel.values()) + 0.35     # plain hub
 fork = 1.10
 cradle = {"floor": (cradle_len * 2 * P["cr_hw"] * P["floor_t"]) * 1e-9 * 600,
-          "pad": ((cradle_len - 12) * (2 * P["cr_hw"] - 12) * P["pad_t"]) * 1e-9 * 1150,
+          "pad": ((cradle_len - 2 * P["wall_t"]) * (2 * P["cr_hw"] - 2 * P["wall_t"]) * P["pad_t"]) * 1e-9 * 1150,
           "walls": (2 * (cradle_len + 2 * P["cr_hw"]) * P["wall_h"] * P["wall_t"]) * 1e-9 * 600,
           "straps and dividers": 0.40}
 masses = {
@@ -108,6 +108,7 @@ masses = {
     "brake lever, latch and cables": 0.45,
     "skirt guards (2)": 2 * P["guard_l"] * P["guard_h"] * P["guard_t"] * 1e-9 * 950,
     "hardware and reflectors": 0.60,
+    "parking lock pin, tab and lanyard": 0.10,
 }
 for k, v in masses.items():
     print(f"  {k:36s} {v:6.2f} kg")
@@ -127,18 +128,29 @@ print(f"payload {payload:.1f} kg; loaded {m_load:.1f} kg; loaded with assist {m_
 pots_payload = 2 * 20 + 2 * 8.0
 print(f"two clay pots, 8 kg each empty, full: payload {pots_payload:.0f} kg")
 
-# Mass reduction options (for Amish; not applied to the model)
-h_, w_, _ = P["main"]
+# Mass changes applied by WWK-DDR-002 (against the v0.1 model: 1.5 mm main wall; cradle floor 9 mm,
+# walls 6 mm, pad 4 mm) and the options left open (puncture protection kept by the same decision)
+h_, w_, t_ = P["main"]
+applied = {
+    "main RHS wall 1.5 to 1.2 mm": tube_len["main"] * (rhs_area(h_, w_, 1.5) - rhs_area(h_, w_, t_)) * 1e-6 * RHO_STEEL * 1.04,
+    "cradle floor 9 to 6 mm, walls 6 to 4 mm, pad 4 to 2 mm":
+        (cradle_len * 2 * P["cr_hw"] * 9.0) * 1e-9 * 600 + ((cradle_len - 12) * (2 * P["cr_hw"] - 12) * 4.0) * 1e-9 * 1150
+        + (2 * (cradle_len + 2 * P["cr_hw"]) * P["wall_h"] * 6.0) * 1e-9 * 600 + 0.40 - sum(cradle.values()),
+    "parking lock pin added": -0.10,
+}
+for k, v in applied.items():
+    print(f"  applied: {k:52s} {-v:+.2f} kg")
+m_empty_v01 = m_empty + sum(applied.values())
+print(f"  empty mass before DDR-002 changes (v0.1) {m_empty_v01:.2f} kg; now {m_empty:.2f} kg")
+out("mass_empty_v01", m_empty_v01, "kg")
 opt = {
-    "main RHS wall 1.5 to 1.2 mm": tube_len["main"] * (rhs_area(h_, w_, 1.5) - rhs_area(h_, w_, 1.2)) * 1e-6 * RHO_STEEL * 1.04,
-    "cradle floor 6 mm, walls 4 mm, pad 2 mm": sum(cradle.values()) - (cradle["floor"] * 6 / 9 + cradle["walls"] * 4 / 6 + cradle["pad"] / 2 + 0.40),
     "tires without puncture belt (0.65 kg)": 4 * (0.85 - 0.65),
     "no tire liners (keep thorn-resistant tubes)": 4 * 0.20,
 }
 opt_total = sum(opt.values())
 for k, v in opt.items():
-    print(f"  option: {k:44s} -{v:.2f} kg")
-print(f"  all options: -{opt_total:.2f} kg, empty {m_empty - opt_total:.2f} kg")
+    print(f"  open option (not applied): {k:44s} -{v:.2f} kg")
+print(f"  with both open options: -{opt_total:.2f} kg, empty {m_empty - opt_total:.2f} kg")
 out("mass_options_total", opt_total, "kg")
 out("mass_empty_with_options", m_empty - opt_total, "kg")
 
@@ -209,7 +221,7 @@ out("F_sand_hi", F_sand[1], "N", "{:.0f}")
 out("F_climb_hi", F_climb[1], "N", "{:.1f}")
 out("F_desc_hi", F_desc[0], "N", "{:.0f}")
 m_opt = m_empty - opt_total + payload
-print(f"with all mass options ({m_opt:.1f} kg loaded): firm {push(m_opt, crr_firm[1]):.1f} N, 10 % climb {push(m_opt, crr_firm[1], 0.10):.1f} N")
+print(f"with both open mass options ({m_opt:.1f} kg loaded): firm {push(m_opt, crr_firm[1]):.1f} N, 10 % climb {push(m_opt, crr_firm[1], 0.10):.1f} N")
 out("F_firm_hi_options", push(m_opt, crr_firm[1]), "N", "{:.1f}")
 out("F_climb_hi_options", push(m_opt, crr_firm[1], 0.10), "N", "{:.1f}")
 half = m_empty + payload / 2
@@ -322,9 +334,9 @@ for label, Mst in (("rail at rear hanger", M390 / 1000), ("rail at front riser",
         out("arm_fos", FY / s, "", "{:.2f}")
     if label == "rail at rear hanger":
         out("rail_stress", s, "MPa", "{:.0f}")
-Z_12 = I_rhs(h, w, 1.2) / (h / 2)
-print(f"  caster arm with a 1.2 mm wall (Z {Z_12:.0f} mm3): {M_arm * DYN / Z_12:.0f} MPa, factor {FY / (M_arm * DYN / Z_12):.2f}")
-out("arm_fos_12", FY / (M_arm * DYN / Z_12), "", "{:.2f}")
+Z_15 = I_rhs(h, w, 1.5) / (h / 2)
+print(f"  caster arm with the v0.1 1.5 mm wall (Z {Z_15:.0f} mm3): {M_arm * DYN / Z_15:.0f} MPa, factor {FY / (M_arm * DYN / Z_15):.2f}")
+out("arm_fos_15", FY / (M_arm * DYN / Z_15), "", "{:.2f}")
 Z_30 = I_rhs(30, 30, 1.5) / 15
 s30 = M_arm * DYN / Z_30
 print(f"  same caster arm in the TRL 2 section 30 x 30 x 1.5 (Z {Z_30:.0f} mm3): {s30:.0f} MPa, factor {FY / s30:.2f}")
@@ -436,7 +448,7 @@ REQ = [
     ("R8", "Lift 450 mm or less, either side", f"{lift:.0f} mm", status(lift, 450)),
     ("R9", "Empty 35 kg or less (42 kg with assist)", f"{m_empty:.1f} kg ({m_empty_a:.1f} kg)",
      "not met" if (m_empty > 35 or m_empty_a > 42) else status(max(m_empty / 35, m_empty_a / 42), 1.0)),
-    ("R10", "Service brake while walking; park rated gross mass on 20 %", f"hand {hand_force(m_load_a * g * math.sin(math.atan(0.2)))[2]:.0f} N at the latch; friction needed up to {OUT[[k for k, *_ in OUT].index('mu_req_park')][1]}", "at risk"),
+    ("R10", "Service brake while walking; park rated gross mass on 20 %", f"lock pin for parking; hand {hand_force(m_load_a * g * math.sin(math.atan(0.2)))[2]:.0f} N at the latch; friction needed up to {OUT[[k for k, *_ in OUT].index('mu_req_park')][1]}", "at risk"),
     ("R11", "First prototype, no assist, with mounting points, $450 or less", f"${base:.0f}", status(base, 450)),
     ("R12", "Wear parts are standard 26 in bicycle parts", "100 mm drum hubs, 26 in rims, tires, tubes, cables, headsets", "at risk"),
     ("R13", "Assist-ready to SwapCell interface v0.3", "mounting plate, torque-arm tab, sensor boss in the model; class V1 retention by test only", "not verifiable at TRL 3"),

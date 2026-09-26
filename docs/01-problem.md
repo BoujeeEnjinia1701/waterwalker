@@ -3,7 +3,7 @@ doc_id: WWK-PRB-001
 title: WaterWalker problem statement
 project: WaterWalker
 doc_type: Problem statement
-version: "0.3"
+version: "0.4"
 status: Draft
 date: '2026-09-25'
 author: Amish Chadha
@@ -21,6 +21,10 @@ revisions:
   date: '2026-09-25'
   author: Amish Chadha
   change: TRL 3. Record Amish's decisions (WWK-DDR-001) on the budget scope, the cradle and the co-design partner; add the questions raised by WWK-CAL-001
+- version: "0.4"
+  date: '2026-09-25'
+  author: Amish Chadha
+  change: Recommendations accepted by Amish (DDR-002); co-design questions updated for the lighter carrier and the parking lock pin
 ---
 
 # WaterWalker problem statement
@@ -50,7 +54,7 @@ Questions to bring to the first sessions (proposed, awaiting Amish):
 - Where would the carrier be stored at night, and who would repair it?
 - Is pushing a wheeled carrier socially acceptable for women and girls, and does anything about its look or use carry stigma or risk (for example theft or being taken over by others)?
 - What would a household or women's group pay, and would it be bought, shared or rented?
-- Added at TRL 3 (WWK-CAL-001): How heavy a carrier can users lift over a step or ditch when empty (the design is about 41 kg)? How long are the sandy stretches on the route, and would users carry two jerrycans there and make two passes? Is a hand brake that needs a firm squeeze to park acceptable, or is a lock pin better? Would users want a brake that applies when they let go (a dead-man brake)?
+- Added at TRL 3 (WWK-CAL-001): How heavy a carrier can users lift over a step or ditch when empty (the design is about 37 kg)? How long are the sandy stretches on the route, and would users carry two jerrycans there and make two passes? Is the parking lock pin, pushed through the rear spokes, easy to use and remember to pull before moving off (WWK-DDR-002)? Is 37 kg empty acceptable, or must R9 (35 kg) hold? Would users want a brake that applies when they let go (a dead-man brake)?
 
 ## The problem
 

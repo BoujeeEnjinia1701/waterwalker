@@ -3,7 +3,7 @@ doc_id: WWK-DDR-001
 title: WaterWalker TRL 2 review decisions
 project: WaterWalker
 doc_type: Design decision record
-version: "0.1"
+version: "0.2"
 status: Draft
 date: '2026-09-25'
 author: Amish Chadha
@@ -13,12 +13,16 @@ revisions:
   date: '2026-09-25'
   author: Amish Chadha
   change: Record Amish's 2026-09-25 decisions on the TRL 2 review and the items that remain open
+- version: "0.2"
+  date: '2026-09-25'
+  author: Amish Chadha
+  change: Recommendations accepted by Amish (DDR-002)
 ---
 
 # 0001: TRL 2 review decisions
 
 - **Date:** 2026-09-25
-- **Status:** accepted (items 1 to 6 and the cross-cutting items); items 7 to 13 remain proposed, awaiting Amish
+- **Status:** accepted (items 1 to 6 and the cross-cutting items; items 9 to 13 accepted later on 2026-09-25 in WWK-DDR-002); items 7 and 8 remain proposed, awaiting Amish
 
 ## Context
 
@@ -51,19 +55,19 @@ Cross-cutting approvals from the same instruction, recorded here as they apply t
 - **Shared packs are priced once.** Decided by Amish, 2026-09-25 (cross-cutting): the SwapCell pack is priced in the SwapCell BOM (about $414) and excluded from this repo's budget. BOM item 10 carries a zero price with that note.
 - **Co-design partners.** Decided by Amish, 2026-09-25 (cross-cutting): community designs pick co-design partners per area later. The partner stays open (item 7).
 
-### Items that remain open
+### Items left open by this record
 
-These are **Proposed, awaiting Amish**. Items 7 and 8 had no recommendation in the TRL 2 review. Items 9 to 13 are new proposals from WWK-CAL-001; the first two are already drawn in the model and drawing because the TRL 2 layout could not be built as drawn.
+Items 7 and 8 had no recommendation in the TRL 2 review and remain **Proposed, awaiting Amish**. Items 9 to 13 were new proposals from WWK-CAL-001; on 2026-09-25 Amish accepted all recommendations ("i accept all your recommendations, go with them across all repos"), so each is now **Decided by Amish, 2026-09-25: go with recommendation**, as recorded in WWK-DDR-002.
 
-| # | Item | Options | Recommendation |
+| # | Item | Options | Recommendation and status |
 | --- | --- | --- | --- |
-| 7 | First co-design partner and region | Helpful Engineering network, an NGO or a university in a region with sandy routes | None; for Amish to decide, per the portfolio rule on partners |
-| 8 | Dead-man brake | Ask users in co-design; fit a spring-applied brake released by the hip bar; or rely on the lever and latch | None until users are asked |
-| 9 | Rear wheel mounting | Keep the TRL 2 cantilever stub axles (a standard M10 axle reaches about 472 MPa at 2.5 g, above a bicycle axle's strength); or hold each rear wheel in a fixed rigid bicycle fork with 100 mm dropouts (about 89 MPa) | **Fixed forks**, as modelled. This needs 100 mm front-type drum hubs on the rear wheels and a track of 770 mm (was 800 mm) to stay within the 900 mm width |
-| 10 | Caster arm and front riser position | Keep the TRL 2 riser position (the swivelling tire hits the riser); or move the risers back to x = 1,150 mm, lengthen the wheelbase to 1,530 mm and shorten the cradle to 780 mm | **Move the risers**, as modelled. Two clay pots then fit with 8 mm to spare |
-| 11 | Main frame section | 30 x 30 x 1.5 mm square (yield factor 1.4 at 2.5 g); 40 x 30 x 1.5 mm rectangular (2.1); 40 x 30 x 1.2 mm (1.7, 1.8 kg lighter) | **40 x 30 x 1.5 mm** for the prototype, as modelled |
-| 12 | Mass (R9 not met at 40.8 kg) | Apply the four mass options in WWK-CAL-001 (to about 35.6 kg, still over 35 kg); relax R9; or both | Apply the thinner cradle and the 1.2 mm wall, keep the puncture protection, and revisit R9 with users in co-design |
-| 13 | Parking brake | Lever latch alone (about 189 N hand force at the latch); a positive lock pin through a rear wheel or drum; wheel chocks on loose ground | **Add a positive lock pin** and keep the lever latch for short stops |
+| 7 | First co-design partner and region | Helpful Engineering network, an NGO or a university in a region with sandy routes | None; for Amish to decide, per the portfolio rule on partners. Proposed, awaiting Amish |
+| 8 | Dead-man brake | Ask users in co-design; fit a spring-applied brake released by the hip bar; or rely on the lever and latch | None until users are asked. Proposed, awaiting Amish |
+| 9 | Rear wheel mounting | Keep the TRL 2 cantilever stub axles (a standard M10 axle reaches about 472 MPa at 2.5 g, above a bicycle axle's strength); or hold each rear wheel in a fixed rigid bicycle fork with 100 mm dropouts (about 89 MPa) | **Fixed forks**, as modelled. This needs 100 mm front-type drum hubs on the rear wheels and a track of 770 mm (was 800 mm) to stay within the 900 mm width. Decided by Amish, 2026-09-25: go with recommendation (WWK-DDR-002) |
+| 10 | Caster arm and front riser position | Keep the TRL 2 riser position (the swivelling tire hits the riser); or move the risers back to x = 1,150 mm, lengthen the wheelbase to 1,530 mm and shorten the cradle to 780 mm | **Move the risers**, as modelled. Two clay pots then fit with 8 mm to spare (12 mm with the thinner cradle walls). Decided by Amish, 2026-09-25: go with recommendation (WWK-DDR-002) |
+| 11 | Main frame section | 30 x 30 x 1.5 mm square (yield factor 1.4 at 2.5 g); 40 x 30 x 1.5 mm rectangular (2.1); 40 x 30 x 1.2 mm (1.7, 1.8 kg lighter) | **40 x 30 x 1.5 mm** for the prototype, as modelled. Decided by Amish, 2026-09-25: go with recommendation (WWK-DDR-002); the 40 x 30 mm section is kept and its wall is 1.2 mm under item 12 |
+| 12 | Mass (R9 not met at 40.8 kg) | Apply the four mass options in WWK-CAL-001 (to about 35.6 kg, still over 35 kg); relax R9; or both | Apply the thinner cradle and the 1.2 mm wall, keep the puncture protection, and revisit R9 with users in co-design. Decided by Amish, 2026-09-25: go with recommendation (WWK-DDR-002); applied to the model, empty mass now 37.4 kg |
+| 13 | Parking brake | Lever latch alone (about 189 N hand force at the latch); a positive lock pin through a rear wheel or drum; wheel chocks on loose ground | **Add a positive lock pin** and keep the lever latch for short stops. Decided by Amish, 2026-09-25: go with recommendation (WWK-DDR-002); BOM item 15 |
 
 ## Consequences
 
@@ -71,3 +75,4 @@ These are **Proposed, awaiting Amish**. Items 7 and 8 had no recommendation in t
 - The requirement set changes as follows (WWK-REQ-001 v0.3): R1 is redefined to four jerrycans or two clay pots; R11 is redefined to the unassisted first prototype with mounting points, excluding the SwapCell pack and the assist kit; R13 is added for assist readiness to SwapCell interface v0.3.
 - The pitch in `project.yaml` and the README now says "four 20 L jerrycans or two clay pots" and calls the assist a later option with mounting points in the first prototype.
 - TRL 4 (building and testing the prototype) is on hold by Amish's instruction.
+- Later on 2026-09-25 Amish accepted the recommendations for items 9 to 13 (WWK-DDR-002). The first prototype is now about $426 and 37.4 kg empty (WWK-CAL-001 v0.2).

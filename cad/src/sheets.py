@@ -1,4 +1,4 @@
-"""WaterWalker general arrangement drawing WWK-DWG-001 (Rev P1).
+"""WaterWalker general arrangement drawing WWK-DWG-001 (Rev P2).
 
 Run from the repo root:  python cad/src/sheets.py
 Builds cad/drawings/WWK-DWG-001.svg, .pdf and .png from the parametric model.
@@ -21,9 +21,10 @@ work = ROOT / "cad/drawings/_views"
 views = project_views(asm, work)
 
 s = Sheet(project="WaterWalker", title="General arrangement, walk-inside water carrier", dwg_no="WWK-DWG-001",
-          rev="P1", author="Amish Chadha", date="2026-09-25", concept=True,
+          rev="P2", author="Amish Chadha", date="2026-09-25", concept=True,
           material="Mild steel tube frame; 26 in bicycle wheels and forks; plywood cradle. See bom/bom.csv",
-          revisions=[("P1", "Preliminary GA from the parametric model (WWK-CAL-001)", "2026-09-25", "AC")])
+          revisions=[("P1", "Preliminary GA from the parametric model (WWK-CAL-001)", "2026-09-25", "AC"),
+                     ("P2", "1.2 mm main wall, thinner cradle, parking lock pin (WWK-DDR-002)", "2026-09-25", "AC")])
 s.add_ortho(views, ["front", "top", "right"])
 s.add_svg(views["iso"], 276, 30, 140, 84, label="Isometric view", sublabel="Not to scale; assist kit shown fitted")
 s.add_notes("Key dimensions (mm) and notes", [
@@ -36,10 +37,11 @@ s.add_notes("Key dimensions (mm) and notes", [
     f"Hip bar {P['hip_min']:.0f} to {P['hip_max']:.0f} above ground; open rear entry",
     f"Cradle {D['cr_x1'] - P['cr_x0']:.0f} x {2 * P['cr_hw']:.0f}, floor {P['cr_z']:.0f} above ground",
     f"Lift over side rail {D['rail_top'] + 10:.0f} (R8 450 max)",
-    "Main tube RHS 40 x 30 x 1.5; cross 25 x 25 x 1.5",
+    "Main tube RHS 40 x 30 x 1.2; cross 25 x 25 x 1.5",
+    "Parking lock pin, 10 mm, through left rear spokes",
     "Assist kit (items 9 to 11, 13) is optional, later:",
     "  SwapCell interface v0.3, class V1 receiver",
-    "Empty 40.8 kg; loaded 125 kg (WWK-CAL-001)",
+    "Empty 37.4 kg; loaded 122 kg (WWK-CAL-001 v0.2)",
     "PRELIMINARY, NOT FOR FABRICATION",
 ], x=276, y=128, width=140)
 s.save(ROOT / "cad/drawings/WWK-DWG-001")
