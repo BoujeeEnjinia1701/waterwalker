@@ -209,3 +209,33 @@ Amish asked to fix the weaker sources in the README (2026-09-26). Every link bel
 | What sparked the idea (Aina Wifalk's rollator) | Wikipedia, Aina Wifalk | [Swedish Institute, sharingsweden.se](https://sharingsweden.se/materials/the-invention-of-the-walker) (1978 prototype, Västerås, polio, never patented) and [Svenskt UppfinnareMuseum](https://svensktuppfinnaremuseum.se/aina-wifalk/) (never patented so it would reach as many people as possible). "Presented in 1978" became "designed the prototype in 1978", as the sources state |
 
 Inspiration unchanged (same event, stronger sources). No budget change.
+
+## Session 2026-09-26: product appearance model and photoreal renders
+
+Amish chose this repo for the first batch of product renders on 2026-09-26. This session adds `cad/src/product_model.py`, a finished-product appearance model for photoreal renders, and points the README hero at `media/render-hero.png` with a link to `media/render-exploded.png`. The render files are produced later by the orchestrator. `cad/src/model.py`, the BOM, the drawings and the controlled documents are unchanged.
+
+### What product_model.py adds
+
+- `product_parts()` in the portfolio format (name, shape, colour, material, BOM line, group, explode offset), with `TITLE` and three `RENDER_VIEWS`: hero (front right, with the person), exploded (front right, with the optional assist kit) and detail (rear right, without the person, showing the walk-in rear).
+- Frame from `frame_members()` with rounded tube corners, head tubes with headset cups and top caps, dropout tabs, the galvanized receiver plate, torque-arm tab and sensor boss, black tube end caps, red rear and white front reflectors, a rated load and slope plate and a wordmark on the right side rail.
+- Four wheels with treaded tires, alloy rims with a rim bed, 36 laced spokes, hub flanges, axles, axle nuts and valves; round-bladed rigid rear forks and swivel caster forks with red drop-pin knobs; finned drum brake plates with reaction arms.
+- Hip bar with a stitched fabric-covered foam pad, telescopic posts with height holes, clamp collars and height pins, rubber hand grips with ribs and end plugs, the brake lever with its parking latch, and brake cables to both rear drums.
+- Plywood cradle with a rubber pad, removable divider, zinc corner brackets, two webbing straps with cam buckles, and four jerrycans with handles, ribbed caps and side ribs.
+- HDPE skirt guards with rounded corners and bolts; the parking lock pin with its tab, a red pull ring and a lanyard.
+- Optional assist kit, shown only in the exploded view: hub motor with flanges and cable, SwapCell pack with handle, accent band and lit charge lights, receiver with guides and preload lever, push sensor with a lit status light.
+- Context: the shared clay mannequin (1.75 m, "push" pose with arm angles overridden) walking inside the frame with both hands on the grips and the feet on the ground.
+
+### Where the appearance model differs from model.py
+
+Every main dimension and interface is taken from `PARAMS`, `derived()` and `frame_members()`. The differences below are appearance choices that model.py does not define; none is adopted into the design.
+
+1. **Rubber grips at the front of the grip tubes.** The grips cover x = -110 to 40 mm, next to the hip bar posts, so the hands can sit beside the pad while the hips push on it. model.py shows a plain tube from x = -230 to 60 mm. Proposed, awaiting Amish. Recommendation: keep the grips at the front end and confirm the hand position in co-design.
+2. **Grip spacing against the user's shoulders.** The grips follow the side rails, 640 mm apart, about twice shoulder width. With hands on them at 950 mm the mannequin's elbows bend back and its pelvis stands about 140 mm behind the pad, so the hips reach the pad only when leaning in. Proposed, awaiting Amish. Options: keep the grips on the rails (no change), or add inboard grips on the hip bar. Recommendation: no change now; ask users at the first co-design session.
+3. **Brake cable routing.** model.py has no cables. The left rear cable is drawn along the underside of the hip bar and down the left post, so no cable crosses the open walk-in rear. Proposed, awaiting Amish. Recommendation: adopt this routing.
+4. **Hand holds in the cradle side walls** (two 90 x 26 mm slots per side) and the removable divider drawn between the two rows of jerrycans. The BOM lists dividers but not their position; model.py has neither. Proposed, awaiting Amish. Recommendation: keep both; the hand holds make the empty cradle easier to lift out.
+5. **Marking positions.** The rated load and slope plate is drawn on the outer face of the right side rail, with red rear reflectors on the hip bar sleeves and white front reflectors on the front risers (BOM item 12). Proposed, awaiting Amish. Recommendation: adopt, and add a second plate on the inside of the left rail where the user can read it.
+6. **Representation only.** Rounded tube corners, round fork blades in place of model.py's rectangular blocks, 36 laced spokes in place of six bars, tire tread, and the jerrycan handles and caps inside the same envelopes. The hip bar is drawn graphite and the cradle natural plywood, rather than the concept media colours. No action needed.
+
+### TRL
+
+This is an appearance model only: no tolerances, no fabrication detail. `trl` stays 3 and `trl_target` stays 3. TRL 4 remains on hold by Amish's instruction. No build, test, purchasing or firmware work was done.
