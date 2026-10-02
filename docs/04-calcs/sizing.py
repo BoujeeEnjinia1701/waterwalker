@@ -1,4 +1,4 @@
-"""WaterWalker sizing calculations, WWK-CAL-001 v0.2 (TRL 3).
+"""WaterWalker sizing calculations, WWK-CAL-001 v0.3 (TRL 3, constructable design, WWK-DDR-003).
 
 Run from the repo root:  python docs/04-calcs/sizing.py
 Prints every number quoted in docs/04-calcs/01-sizing.md and writes
@@ -81,9 +81,8 @@ tubes = sum(tube_mass.values())
 rx = P["rx_plate"]
 frame_extras = {
     "head tubes (4), 0.25 kg each": 1.00,
-    "dropout tabs (2)": 0.12,
     "receiver plate 140 x 300 x 3 mm": rx[0] * rx[1] * rx[2] * 1e-9 * RHO_STEEL,
-    "torque-arm tab and sensor boss": 0.15,
+    "sensor tab, torque-arm tab, pin guides (4), guard tabs (4)": 0.04 + 0.03 + 4 * 0.02 + 4 * 0.04,
     "welds and paint, 4 % of tube": 0.04 * tubes,
 }
 frame = tubes + sum(frame_extras.values())
@@ -102,13 +101,15 @@ masses = {
     "rear wheels with drum hubs (2)": 2 * rear_wheel,
     "front wheels (2)": 2 * front_wheel,
     "forks (4)": 4 * fork,
-    "headsets, clamps and swivel locks": 2 * 0.15 + 2 * 0.10 + 2 * 0.05,
+    "headsets, lock collars and lock pins (4 sets)": 4 * (0.12 + 0.06 + 0.03),
     "hip bar, posts, pad and grips": 2.20,
     "cradle": sum(cradle.values()),
     "brake lever, latch and cables": 0.45,
     "skirt guards (2)": 2 * P["guard_l"] * P["guard_h"] * P["guard_t"] * 1e-9 * 950,
     "hardware and reflectors": 0.60,
-    "parking lock pin, tab and lanyard": 0.10,
+    "cradle angle brackets and bolts": 0.25,
+    "guard clips, spacers and bolts": 0.08,
+    "parking lock pin, two tabs and lanyard": 0.13,
 }
 for k, v in masses.items():
     print(f"  {k:36s} {v:6.2f} kg")
@@ -128,21 +129,11 @@ print(f"payload {payload:.1f} kg; loaded {m_load:.1f} kg; loaded with assist {m_
 pots_payload = 2 * 20 + 2 * 8.0
 print(f"two clay pots, 8 kg each empty, full: payload {pots_payload:.0f} kg")
 
-# Mass changes applied by WWK-DDR-002 (against the v0.1 model: 1.5 mm main wall; cradle floor 9 mm,
-# walls 6 mm, pad 4 mm) and the options left open (puncture protection kept by the same decision)
-h_, w_, t_ = P["main"]
-applied = {
-    "main RHS wall 1.5 to 1.2 mm": tube_len["main"] * (rhs_area(h_, w_, 1.5) - rhs_area(h_, w_, t_)) * 1e-6 * RHO_STEEL * 1.04,
-    "cradle floor 9 to 6 mm, walls 6 to 4 mm, pad 4 to 2 mm":
-        (cradle_len * 2 * P["cr_hw"] * 9.0) * 1e-9 * 600 + ((cradle_len - 12) * (2 * P["cr_hw"] - 12) * 4.0) * 1e-9 * 1150
-        + (2 * (cradle_len + 2 * P["cr_hw"]) * P["wall_h"] * 6.0) * 1e-9 * 600 + 0.40 - sum(cradle.values()),
-    "parking lock pin added": -0.10,
-}
-for k, v in applied.items():
-    print(f"  applied: {k:52s} {-v:+.2f} kg")
-m_empty_v01 = m_empty + sum(applied.values())
-print(f"  empty mass before DDR-002 changes (v0.1) {m_empty_v01:.2f} kg; now {m_empty:.2f} kg")
-out("mass_empty_v01", m_empty_v01, "kg")
+# Earlier versions, for the record: v0.1 (TRL 3, 1.5 mm main wall, thicker cradle) and v0.2 (WWK-DDR-002)
+M_V01, M_V02 = 40.85, 37.35
+print(f"  empty mass v0.1 {M_V01:.2f} kg; v0.2 {M_V02:.2f} kg; v0.3 (constructable design, WWK-DDR-003) {m_empty:.2f} kg "
+      f"({m_empty - M_V02:+.2f} kg against v0.2)")
+out("mass_empty_v02", M_V02, "kg")
 opt = {
     "tires without puncture belt (0.65 kg)": 4 * (0.85 - 0.65),
     "no tire liners (keep thorn-resistant tubes)": 4 * 0.20,
@@ -314,25 +305,28 @@ def I_rhs(h, w, t):
 h, w, t = P["main"]
 Z_main = I_rhs(h, w, t) / (h / 2)
 print(f"main RHS {h:.0f} x {w:.0f} x {t:.1f}: I = {I_rhs(h, w, t):.0f} mm4, Z = {Z_main:.0f} mm3")
-# One side rail as a beam on the rear axle (x = 0) and the front contact (x = wheelbase)
-Pc = (payload + sum(cradle.values())) * g / 4            # per hanger
-xs = (P["cr_x0"], D["cr_x1"] - 10)
+# One side rail as a beam on the hip sleeve (x = hip_x: the rear wheel load comes up the fork, through the
+# rear head tube brackets and down the sleeve) and the front contact (x = wheelbase). The cradle hangs from
+# the rear and front cross members, which put half their load on each rail (WWK-DDR-003).
+Pc = (payload + sum(cradle.values())) * g / 4            # per hanger, and per rail at each cross member
+xs = (P["rear_cross_x"], P["front_x"])
+xr = P["hip_x"]
 Lmm = P["wheelbase"]
 self_w = (frame + 2.2) * g / 2                           # frame and hip bar per side, lumped at x = 600 mm
 loads = [(Pc, xs[0]), (Pc, xs[1]), (self_w, 600.0)]
-Rf = sum(F * x for F, x in loads) / Lmm
+Rf = sum(F * (x - xr) for F, x in loads) / (Lmm - xr)
 Rr = sum(F for F, _ in loads) - Rf
-M390 = Rr * xs[0] - self_w * max(0, xs[0] - 600) / 1000
+M390 = Rr * (xs[0] - xr) - self_w * max(0, xs[0] - 600) / 1000
 M_riser = Rf * (Lmm - P["front_x"])
 M_arm = Rf * (D["pivot_x"] - P["front_x"] - w / 2)
 print(f"per side: hanger load {Pc:.0f} N each, reactions rear {Rr:.0f} N, front {Rf:.0f} N (static)")
-for label, Mst in (("rail at rear hanger", M390 / 1000), ("rail at front riser", M_riser / 1000), ("caster arm root", M_arm / 1000)):
+for label, Mst in (("rail at rear cross member", M390 / 1000), ("rail at front riser", M_riser / 1000), ("caster arm root", M_arm / 1000)):
     s = Mst * 1000 * DYN / Z_main
     print(f"  {label}: {Mst:.0f} N m static, {Mst * DYN:.0f} N m at {DYN} g, stress {s:.0f} MPa, factor on yield {FY / s:.2f}")
     if label == "caster arm root":
         out("arm_stress", s, "MPa", "{:.0f}")
         out("arm_fos", FY / s, "", "{:.2f}")
-    if label == "rail at rear hanger":
+    if label == "rail at rear cross member":
         out("rail_stress", s, "MPa", "{:.0f}")
 Z_15 = I_rhs(h, w, 1.5) / (h / 2)
 print(f"  caster arm with the v0.1 1.5 mm wall (Z {Z_15:.0f} mm3): {M_arm * DYN / Z_15:.0f} MPa, factor {FY / (M_arm * DYN / Z_15):.2f}")
@@ -342,7 +336,7 @@ s30 = M_arm * DYN / Z_30
 print(f"  same caster arm in the TRL 2 section 30 x 30 x 1.5 (Z {Z_30:.0f} mm3): {s30:.0f} MPa, factor {FY / s30:.2f}")
 out("arm_stress_30sq", s30, "MPa", "{:.0f}")
 rng = M390 * 1.5 / Z_main
-print(f"weld fatigue: stress range for +/-0.75 g about 1 g at the rear hanger {rng:.0f} MPa against detail category 71 MPa at 2 million cycles")
+print(f"weld fatigue: stress range for +/-0.75 g about 1 g in the rail at the rear cross member {rng:.0f} MPa against detail category 71 MPa at 2 million cycles")
 out("fatigue_range", rng, "MPa", "{:.0f}")
 # Torsion: one front wheel unloaded in a rut
 Am = (h - t) * (w - t)
@@ -368,6 +362,49 @@ F_hb = max(F_sand[1], 400.0)
 Mup = F_hb / 2 * (P["hip_z"] - D["rail_z"]) / 1000
 Zs = I_rhs(*P["sleeve"]) / (P["sleeve"][0] / 2)
 print(f"hip bar uprights, {F_hb:.0f} N push shared by two: {Mup:.0f} N m each, {Mup * 1000 / Zs:.0f} MPa, factor {FY / (Mup * 1000 / Zs):.1f}")
+# Rear head tube brackets (WWK-DDR-003): two levels of 25 x 25 x 1.5 mm, an arm along the rail line from
+# the sleeve and a stub out to the head tube. Worst case is parking on 20 % with the lock pin through one
+# wheel: the whole parking force acts at that tire, about 0.77 m below the middle of the brackets.
+hc, wc, tc = P["cross"]
+Zc = I_rhs(hc, wc, tc) / (hc / 2)
+Amc = (hc - tc) * (wc - tc)
+zb = P["rear_bracket_z"]
+F_park1 = m_load_a * g * math.sin(math.atan(0.20))
+M_park = F_park1 * (sum(zb) / 2) / 1000                  # N m about the axle line, on one head tube
+F_couple = M_park / ((zb[1] - zb[0]) / 1000)            # push and pull in the two brackets
+stub = (D["t2"] - P["head_d"] / 2) - (D["rail_y"] + wc / 2)
+s_stub = F_couple * stub / Zc
+s_arm = F_couple / (2 * tc * (hc + wc) - 4 * tc * tc)
+print(f"rear head tube brackets, parking on 20 % on one pinned wheel: {F_park1:.0f} N at the tire, {M_park:.0f} N m, "
+      f"{F_couple:.0f} N in each bracket; stub bending {s_stub:.0f} MPa (factor {FY / s_stub:.1f}), arm axial {s_arm:.0f} MPa")
+out("bracket_stub_stress_park", s_stub, "MPa", "{:.0f}")
+Fv = Nr_wheel * DYN                                      # rear wheel load at 2.5 g, shared by the two levels
+arm_len = P["hip_x"] - P["sleeve"][0] / 2 - D["rear_ht_x"]
+s_v = Fv / 2 * arm_len / Zc
+tau_v = Fv / 2 * (D["t2"] - D["rail_y"]) * 1000 / 1000 / (2 * Amc * tc)
+vm = math.sqrt(s_v ** 2 + 3 * tau_v ** 2)
+print(f"rear head tube brackets, wheel load {Fv:.0f} N at {DYN} g: arm bending {s_v:.0f} MPa, torsion {tau_v:.0f} MPa, "
+      f"combined {vm:.0f} MPa, factor {FY / vm:.1f}")
+out("bracket_arm_fos", FY / vm, "", "{:.1f}")
+s_sl = M_park * 1000 / Zs
+print(f"hip sleeve below the brackets, parking moment {M_park:.0f} N m: {s_sl:.0f} MPa, factor {FY / s_sl:.1f} (static)")
+out("sleeve_fos_park", FY / s_sl, "", "{:.1f}")
+# Cradle bearers: two 25 x 25 x 1.5 mm tubes from the rear to the front hangers, half the load each
+span = P["front_x"] - P["rear_cross_x"]
+w_b = (payload + sum(cradle.values())) * g / 2 * DYN
+M_b = w_b * span / 8 / 1000
+print(f"cradle bearers: span {span:.0f} mm, {w_b:.0f} N each at {DYN} g, {M_b:.0f} N m, {M_b * 1000 / Zc:.0f} MPa, "
+      f"factor {FY / (M_b * 1000 / Zc):.1f}")
+out("bearer_fos", FY / (M_b * 1000 / Zc), "", "{:.1f}")
+print(f"ground clearance under the bearers {D['clearance']:.0f} mm (150 mm under the cradle floor in the concept)")
+out("ground_clearance", D["clearance"], "mm", "{:.0f}")
+# Parking lock pin: 10 mm, held by tabs on both blades; the spokes push on it between the tabs
+F_pin = F_park1 * D["wheel_r"] / P["pin_dz"]
+span_pin = 2 * (P["old"] / 2 + P["blade"][1] / 2)       # tab centre to tab centre
+Zp = math.pi * P["pin_d"] ** 3 / 32
+for label, M_ in (("held at one end only (concept)", F_pin * 0.050), ("held at both ends", F_pin * span_pin / 4 / 1000)):
+    print(f"lock pin {label}: {F_pin:.0f} N from the spokes, {M_:.1f} N m, {M_ * 1000 / Zp:.0f} MPa, factor {FY / (M_ * 1000 / Zp):.1f}")
+out("pin_fos_both_ends", FY / (F_pin * span_pin / 4 / Zp), "", "{:.1f}")
 
 # ---------------------------------------------------------------- 7. Turning, stability
 section("7. Turning and stability")
@@ -384,6 +421,7 @@ def reach(cx, cy):
         rs.append(math.hypot(rc, wr) + tw)                    # front wheel
         rs.append(math.hypot(math.hypot(px - cx, py - cy), P["head_d"] / 2 + 15))  # head tube
         rs.append(math.hypot(math.hypot(-cx, py - cy), wr) + tw)                   # rear wheel
+        rs.append(math.hypot(math.hypot(D["rear_ht_x"] - cx, py - cy), P["head_d"] / 2 + 15))  # rear head tube
         rs.append(math.hypot(-P["grip_back"] - cx, sy * D["rail_y"] - cy))          # grip ends
     return max(rs)
 
@@ -418,8 +456,9 @@ for r in rows:
         assist_cost += c
     else:
         base += c
-budget = 450.0
-print(f"first prototype (no assist, with mounting points): ${base:.2f} against ${budget:.0f}, margin ${budget - base:.2f}")
+budget = 450.0                  # project.yaml budget_usd: a value-engineering target, not a limit (STANDARDS section 18)
+print(f"first prototype (no assist, with mounting points): ${base:.2f}; value-engineering target ${budget:.0f}; "
+      f"{'over' if base > budget else 'under'} the target by ${abs(base - budget):.2f}")
 print(f"assist kit (motor, sensor, receiver; SwapCell pack priced in the SwapCell BOM): ${assist_cost:.2f}; "
       f"carrier with assist ${base + assist_cost:.2f}")
 out("cost_base", base, "USD")
@@ -449,9 +488,10 @@ REQ = [
     ("R9", "Empty 35 kg or less (42 kg with assist)", f"{m_empty:.1f} kg ({m_empty_a:.1f} kg)",
      "not met" if (m_empty > 35 or m_empty_a > 42) else status(max(m_empty / 35, m_empty_a / 42), 1.0)),
     ("R10", "Service brake while walking; park rated gross mass on 20 %", f"lock pin for parking; hand {hand_force(m_load_a * g * math.sin(math.atan(0.2)))[2]:.0f} N at the latch; friction needed up to {OUT[[k for k, *_ in OUT].index('mu_req_park')][1]}", "at risk"),
-    ("R11", "First prototype, no assist, with mounting points, $450 or less", f"${base:.0f}", status(base, 450)),
+    ("R11", "First prototype, no assist, with mounting points: value-engineering target $450", f"${base:.0f}",
+     f"{'over' if base > budget else 'under'} the target by ${abs(base - budget):.0f}"),
     ("R12", "Wear parts are standard 26 in bicycle parts", "100 mm drum hubs, 26 in rims, tires, tubes, cables, headsets", "at risk"),
-    ("R13", "Assist-ready to SwapCell interface v0.3", "mounting plate, torque-arm tab, sensor boss in the model; class V1 retention by test only", "not verifiable at TRL 3"),
+    ("R13", "Assist-ready to SwapCell interface v0.3", "mounting plate, torque-arm tab, sensor tab in the model; class V1 retention by test only", "not verifiable at TRL 3"),
 ]
 for rid, target, value, st in REQ:
     print(f"  {rid:4s} {st:24s} {value}   [target: {target}]")

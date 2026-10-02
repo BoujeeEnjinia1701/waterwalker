@@ -2,13 +2,13 @@
 
 ![TRL 3](https://img.shields.io/badge/TRL-3%20of%209-0F766E) ![Hardware: CERN-OHL-S-2.0](https://img.shields.io/badge/hardware-CERN--OHL--S--2.0-111827) ![Software: MIT](https://img.shields.io/badge/software-MIT-111827) [![DOI](https://zenodo.org/badge/1386426481.svg)](https://zenodo.org/badge/latestdoi/1386426481) [![REUSE compliant](https://github.com/BoujeeEnjinia1701/waterwalker/actions/workflows/reuse.yml/badge.svg)](https://github.com/BoujeeEnjinia1701/waterwalker/actions/workflows/reuse.yml) [![Archived in Software Heritage](https://archive.softwareheritage.org/badge/origin/https://github.com/BoujeeEnjinia1701/waterwalker/)](https://archive.softwareheritage.org/browse/origin/?origin_url=https://github.com/BoujeeEnjinia1701/waterwalker)
 
-**Area:** Mobility and Logistics · **TRL:** 3 of 9 (proof of concept on paper) · **Prototype budget:** about $450 USD · **Difficulty:** 3 of 5
+**Area:** Mobility and Logistics · **TRL:** 3 of 9 (proof of concept on paper) · **Value-engineering target:** USD 450 (estimated USD 462) · **Difficulty:** 3 of 5
 
 Four-wheel walk-inside water carrier. The user walks between large wheels, rollator style, pushing through a hip bar, while a low padded cradle holds four 20 L jerrycans or two clay pots between the axles. Mounting points for a later push-sensing hub motor assist for sand and slopes.
 
 ![WaterWalker: walk-inside four-wheel water carrier, product render](media/render-hero.png)
 
-[Exploded render](media/render-exploded.png) · [Detail render](media/render-detail.png) · [Interactive 3D model](media/viewer.html) · [Concept blueprint (PDF)](media/concept-blueprint.pdf) · [General arrangement WWK-DWG-001 (PDF)](cad/drawings/WWK-DWG-001.pdf) · [Sizing calculations WWK-CAL-001](docs/04-calcs/01-sizing.md) · [Review note](docs/REVIEW.md)
+[Exploded render](media/render-exploded.png) · [Detail render](media/render-detail.png) · [Interactive 3D model](media/viewer.html) · [Concept blueprint (PDF)](media/concept-blueprint.pdf) · [General arrangement WWK-DWG-001 (PDF)](cad/drawings/WWK-DWG-001.pdf) · [Sizing calculations WWK-CAL-001](docs/04-calcs/01-sizing.md) · [Prototype build plan WWK-BLD-001](docs/05-build-plan.md) · [Design decisions register WWK-DEC-001](docs/06-design-decisions.md) · [Review note](docs/REVIEW.md)
 
 ## Concept rationale
 
@@ -56,21 +56,27 @@ Women and girls in rural sub-Saharan Africa and other low-income regions walk lo
 
 Four-wheel walk-inside water carrier. The user walks between large wheels, rollator style, pushing through a hip bar, while a low padded cradle holds four 20 L jerrycans or two clay pots between the axles. Mounting points for a later push-sensing hub motor assist for sand and slopes.
 
-At TRL 3 the sizing calculations (WWK-CAL-001 v0.2) show the first prototype is easy to push on firm ground (24 to 60 N) and turns in 3.7 m. With the lighter main tube and cradle that Amish accepted on 2026-09-25 (WWK-DDR-002), two requirements are still not met on paper: loose sand (236 to 358 N against 150 N) and empty mass (37.4 kg against 35 kg). The first prototype has no assist but keeps mounting points for a kit built to SwapCell interface v0.3, parks with a positive lock pin, and its parts are about $426 against the $450 budget.
+At TRL 3 the design is constructable: every part can be cut, welded, bought and fitted, and the build plan (WWK-BLD-001) shows how. Making it buildable added a cradle carrier, two-level rear head tube brackets, headsets and steering locks at all four forks and the fixings the concept lacked (WWK-DDR-003, open for Amish's review), which raised the empty mass to 39.6 kg. The sizing calculations (WWK-CAL-001 v0.3) show the carrier turns in 3.7 m and lifts containers only 364 mm, but four requirements are not met on paper: firm-path push (60.8 N against 60 N), loose sand (240 to 365 N against 150 N), the 10 % climb (181.5 N against 180 N) and empty mass (39.6 kg against 35 kg). The first prototype has no assist but keeps mounting points for a kit built to SwapCell interface v0.3, parks with a positive lock pin, and its parts are estimated at USD 462, USD 12 over the USD 450 value-engineering target.
 
 Full design precis: [docs/02-concept.md](docs/02-concept.md)
 
 ## Key components
 
-- Welded mild steel tube frame with assist mounting points
-- 26 in bicycle wheels in rigid forks, with puncture-resistant tires (4); front forks swivel
+- Welded mild steel tube frame with a cradle carrier and assist mounting points
+- 26 in bicycle wheels in rigid forks on headsets, with puncture-resistant tires (4); front forks swivel and pin straight, rear forks are pinned straight
 - Hip and hand push bar
-- Padded cradle for four jerrycans or two clay pots
+- Padded plywood cradle for four jerrycans or two clay pots, bolted to two steel bearers
 - Rear drum brakes with a lever latch for short stops, and a parking lock pin
 - Later, optional: 250 W, 48 V hub motor with push-force sensor
 - Later, optional: SwapCell pack (interface v0.3) in a class V1 receiver
 
 The working bill of materials is in [bom/bom.csv](bom/bom.csv).
+
+## Building the prototype
+
+![WaterWalker prototype: every component pulled apart and numbered in build order](docs/05-build-plan/overview.png)
+
+The [prototype build plan](docs/05-build-plan.md) (WWK-BLD-001) takes a welder and a bicycle mechanic through the first prototype component by component, with a making sketch for each of the eight made components, close-ups of the joints and a picture for every assembly step. The frame is welded from mild steel tube on a flat floor; the forks, wheels, headsets and brakes are standard 26 in bicycle parts; the cradle is plywood bolted to two steel bearers. It is a plan, not yet built: building and testing to it is TRL 4 work, and decisions still open are in the [design decisions register](docs/06-design-decisions.md).
 
 ## Safety
 

@@ -245,3 +245,68 @@ This is an appearance model only: no tolerances, no fabrication detail. `trl` st
 - Kit 1.5.0 synced: STANDARDS v1.5 (sections 12 to 15: product renders, storefront images and image quality, public release, authorship and signing), `.kit/cards.py`, `.kit/image_qc.py`, `.kit/release_gate.py`, issue templates, and the `/render-product` and `/release` commands. `CLAUDE.md` now matches `.kit/CLAUDE.md`.
 - Every `media/render-*.png` recaptioned from its original render with the new layout: the title, concept label and repository sit in a band above the render and the view note in a band below it, each line wrapped to the image width, so no text overlaps other text or the render or runs off the image. `media/card.png` and `media/social-preview.png` regenerated with the same rules.
 - `python .kit/image_qc.py` and `python .kit/release_gate.py` pass. trl stays 3.
+
+## Session 2026-10-02: design made constructable and prototype build plan (kit 1.7.0)
+
+Amish approved the build plan format on 2026-09-30 and asked for it in every repo, with outstanding decisions kept in a separate design decisions register. He also wrote: "If you are realising that the design cannot be built as per concept - fix the design assumptions to match and be physically feasible as you draw the illustrations." On 2026-10-01 he set budgets as value-engineering targets. TRL stays 3; nothing was built or bought.
+
+### What was done
+
+- Kit 1.7.0 installed (`.kit/`, `.claude/commands/`); `CLAUDE.md` now matches `.kit/CLAUDE.md`.
+- `cad/src/model.py` rewritten so every component is modelled as it is made or bought (`build_components()`), with 79 build123d constructability checks (`python cad/src/model.py --check`, all pass). STEP and STL regenerated.
+- `docs/decisions/0003-design-for-construction.md` (WWK-DDR-003 v0.1, Draft): every change below, made under Amish's 2026-09-30 instruction to make the design physically buildable; open for his review.
+- `cad/src/build_plan_media.py`: the overview, eight making sketches (`cad/drawings/WWK-DWG-101` to `108`), ten joint close-ups and eleven assembly step pictures in `docs/05-build-plan/`. Every picture was looked at and the unclear ones redrawn.
+- `docs/05-build-plan.md` (WWK-BLD-001 v0.1) and `docs/06-design-decisions.md` (WWK-DEC-001 v0.1).
+- `docs/04-calcs/sizing.py` and WWK-CAL-001 v0.3: new load path, rear head tube brackets, cradle bearers, lock pin and mass; R11 against the value-engineering target. WWK-REQ-001 v0.5, WWK-PRC-001 v0.5, `bom/bom.csv` (line 16 added) and `bom/bom-notes.md` updated.
+- WWK-DWG-001 Rev P3; concept media regenerated (`media/hero.png`, blueprint, exploded, flow, `model.glb`, `viewer.html`).
+- `project.yaml`: `design_state: constructable`, the build plan, register and WWK-DDR-003 in `trl_evidence`. README: links line and a "Building the prototype" section.
+
+### Design changes made for construction (WWK-DDR-003)
+
+| # | Change |
+| --- | --- |
+| P1 | Side rails end at the hip sleeves instead of running through the rear forks; old dropout tabs removed |
+| P2 | Each rear head tube held by two brackets 60 mm apart, not one, so parking on one pinned wheel is carried |
+| P3 | Rear head tubes 60 mm behind the rear axle, matching the fork offset; one fork part for all four corners |
+| P4 | Cradle carrier added: two bearers under the floor on four hangers from the cross members; cradle bolted to it (ground clearance 125 mm) |
+| P5 | Rear cross member moved 17.5 mm back, clear of the rear jerrycans |
+| P6 | Caster arms run from the top of each riser, angled 8.6 degrees outward, to the side of the head tube; stubs removed |
+| P7 | Headsets at all four forks, a lock collar and plate on each steerer, pins into guides on the frame (BOM line 16) |
+| P8 | Hip sleeves as tubes with 364 mm posts (150 mm left in at full height), nine height holes and a pin; 22.2 mm grip tubes; sensor tab replaces the solid boss |
+| P9 | Drum brake reaction arm clipped along the outer fork blade |
+| P10 | Parking lock pin held by tabs on both fork blades; a 10 mm ball-lock pin ending inside the axle nuts |
+| P11 | Skirt guards bolted to rail tabs and clipped to the inner blade; slot for the hub so they go on before the wheel |
+| P12 | Fork dropouts 6 mm at the axle so the blades clear the hubs |
+| P13 | Torque-arm tab welded to the right rear fork, not the frame |
+| P14 | Cradle walls with end walls between the side walls and 14 outside angle brackets |
+| P15 | Frame members butt on each other's faces with real cut lengths |
+| P16 | Receiver plate laps 15 mm onto the upper cross member |
+
+### Key results (WWK-CAL-001 v0.3)
+
+- Empty mass 37.4 to 39.6 kg (+2.2 kg); loaded 124.0 kg.
+- **Not met:** R2 firm path 60.8 N against 60 N (was at risk); R3 loose sand 240 to 365 N against 150 N; R4 10 % climb 181.5 N against 180 N (was at risk); R9 39.6 kg against 35 kg.
+- At risk: R1, R6, R7, R10, R12. Met: R5, R8. R13 not verifiable at TRL 3.
+- Value-engineering target USD 450; estimated cost of the constructable design USD 462 (USD 12 over the target; USD 36 added for construction).
+- Frame: caster arm root 129 MPa (factor 1.82); weld stress range in the rail 61 MPa, now below the 71 MPa reference; rear brackets 95 MPa when parked on one pinned wheel (factor 2.5); bearers factor 2.2; lock pin factor 2.0 held at both ends (1.1 at one end, as in the concept).
+
+### Proposed, awaiting Amish (in WWK-DEC-001)
+
+1. Accept the design-for-construction changes P1 to P16. Recommended.
+2. R2 and R4 now not met by 0.8 N and 1.5 N: accept on paper and confirm push limits in co-design (recommended), apply the open tire mass options, or lighten the carrier tube.
+3. Ground clearance 125 mm under the carrier: accept (recommended) or raise the cradle 25 mm.
+4. Unchanged from earlier sessions: co-design partner, dead-man brake, value-engineering target for the assist prototype, weld fatigue (now recommended to wait for a TRL 4 test), and the appearance-model choices of 2026-09-26.
+
+### Safety concerns
+
+- Tabs are now welded to the steel rear forks (lock pin and torque arm); the welds need a skilled welder and inspection (build plan safety stop S1).
+- Runaway and parking on slopes are unchanged: tire friction 0.41 needed on 20 %; the lock pin is held at both ends now, but the spokes still take its load in bending.
+- The caster sweep (about 400 mm radius, 22.5 mm clear of the risers), spokes and forks remain pinch points; the skirt guards are now fixed at four points.
+
+### Stale media (made on Amish's Mac, not regenerated here)
+
+`media/render-hero.png`, `media/render-exploded.png`, `media/render-detail.png`, `media/card.png` and `media/social-preview.png`, and the appearance model `cad/src/product_model.py`, still show the concept: one rear bracket with the axle under the head tube, caster arms on stubs, 32 mm grip tubes and no cradle carrier. The design changed visibly, so they are stale and need re-rendering with `/render-product`.
+
+### Recommended next step
+
+Amish reviews WWK-DDR-003 and the three new items in WWK-DEC-001. **TRL 4 remains on hold.** For the record only, TRL 4 would start by buying the forks and drum hubs to confirm the items in WWK-DEC-001 Table 2, then building to WWK-BLD-001 and recording the first checks in a test report.
