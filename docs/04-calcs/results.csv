@@ -7,70 +7,77 @@ jerrycan_spare,48,mm
 pot_spare,12,mm
 lift_height,364,mm
 frame_tube_length,9.72,m
-mass_empty,39.59,kg
-mass_empty_assist,46.09,kg
-mass_loaded,123.99,kg
-mass_loaded_assist,130.49,kg
+mass_empty,40.28,kg
+mass_empty_assist,49.63,kg
+mass_loaded,124.68,kg
+mass_loaded_assist,134.03,kg
+mass_empty_v03,39.57,kg
 mass_empty_v02,37.35,kg
 mass_options_total,1.60,kg
-mass_empty_with_options,37.99,kg
-x_cg,716,mm
-z_cg,362,mm
+mass_empty_with_options,38.68,kg
+x_cg,712,mm
+z_cg,365,mm
 crr_sand_lo,0.197,
 crr_sand_hi,0.300,
 fat_tire_factor,0.75,
-F_firm_hi,60.8,N
-F_sand_lo,240,N
-F_sand_hi,365,N
-F_climb_hi,181.5,N
+F_firm_hi,61.2,N
+F_sand_lo,241,N
+F_sand_hi,367,N
+F_climb_hi,182.6,N
 F_desc_hi,97,N
-F_firm_hi_options,60.0,N
-F_climb_hi_options,179.2,N
-F_sand_half_hi,241,N
-F_sand_assist1_hi,264,N
-thrust_needed_R3,234,N
-F_sand_assist2_hi,144,N
+F_firm_hi_options,60.4,N
+F_climb_hi_options,180.2,N
+F_sand_half_hi,243,N
+F_sand_assist1_hi,274,N
+thrust_needed_R3,244,N
+F_sand_assist2_hi,154,N
 assist_Wh_per_km_1,83,Wh/km
-assist_Wh_per_km_2,162,Wh/km
-assist_current_2,7.5,A
+assist_Wh_per_km_2,170,Wh/km
+assist_current_2,7.8,A
 assist_range_1,5.4,km
 yaw_moment,46,N m
-F_park_20,251,N
-hand_park_20,187,N
+F_park_20,258,N
+hand_park_20,192,N
 mu_req_park,0.41,
-hand_stop_10,124,N
+hand_stop_10,128,N
 hand_hold_10,72,N
+dm_spring,390,N
+dm_squeeze,98,N
+dm_hold,24,N
+dm_grade,12.0,%
+dm_stop,2.6,m
 rail_stress,102,MPa
 arm_stress,129,MPa
 arm_fos,1.82,
 arm_fos_15,2.22,
-arm_stress_30sq,157,MPa
+arm_stress_30sq,158,MPa
 fatigue_range,61,MPa
 frame_twist,2.06,deg
 rut_accommodated,28,mm
-axle_stress_cantilever,468,MPa
-axle_stress_fork,88,MPa
-bracket_stub_stress_park,95,MPa
-bracket_arm_fos,4.8,
-sleeve_fos_park,1.9,
+axle_stress_cantilever,472,MPa
+axle_stress_fork,89,MPa
+bracket_stub_stress_park,97,MPa
+bracket_arm_fos,4.7,
+sleeve_fos_park,1.8,
 bearer_fos,2.2,
 ground_clearance,125,mm
-pin_fos_both_ends,2.0,
+pin_fos_both_ends,1.9,
 turn_circle_inner,3.66,m
 turn_circle_spin,3.41,m
 tip_side,47,deg
-cost_base,462.00,USD
-cost_assist_kit,260.00,USD
+assist_target,450.00,USD
+cost_base,492.00,USD
+cost_assist_kit,450.00,USD
 req_R1,at risk,"84.4 kg (jerrycans), 56 kg (pots); spare length 48 mm (cans), 12 mm (pots)"
-req_R2,not met,24 to 60.8 N
-req_R3,not met,240 to 365 N unassisted; 264 N worst with one motor
-req_R4,not met,181.5 N climb; hold-back hand force 72 N
+req_R2,not met,24 to 61.2 N
+req_R3,not met,241 to 367 N unassisted; 154 N worst with the two-motor kit
+req_R4,not met,182.6 N climb; hold-back hand force 72 N; hold-to-release brake holds up to 12 % if let go
 req_R5,met,"3.66 m (inner rear wheel pivot), 3.41 m (spin)"
 req_R6,at risk,898 mm over axle nuts
 req_R7,at risk,0 mm; 610 mm; 850 to 1050 mm; both rear wheels
 req_R8,met,364 mm
-req_R9,not met,39.6 kg (46.1 kg)
-req_R10,at risk,lock pin for parking; hand 187 N at the latch; friction needed up to 0.41
-req_R11,over the target by $12,$462
+req_R9,not met,40.3 kg (49.6 kg)
+req_R10,at risk,"lock pin for parking; hand 192 N at the latch; hold-to-release brake squeeze 98 N, hold 24 N; friction needed up to 0.41"
+req_R11,over the target by $42,$492
 req_R12,at risk,"100 mm drum hubs, 26 in rims, tires, tubes, cables, headsets"
-req_R13,not verifiable at TRL 3,"mounting plate, torque-arm tab, sensor tab in the model; class V1 retention by test only"
+req_R13,not verifiable at TRL 3,"mounting plate, torque-arm tabs on both rear forks, sensor tab in the model; class V1 retention by test only"

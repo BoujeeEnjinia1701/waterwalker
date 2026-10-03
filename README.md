@@ -2,7 +2,7 @@
 
 ![TRL 3](https://img.shields.io/badge/TRL-3%20of%209-0F766E) ![Hardware: CERN-OHL-S-2.0](https://img.shields.io/badge/hardware-CERN--OHL--S--2.0-111827) ![Software: MIT](https://img.shields.io/badge/software-MIT-111827) [![DOI](https://zenodo.org/badge/1386426481.svg)](https://zenodo.org/badge/latestdoi/1386426481) [![REUSE compliant](https://github.com/BoujeeEnjinia1701/waterwalker/actions/workflows/reuse.yml/badge.svg)](https://github.com/BoujeeEnjinia1701/waterwalker/actions/workflows/reuse.yml) [![Archived in Software Heritage](https://archive.softwareheritage.org/badge/origin/https://github.com/BoujeeEnjinia1701/waterwalker/)](https://archive.softwareheritage.org/browse/origin/?origin_url=https://github.com/BoujeeEnjinia1701/waterwalker)
 
-**Area:** Mobility and Logistics · **TRL:** 3 of 9 (proof of concept on paper) · **Value-engineering target:** USD 450 (estimated USD 462) · **Difficulty:** 3 of 5
+**Area:** Mobility and Logistics · **TRL:** 3 of 9 (proof of concept on paper) · **Value-engineering target:** USD 450 (estimated USD 492) · **Difficulty:** 3 of 5
 
 Four-wheel walk-inside water carrier. The user walks between large wheels, rollator style, pushing through a hip bar, while a low padded cradle holds four 20 L jerrycans or two clay pots between the axles. Mounting points for a later push-sensing hub motor assist for sand and slopes.
 
@@ -56,7 +56,7 @@ Women and girls in rural sub-Saharan Africa and other low-income regions walk lo
 
 Four-wheel walk-inside water carrier. The user walks between large wheels, rollator style, pushing through a hip bar, while a low padded cradle holds four 20 L jerrycans or two clay pots between the axles. Mounting points for a later push-sensing hub motor assist for sand and slopes.
 
-At TRL 3 the design is constructable: every part can be cut, welded, bought and fitted, and the build plan (WWK-BLD-001) shows how. Making it buildable added a cradle carrier, two-level rear head tube brackets, headsets and steering locks at all four forks and the fixings the concept lacked (WWK-DDR-003, open for Amish's review), which raised the empty mass to 39.6 kg. The sizing calculations (WWK-CAL-001 v0.3) show the carrier turns in 3.7 m and lifts containers only 364 mm, but four requirements are not met on paper: firm-path push (60.8 N against 60 N), loose sand (240 to 365 N against 150 N), the 10 % climb (181.5 N against 180 N) and empty mass (39.6 kg against 35 kg). The first prototype has no assist but keeps mounting points for a kit built to SwapCell interface v0.3, parks with a positive lock pin, and its parts are estimated at USD 462, USD 12 over the USD 450 value-engineering target.
+At TRL 3 the design is constructable: every part can be cut, welded, bought and fitted, and the build plan (WWK-BLD-001) shows how. Making it buildable added a cradle carrier, two-level rear head tube brackets, headsets and steering locks at all four forks and the fixings the concept lacked (WWK-DDR-003, accepted by Amish on 2026-10-02). His decisions of that day added a hold-to-release brake (let go of the bail under the left grip and a spring applies both rear brakes), a torque-arm tab on each rear fork for a two-motor assist kit, rated load and slope plates and hand holds in the cradle walls, which raised the empty mass to 40.3 kg. The sizing calculations (WWK-CAL-001 v0.4) show the carrier turns in 3.7 m and lifts containers only 364 mm, but four requirements are not met on paper: firm-path push (61.2 N against 60 N), loose sand (241 to 367 N against 150 N), the 10 % climb (182.6 N against 180 N) and empty mass (40.3 kg against 35 kg). The first prototype has no assist but keeps mounting points for a kit built to SwapCell interface v0.3, and parks with a positive lock pin. Value-engineering target: USD 450. Estimated cost of the constructable design: USD 492 (USD 42 over the target).
 
 Full design precis: [docs/02-concept.md](docs/02-concept.md)
 
@@ -66,8 +66,8 @@ Full design precis: [docs/02-concept.md](docs/02-concept.md)
 - 26 in bicycle wheels in rigid forks on headsets, with puncture-resistant tires (4); front forks swivel and pin straight, rear forks are pinned straight
 - Hip and hand push bar
 - Padded plywood cradle for four jerrycans or two clay pots, bolted to two steel bearers
-- Rear drum brakes with a lever latch for short stops, and a parking lock pin
-- Later, optional: 250 W, 48 V hub motor with push-force sensor
+- Rear drum brakes with a lever latch for short stops, a hold-to-release brake and a parking lock pin
+- Later, optional: two 250 W, 48 V hub motors with push-force sensor
 - Later, optional: SwapCell pack (interface v0.3) in a class V1 receiver
 
 The working bill of materials is in [bom/bom.csv](bom/bom.csv).
@@ -76,7 +76,7 @@ The working bill of materials is in [bom/bom.csv](bom/bom.csv).
 
 ![WaterWalker prototype: every component pulled apart and numbered in build order](docs/05-build-plan/overview.png)
 
-The [prototype build plan](docs/05-build-plan.md) (WWK-BLD-001) takes a welder and a bicycle mechanic through the first prototype component by component, with a making sketch for each of the eight made components, close-ups of the joints and a picture for every assembly step. The frame is welded from mild steel tube on a flat floor; the forks, wheels, headsets and brakes are standard 26 in bicycle parts; the cradle is plywood bolted to two steel bearers. It is a plan, not yet built: building and testing to it is TRL 4 work, and decisions still open are in the [design decisions register](docs/06-design-decisions.md).
+The [prototype build plan](docs/05-build-plan.md) (WWK-BLD-001) takes a welder and a bicycle mechanic through the first prototype component by component, with a making sketch for each of the eight made components, close-ups of the joints and a picture for every assembly step. The frame is welded from mild steel tube on a flat floor; the forks, wheels, headsets and brakes are standard 26 in bicycle parts; the cradle is plywood bolted to two steel bearers. It is a plan, not yet built: building and testing to it is TRL 4 work, and the decisions, all made as of 2026-10-02, are in the [design decisions register](docs/06-design-decisions.md).
 
 ## Safety
 

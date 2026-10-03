@@ -3,7 +3,7 @@ doc_id: WWK-DDR-003
 title: WaterWalker design for construction
 project: WaterWalker
 doc_type: Design decision record
-version: "0.1"
+version: "0.2"
 status: Draft
 date: '2026-10-02'
 author: Amish Chadha
@@ -13,12 +13,16 @@ revisions:
   date: '2026-10-02'
   author: Amish Chadha
   change: Changes that make the concept physically buildable, with the reason for each; made under Amish's 2026-09-30 instruction to make the design physically buildable; open for his review
+- version: "0.2"
+  date: '2026-10-02'
+  author: Amish Chadha
+  change: Accepted by Amish on 2026-10-02, with A1 and A2 decided as option (a)
 ---
 
 # 0003: Design for construction
 
 - **Date:** 2026-10-02
-- **Status:** Draft. The changes in Table 1 were made under Amish's 2026-09-30 instruction to make the design physically buildable; open for his review. Nothing here changes what the carrier does, its pitch or its safety case. The items in Table 3 would change requirement status and are **Proposed, awaiting Amish**; they are in the design decisions register (WWK-DEC-001).
+- **Status:** Draft; accepted. Amish, 2026-10-02: "APPROVED: The open decisions from the last wave (TremorTrace to ZeerBox) came in after the review and aren't on the page either." This approves the recommendation written for each open decision in the design decisions register (WWK-DEC-001 v0.1): every change in Table 1 is accepted as made, and A1 and A2 in Table 3 are decided as recorded there. Nothing here changes what the carrier does, its pitch or its safety case.
 
 ## Context
 
@@ -62,12 +66,12 @@ The changes keep what the carrier does: the same wheels, track, wheelbase, caste
 | Drawings | WWK-DWG-001 Rev P3; making sketches WWK-DWG-101 to 108 added. | Follows the model. |
 | Documents | WWK-CAL-001 v0.3, WWK-REQ-001 v0.5, WWK-PRC-001 v0.5, BOM line 16. | Follows the model. |
 
-*Table 3. Proposed, awaiting Amish.*
+*Table 3. Decided by Amish, 2026-10-02.*
 
 | # | Question | Options | Recommendation |
 | --- | --- | --- | --- |
-| A1 | R2 and R4 move from at risk to not met by 0.8 N and 1.5 N, because the constructable carrier is 2.2 kg heavier. | (a) accept on paper and confirm the push limits with users in co-design, as for R9; (b) apply the two mass options left open in WWK-DDR-002 (tires without a puncture belt, no liners: 1.6 kg, which brings R2 to 60.0 N and R4 to 179.2 N, both at risk); (c) lighter bearers and rear brackets in 1.2 mm wall (about 0.5 kg). | (a), keeping puncture protection, which Amish chose to keep on 2026-09-25. |
-| A2 | Ground clearance under the cradle carrier is 125 mm, not the 150 mm under the concept's floor. No requirement covers it. | (a) accept; (b) raise the cradle 25 mm (lift height 389 mm, centre of mass 25 mm higher). | (a); add a clearance figure to the requirements after the first route survey. |
+| A1 | R2 and R4 move from at risk to not met by 0.8 N and 1.5 N, because the constructable carrier is 2.2 kg heavier. | (a) accept on paper and confirm the push limits with users in co-design, as for R9; (b) apply the two mass options left open in WWK-DDR-002 (tires without a puncture belt, no liners: 1.6 kg, which brings R2 to 60.0 N and R4 to 179.2 N, both at risk); (c) lighter bearers and rear brackets in 1.2 mm wall (about 0.5 kg). | (a), keeping puncture protection, which Amish chose to keep on 2026-09-25. **Decided by Amish, 2026-10-02: (a).** |
+| A2 | Ground clearance under the cradle carrier is 125 mm, not the 150 mm under the concept's floor. No requirement covers it. | (a) accept; (b) raise the cradle 25 mm (lift height 389 mm, centre of mass 25 mm higher). | (a); add a clearance figure to the requirements after the first route survey. **Decided by Amish, 2026-10-02: (a).** |
 
 ## Consequences
 

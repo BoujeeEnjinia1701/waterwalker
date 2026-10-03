@@ -3,9 +3,9 @@ doc_id: WWK-DDR-002
 title: WaterWalker recommendations accepted
 project: WaterWalker
 doc_type: Design decision record
-version: "0.1"
+version: "0.2"
 status: Draft
-date: '2026-09-25'
+date: '2026-10-02'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -13,12 +13,16 @@ revisions:
   date: '2026-09-25'
   author: Amish Chadha
   change: Recommendations accepted by Amish (DDR-002); record the newly decided items, what changed in the repo and the items still open
+- version: "0.2"
+  date: '2026-10-02'
+  author: Amish Chadha
+  change: Items 7, 8 and 14 recorded as decided by Amish on 2026-10-02
 ---
 
 # 0002: Recommendations accepted
 
 - **Date:** 2026-09-25
-- **Status:** accepted (items 9 to 13 of WWK-DDR-001); items 7, 8 and 14 remain proposed, awaiting Amish
+- **Status:** accepted (items 9 to 13 of WWK-DDR-001); items 7, 8 and 14 decided by Amish on 2026-10-02 (WWK-DEC-001)
 
 ## Context
 
@@ -65,15 +69,15 @@ Requirement status changes: R2 and R4 move from not met to at risk; R11 moves fr
 
 Revisiting R9 with users, and checking weld fatigue and lock pin fit, need co-design sessions, a build or tests. They are decided in direction but on hold, because TRL 4 is on hold by Amish's instruction.
 
-## Items still open
+## Items left open on 2026-09-25 (decided 2026-10-02)
 
-These stay **Proposed, awaiting Amish**, because no recommendation was given.
+No recommendation was given on 2026-09-25; Amish decided all three on 2026-10-02 (WWK-DEC-001).
 
 | # | Item | Status |
 | --- | --- | --- |
-| 7 | First co-design partner and region | Proposed, awaiting Amish (no recommendation; partners are picked per area later) |
-| 8 | Dead-man brake | Proposed, awaiting Amish (no recommendation until users are asked) |
-| 14 | Budget for the later assist prototype (kit $260, or about $450 with two motors, plus a shared SwapCell pack) | Proposed, awaiting Amish (no recommendation) |
+| 7 | First co-design partner and region | Decided 2026-10-02: Helpful Engineering network as the route; Kitui County, Kenya, as the first candidate region |
+| 8 | Dead-man brake | Decided 2026-10-02: a hold-to-release brake on the first prototype, kept with the lever, latch and lock pin; users asked in co-design |
+| 14 | Budget for the later assist prototype (kit $260, or about $450 with two motors, plus a shared SwapCell pack) | Decided 2026-10-02: value-engineering target of about USD 450 for the two-motor kit, pack excluded |
 
 New finding for Amish, not decided: the thinner main-tube wall raises the weld stress range at the cradle hangers to 75 MPa, above the 71 MPa of a typical fillet-welded detail at 2 million cycles (WWK-CAL-001 v0.2 section 7). Options are gussets at the hanger and caster arm joints, a local 1.5 mm wall at those joints, or accepting the risk until a TRL 4 fatigue test. This is recorded in `docs/REVIEW.md` for Amish and is not applied.
 

@@ -6,7 +6,7 @@ picture, which keeps memory low. Every picture is drawn from cad/src/model.py (b
 pictures and the model never disagree:
     docs/05-build-plan/overview.png        every component pulled apart, numbered in build order
     cad/drawings/WWK-DWG-101 to 108        making sketches for the made components
-    docs/05-build-plan/joint-NN.png        close-ups of the joints that need explaining
+    docs/05-build-plan/joint-NN.png        close-ups of the joints that need explaining (1 to 11)
     docs/05-build-plan/step-NN.png         one picture per assembly step
 Uses .kit/build_views.py. BUILD PLAN ILLUSTRATION, PLAN NOT YET BUILT.
 """
@@ -64,19 +64,20 @@ def solid_members(prefixes, exclude=()):
 # ----------------------------------------------------------------- named parts, in build order
 def made():
     return [
-        ("frame", part("Frame weldment", S("frame"), COL["frame"])),
+        ("frame", part("Frame weldment with rating plates", S("frame", "plates"), COL["frame"])),
         ("rear_ht", part("Rear head tubes and brackets (2)", S("rear_ht_l", "rear_ht_r"), COL["rear_ht"])),
         ("carrier", part("Rear cross member and cradle carrier", S("carrier"), COL["carrier"])),
         ("locks", part("Headsets, lock collars and lock pins (4 sets)", S("cups_front", "cups_rear", "collars_front", "collars_rear",
                                                                         "pins_front", "pins_rear"), COL["collar"])),
-        ("rforks", part("Rear forks with welded tabs (2)", S("rear_fork_l", "rear_fork_r", "pin_tabs", "torque_tab"), COL["fork"])),
+        ("rforks", part("Rear forks with welded tabs (2)", S("rear_fork_l", "rear_fork_r", "pin_tabs", "torque_tab", "torque_tab_l"), COL["fork"])),
         ("fforks", part("Front forks (2)", S("front_fork_l", "front_fork_r"), "#1F2937")),
         ("guard_l", part("Skirt guard, left, with clips and bolts", S("guard_l", "guard_clips_l"), COL["guard"])),
         ("guard_r", part("Skirt guard, right, with clips and bolts", S("guard_r", "guard_clips_r"), COL["guard"])),
         ("rwheels", part("Rear wheels with drum hubs (2)", S("rear_wheel_l", "rear_wheel_r", "brake_arm_l", "brake_arm_r"), COL["wheel"])),
         ("fwheels", part("Front wheels (2)", S("front_wheel_l", "front_wheel_r"), "#6B7280")),
         ("hipbar", part("Hip bar with pad, grips and height pins", S("hipbar", "pad_grips", "hip_pins"), COL["hipbar"])),
-        ("lever", part("Brake lever with parking latch", S("lever"), "#DC2626")),
+        ("lever", part("Brake lever with parking latch and cable", S("lever", "serv_cable"), "#DC2626")),
+        ("deadman", part("Hold-to-release brake: bail, spring unit, cables", S("bail", "dm_unit", "dm_cables"), "#7C3AED")),
         ("cradle", part("Cradle with pad, brackets and bolts", S("cradle", "cradle_pad", "cradle_brackets"), COL["cradle"])),
         ("lockpin", part("Parking lock pin", S("lock_pin"), COL["lockpin"])),
     ]
@@ -87,7 +88,7 @@ def overview():
     M = made()
     off = {"frame": (0, 0, 0), "rear_ht": (-170, 0, 140), "carrier": (0, 0, -230), "locks": (0, 0, 230),
            "rforks": (-260, 0, -60), "fforks": (260, 0, -60), "guard_l": (-100, 560, -120), "guard_r": (-60, -680, 60),
-           "rwheels": (-700, 0, -100), "fwheels": (700, 0, -100), "hipbar": (-140, 0, 330), "lever": (-420, -330, 420),
+           "rwheels": (-700, 0, -100), "fwheels": (700, 0, -100), "hipbar": (-140, 0, 330), "lever": (-420, -330, 420), "deadman": (-420, 330, 520),
            "cradle": (0, -330, -520), "lockpin": (-100, 820, 120)}
     parts = []
     for k, p in M:
@@ -207,10 +208,10 @@ def sheets(only=None):
                    "Check: with the pin out the fork turns freely and does not knock."],
             **base))
     if want(105):
-        tabs = S("pin_tabs")
+        tabs = S("pin_tabs", "torque_tab_l")
         out.append(bv.component_sheet(
-            Part("Lock pin tabs", tabs, COL["tabs"]), [grey("rear_fork_l", "fork"), grey("rear_wheel_l", "wheel"), grey("lock_pin", "pin")],
-            dwg_no="WWK-DWG-105", title="WaterWalker fork tabs: lock pin tabs (left rear) and torque-arm tab (right rear)",
+            Part("Lock pin tabs and torque-arm tab", tabs, COL["tabs"]), [grey("rear_fork_l", "fork"), grey("rear_wheel_l", "wheel"), grey("lock_pin", "pin")],
+            dwg_no="WWK-DWG-105", title="WaterWalker fork tabs: lock pin tabs (left rear) and torque-arm tabs (both rear)",
             material="Steel flat bar 30 x 6 mm",
             view_shape=b.Pos(60, -385, -533.5) * tabs, inset_view=(20, 125),
             notes=["Lock pin tabs, make 2: 30 x 6 bar, about 40 long, one end shaped",
@@ -218,9 +219,9 @@ def sheets(only=None):
                    "  that end. Weld one to the inner and one to the outer blade of",
                    "  the left rear fork, 200 above and 60 behind the axle.",
                    "Jig both tabs with a 10 mm bar through both holes so they line up.",
-                   "Torque-arm tab, make 1: 30 x 6 bar 60 long (40 high), 11 mm hole",
-                   "  50 behind the axle; weld to the back of the outer blade of the",
-                   "  right rear fork, centred 60 above the axle.",
+                   "Torque-arm tabs, make 2: 30 x 6 bar 60 long (40 high), 11 mm",
+                   "  hole 50 behind the axle; weld one to the back of the outer blade",
+                   "  of each rear fork, centred 60 above the axle (two-motor kit).",
                    "Steel forks only. Clean off paint, short welds, no undercut on",
                    "  the blade; let them cool in air. Paint after.",
                    "Check: the 10 mm pin slides through both tabs with the wheel out."],
@@ -274,9 +275,10 @@ def sheets(only=None):
             notes=["Floor 780 x 430, 6 mm. Side walls 2 x 780 x 160, end walls",
                    "  2 x 422 x 160, 4 mm. Walls stand on the floor at its edges;",
                    "  the end walls fit between the side walls.",
+                   "Hand holds: two 90 x 26 slots in each side wall, 17 below the",
+                   "  top edge, centred 195 and 585 from the rear edge; round the ends.",
                    "Brackets outside: 10 along the bottom joints (3 per side, 2",
                    "  per end), 4 up the corners; M4 bolts, washers both sides.",
-                   "Seal all edges with exterior paint or varnish before assembly.",
                    "Four 6.6 mm holes in the floor for the bolts to the bearers,",
                    "  150 each side of the centre line, 50 and 730 from the rear edge;",
                    "  countersink them from the inside so the pad lies flat.",
@@ -402,6 +404,16 @@ def joints(only=None):
             OUT / "joint-08.png", "Joint 8: drum brake reaction arm and torque-arm tab (right rear)",
             subtitle="Seen from inside the wheel, ahead. The arm lies along the inside of the outer blade and is clipped to it; the tab is behind the blade",
             elev=15, azim=60, size=(8, 6)))
+    if want(11):
+        b_ = (-45, 145, ry - 20, ry + 60, 730, 830)
+        out.append(bv.joint([
+            part("Hip sleeve and spring unit tab", W("frame", *b_), "#64748B"),
+            part("Rear brackets", W("rear_ht_l", *b_), COL["rear_ht"]),
+            part("Spring unit with yoke, saddle clips", W("dm_unit", *b_), "#7C3AED"),
+            part("Cables: bail and service in, drums out", W(("dm_cables", "serv_cable"), -45, 145, ry - 20, ry + 60, 730, 830), "#111827")],
+            OUT / "joint-11.png", "Joint 11: hold-to-release spring unit on the left hip sleeve",
+            subtitle="Seen from outside on the left, a little above. Two saddle clips bolt the unit to a tab on the sleeve; the height pin stays free",
+            elev=22, azim=70, size=(8, 6)))
     if want(9):
         b_ = (325, 500, 40, 245, 115, 330)
         out.append(bv.joint([
@@ -440,7 +452,7 @@ def steps(only=None):
     if want(2):
         st(2, [part("Frame", W("frame", *RB), COL["frame"]), part("Rear head tube", W("rear_ht_l", *RB), COL["rear_ht"]),
                part("Cups", W("cups_rear", *RB), COL["cups"])],
-           [part("Rear fork with tabs", W(("rear_fork_l", "pin_tabs"), *RB[:4], 0, 1010), COL["fork"], (0, 0, -260)),
+           [part("Rear fork with tabs", W(("rear_fork_l", "pin_tabs", "torque_tab_l"), *RB[:4], 0, 1010), COL["fork"], (0, 0, -260)),
             part("Lock collar", W("collars_rear", *RB), COL["collar"], (0, 0, 90)),
             part("Lock pin and R-clip", W("pins_rear", *RB), COL["pin"], (0, 0, 160))],
            "rear forks up into the rear head tubes",
@@ -456,7 +468,7 @@ def steps(only=None):
            elev=16, azim=40, label_done=False)
     REAR = (-420, 420, -470, 470, 0, 1010)
     rear_done = [part("Frame", W("frame", *REAR), COL["frame"]), part("Rear head tubes", W(("rear_ht_l", "rear_ht_r"), *REAR), COL["rear_ht"]),
-                 part("Rear forks", W(("rear_fork_l", "rear_fork_r", "pin_tabs", "torque_tab", "cups_rear", "collars_rear", "pins_rear"), *REAR), COL["fork"])]
+                 part("Rear forks", W(("rear_fork_l", "rear_fork_r", "pin_tabs", "torque_tab", "torque_tab_l", "cups_rear", "collars_rear", "pins_rear"), *REAR), COL["fork"])]
     if want(4):
         st(4, rear_done,
            [part("Left skirt guard and clips", S("guard_l", "guard_clips_l", "guard_bolts_l"), "#0EA5E9", (0, 260, 0)),
@@ -481,7 +493,7 @@ def steps(only=None):
            "Axle nuts to the hub maker's torque; spin each wheel and swivel each fork through a full turn",
            elev=14, azim=35, label_done=False)
     allframe = ("frame", "rear_ht_l", "rear_ht_r", "carrier")
-    wheels = ("rear_fork_l", "rear_fork_r", "front_fork_l", "front_fork_r", "pin_tabs", "torque_tab", "cups_front", "cups_rear",
+    wheels = ("rear_fork_l", "rear_fork_r", "front_fork_l", "front_fork_r", "pin_tabs", "torque_tab", "torque_tab_l", "cups_front", "cups_rear",
               "collars_front", "collars_rear", "pins_front", "pins_rear", "rear_wheel_l", "rear_wheel_r", "front_wheel_l",
               "front_wheel_r", "brake_arm_l", "brake_arm_r", "guard_l", "guard_r", "guard_clips_l", "guard_clips_r")
     rolling = [part("Frame", S(*allframe), COL["frame"]), part("Wheels, forks and guards", S(*wheels), COL["wheel"])]
@@ -498,30 +510,40 @@ def steps(only=None):
            [part("Brake lever with parking latch", S("lever"), COL["lever"], (-200, 0, 0)),
             part("Hand grip", W("pad_grips", -260, -60, -380, -260, 880, 1010), COL["pad"], (-320, 0, 0))],
            "brake lever and grip onto the right grip tube",
-           "Lever first, blade under the grip; then the grip. Cable to a splitter, then one cable to each rear drum",
+           "Lever first, blade under the grip; then the grip. On the left grip tube the bail goes on the same way",
            elev=22, azim=-120, label_done=True)
     if want(9):
-        st(9, rolling + [part("Hip bar", S("hipbar", "pad_grips", "hip_pins", "lever"), COL["hipbar"])],
+        HB = (-260, 160, -420, 470, 400, 1010)
+        st(9, [part("Frame and rear forks", W(allframe + ("rear_fork_l", "rear_fork_r"), *HB), COL["frame"]),
+               part("Hip bar, grips and lever", W(("hipbar", "pad_grips", "lever"), *HB), COL["hipbar"])],
+           [part("Bail lever under the left grip", S("bail"), "#DC2626", (-200, 80, 0)),
+            part("Spring unit with cable yoke", S("dm_unit"), "#7C3AED", (0, 230, 0)),
+            part("Bail, service and drum cables", S("dm_cables", "serv_cable"), "#111827", (0, 0, 0))],
+           "hold-to-release brake: bail, spring unit and cables",
+           "Unit bolted to the tab on the left sleeve; cables along the hip bar and down each rear fork. Set the spring last",
+           elev=22, azim=125, label_done=False)
+    if want(10):
+        st(10, rolling + [part("Hip bar and brakes", S("hipbar", "pad_grips", "hip_pins", "lever", "bail", "dm_unit"), COL["hipbar"])],
            [part("Cradle", S("cradle", "cradle_pad", "cradle_brackets"), COL["cradle"], (0, 0, 380)),
             part("Four M6 bolts", S("cradle_bolts"), COL["bolt"], (0, 0, -120))],
            "cradle onto the bearers",
            "Lower it between the cross members; four M6 bolts down through the floor and bearers, nylocs underneath",
            elev=28, azim=-55, label_done=False)
-    if want(10):
+    if want(11):
         pz = D["wheel_r"] + P["pin_dz"]
         LB = (-260, 300, 180, 480, 150, 900)
-        st(10, [part("Frame", W(allframe, *LB), COL["frame"]), part("Left rear wheel, fork and guard",
+        st(11, [part("Frame", W(allframe, *LB), COL["frame"]), part("Left rear wheel, fork and guard",
                 W(("rear_wheel_l", "rear_fork_l", "pin_tabs", "guard_l", "guard_clips_l", "brake_arm_l"), *LB), COL["wheel"])],
            [part("Parking lock pin", S("lock_pin"), COL["lockpin"], (0, -170, 0))],
            "parking lock pin",
            "From the walking space: through the inner tab, the guard and the spokes into the outer tab. Lanyard to the frame",
            elev=15, azim=-115, label_done=False)
-    if want(11):
-        st(11, rolling + [part("Hip bar and cradle", S("hipbar", "pad_grips", "lever", "cradle", "cradle_pad", "cradle_brackets"), COL["hipbar"]),
+    if want(12):
+        st(12, rolling + [part("Hip bar, brakes and cradle", S("hipbar", "pad_grips", "lever", "bail", "dm_unit", "cradle", "cradle_pad", "cradle_brackets"), COL["hipbar"]),
                           part("Lock pin", S("lock_pin"), COL["lockpin"])],
            [part("Four 20 L jerrycans (user's own)", S("cans"), COL["cans"], (0, 0, 420))],
            "first load: jerrycans and straps",
-           "Lift each can in from the side over the rail, 2 x 2; strap each row down. Load only after the stops in section 6",
+           "Lift each can in from the side over the rail, 2 x 2; strap each row down. Load only after the safety stops",
            elev=24, azim=-55, label_done=False)
     return out
 

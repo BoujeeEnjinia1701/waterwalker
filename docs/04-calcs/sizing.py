@@ -1,4 +1,5 @@
-"""WaterWalker sizing calculations, WWK-CAL-001 v0.3 (TRL 3, constructable design, WWK-DDR-003).
+"""WaterWalker sizing calculations, WWK-CAL-001 v0.4 (TRL 3, constructable design, WWK-DDR-003,
+with the decisions of 2026-10-02: hold-to-release brake, two-motor assist kit, plates and hand holds).
 
 Run from the repo root:  python docs/04-calcs/sizing.py
 Prints every number quoted in docs/04-calcs/01-sizing.md and writes
@@ -82,7 +83,7 @@ rx = P["rx_plate"]
 frame_extras = {
     "head tubes (4), 0.25 kg each": 1.00,
     "receiver plate 140 x 300 x 3 mm": rx[0] * rx[1] * rx[2] * 1e-9 * RHO_STEEL,
-    "sensor tab, torque-arm tab, pin guides (4), guard tabs (4)": 0.04 + 0.03 + 4 * 0.02 + 4 * 0.04,
+    "sensor tab, torque-arm tabs (2), spring unit tab, pin guides (4), guard tabs (4)": 0.04 + 2 * 0.03 + 0.02 + 4 * 0.02 + 4 * 0.04,
     "welds and paint, 4 % of tube": 0.04 * tubes,
 }
 frame = tubes + sum(frame_extras.values())
@@ -104,9 +105,10 @@ masses = {
     "headsets, lock collars and lock pins (4 sets)": 4 * (0.12 + 0.06 + 0.03),
     "hip bar, posts, pad and grips": 2.20,
     "cradle": sum(cradle.values()),
-    "brake lever, latch and cables": 0.45,
+    "brake lever, latch and service cable": 0.45,
+    "hold-to-release brake: bail, spring unit, yoke, cables": 0.60,
     "skirt guards (2)": 2 * P["guard_l"] * P["guard_h"] * P["guard_t"] * 1e-9 * 950,
-    "hardware and reflectors": 0.60,
+    "hardware, reflectors, two rating plates": 0.64,
     "cradle angle brackets and bolts": 0.25,
     "guard clips, spacers and bolts": 0.08,
     "parking lock pin, two tabs and lanyard": 0.13,
@@ -114,8 +116,10 @@ masses = {
 for k, v in masses.items():
     print(f"  {k:36s} {v:6.2f} kg")
 m_empty = out("mass_empty", sum(masses.values()), "kg")
-assist = {"motor delta (2.60 kg motor less 0.75 kg drum hub)": 2.60 - 0.75, "disc brake for motor wheel": 0.35,
-          "controller and wiring": 0.65, "push sensor and controller": 0.20, "SwapCell receiver, class V1": 0.60,
+N_MOTOR = 2                                   # two-motor kit (Amish, 2026-10-02)
+assist = {"motor delta, two motors (2.60 kg motor less 0.75 kg drum hub)": N_MOTOR * (2.60 - 0.75),
+          "disc brakes for the motor wheels": N_MOTOR * 0.35,
+          "controllers and wiring": N_MOTOR * 0.65, "push sensor and controller": 0.20, "SwapCell receiver, class V1": 0.60,
           "SwapCell pack": 2.85}
 m_assist_kit = sum(assist.values())
 m_empty_a = out("mass_empty_assist", m_empty + m_assist_kit, "kg")
@@ -130,9 +134,10 @@ pots_payload = 2 * 20 + 2 * 8.0
 print(f"two clay pots, 8 kg each empty, full: payload {pots_payload:.0f} kg")
 
 # Earlier versions, for the record: v0.1 (TRL 3, 1.5 mm main wall, thicker cradle) and v0.2 (WWK-DDR-002)
-M_V01, M_V02 = 40.85, 37.35
-print(f"  empty mass v0.1 {M_V01:.2f} kg; v0.2 {M_V02:.2f} kg; v0.3 (constructable design, WWK-DDR-003) {m_empty:.2f} kg "
-      f"({m_empty - M_V02:+.2f} kg against v0.2)")
+M_V01, M_V02, M_V03 = 40.85, 37.35, 39.57
+print(f"  empty mass v0.1 {M_V01:.2f} kg; v0.2 {M_V02:.2f} kg; v0.3 (constructable design, WWK-DDR-003) {M_V03:.2f} kg; "
+      f"v0.4 (decisions of 2026-10-02) {m_empty:.2f} kg ({m_empty - M_V03:+.2f} kg against v0.3)")
+out("mass_empty_v03", M_V03, "kg")
 out("mass_empty_v02", M_V02, "kg")
 opt = {
     "tires without puncture belt (0.65 kg)": 4 * (0.85 - 0.65),
@@ -152,7 +157,7 @@ items = [  # (mass, x, z)
     (water, x_c, D["can_z0"] + fill_h / 2), (4 * can, x_c, D["can_z0"] + P["jc"][2] / 2),
     (sum(cradle.values()), x_c, P["cr_z"] + 40), (frame, 700.0, 520.0),
     (2 * rear_wheel + 2 * fork + 0.2, 0.0, D["wheel_r"] + 60), (2 * front_wheel + 2 * fork + 0.4, P["wheelbase"], D["wheel_r"] + 60),
-    (2.20, P["hip_x"] - 40, P["hip_z"]), (0.45 + 1.3 + 0.6, 400.0, 400.0)]
+    (2.20, P["hip_x"] - 40, P["hip_z"]), (0.45 + 1.3 + 0.64, 400.0, 400.0), (0.60, 0.0, 850.0)]
 M = sum(i[0] for i in items)
 x_cg = sum(i[0] * i[1] for i in items) / M / 1000
 z_cg = sum(i[0] * i[2] for i in items) / M / 1000
@@ -293,6 +298,33 @@ out("hand_stop_10", hand, "N", "{:.0f}")
 T, cab, hand = hand_force(F_desc[0])
 print(f"hold on a 10 % descent, unassisted: hand {hand:.0f} N")
 out("hand_hold_10", hand, "N", "{:.0f}")
+
+# Hold-to-release (dead-man) brake, decided 2026-10-02: a spring in the unit on the left hip sleeve pulls both
+# drum cables through the yoke unless the user holds the bail under the left grip. The spring is sized to hold
+# the loaded carrier with the assist kit on a 10 % descent on its own, with a margin; a toggle in the unit
+# carries most of the spring load once the bail is squeezed home, so holding it takes a fraction of the squeeze.
+a10 = math.atan(0.10)
+DM_MARGIN, BAIL_RATIO, K_SPRING, TRAVEL, TOGGLE = 1.25, 6.0, 10.0, 8.0, 0.25
+F_hold_dm = m_load_a * g * (math.sin(a10) - crr_firm[0] * math.cos(a10))
+_, cab_dm, _ = hand_force(F_hold_dm)
+F_spring_need = 2 * cab_dm / cable_eff                    # at the yoke, both drum cables
+F_spring = F_spring_need * DM_MARGIN
+squeeze = (F_spring + K_SPRING * TRAVEL) / (BAIL_RATIO * cable_eff)
+hold_dm = squeeze * TOGGLE
+cab_s = F_spring * cable_eff / 2                          # per drum cable from the spring alone
+F_tire_s = 2 * (cab_s * cam_ratio * C_star * r_drum) / R  # braking force at both rear tires
+grade_s = 0.0
+for gr in [i / 1000 for i in range(0, 400)]:
+    if m_load_a * g * (math.sin(math.atan(gr)) - crr_firm[0] * math.cos(math.atan(gr))) <= F_tire_s:
+        grade_s = gr
+dec = (F_tire_s - F_hold_dm) / m_load_a
+print(f"hold-to-release brake: hold on 10 % with assist mass {F_hold_dm:.0f} N at the tires, spring {F_spring_need:.0f} N needed, "
+      f"{F_spring:.0f} N fitted (x{DM_MARGIN}); squeeze the bail {squeeze:.0f} N, hold it {hold_dm:.0f} N (toggle, estimate)")
+print(f"  spring alone: {F_tire_s:.0f} N at the tires, holds the loaded carrier with assist on grades up to {grade_s * 100:.1f} %; "
+      f"let go at 1.0 m/s on 10 %: {dec:.2f} m/s2, stops in {1.0 / (2 * dec):.1f} m")
+for k, v, u in (("dm_spring", F_spring, "N"), ("dm_squeeze", squeeze, "N"), ("dm_hold", hold_dm, "N"),
+                ("dm_grade", grade_s * 100, "%"), ("dm_stop", 1.0 / (2 * dec), "m")):
+    out(k, v, u, "{:.1f}" if k in ("dm_grade", "dm_stop") else "{:.0f}")
 
 # ---------------------------------------------------------------- 6. Frame and axles
 section("6. Frame, axles and hip bar")
@@ -459,8 +491,12 @@ for r in rows:
 budget = 450.0                  # project.yaml budget_usd: a value-engineering target, not a limit (STANDARDS section 18)
 print(f"first prototype (no assist, with mounting points): ${base:.2f}; value-engineering target ${budget:.0f}; "
       f"{'over' if base > budget else 'under'} the target by ${abs(base - budget):.2f}")
-print(f"assist kit (motor, sensor, receiver; SwapCell pack priced in the SwapCell BOM): ${assist_cost:.2f}; "
-      f"carrier with assist ${base + assist_cost:.2f}")
+ASSIST_TARGET = 450.0          # assist prototype value-engineering target, two motors, pack excluded (Amish, 2026-10-02)
+print(f"assist kit (two motors, sensor, receiver; SwapCell pack priced in the SwapCell BOM): ${assist_cost:.2f}; "
+      f"value-engineering target ${ASSIST_TARGET:.0f}; " + ("on the target" if abs(assist_cost - ASSIST_TARGET) < 0.5 else
+      f"{'over' if assist_cost > ASSIST_TARGET else 'under'} the target by ${abs(assist_cost - ASSIST_TARGET):.2f}") +
+      f"; carrier with assist ${base + assist_cost:.2f}")
+out("assist_target", ASSIST_TARGET, "USD")
 out("cost_base", base, "USD")
 out("cost_assist_kit", assist_cost, "USD")
 
@@ -478,8 +514,8 @@ REQ = [
      f"{payload:.1f} kg (jerrycans), {pots_payload:.0f} kg (pots); spare length {cradle_len - can_row:.0f} mm (cans), {pot_spare:.0f} mm (pots)",
      "met" if pot_spare >= 0.05 * 2 * pot_d else ("at risk" if pot_spare >= 0 else "not met")),
     ("R2", "60 N or less, firm level path", f"{F_firm[0]:.0f} to {F_firm[1]:.1f} N", status(F_firm[1], 60)),
-    ("R3", "150 N or less, loose sand", f"{F_sand[0]:.0f} to {F_sand[1]:.0f} N unassisted; {F_sand_a[1] - thrust1:.0f} N worst with one motor", status(F_sand[1], 150)),
-    ("R4", "180 N or less, 10 % climb; controlled descent", f"{F_climb[1]:.1f} N climb; hold-back hand force {hand_force(F_desc[0])[2]:.0f} N", status(F_climb[1], 180)),
+    ("R3", "150 N or less, loose sand", f"{F_sand[0]:.0f} to {F_sand[1]:.0f} N unassisted; {F_sand_a[1] - thrust2:.0f} N worst with the two-motor kit", status(F_sand[1], 150)),
+    ("R4", "180 N or less, 10 % climb; controlled descent", f"{F_climb[1]:.1f} N climb; hold-back hand force {hand_force(F_desc[0])[2]:.0f} N; hold-to-release brake holds up to {grade_s * 100:.0f} % if let go", status(F_climb[1], 180)),
     ("R5", "4.0 m turning circle or less", f"{D_inner / 1000:.2f} m (inner rear wheel pivot), {D_spin / 1000:.2f} m (spin)", status(D_inner / 1000, 4.0)),
     ("R6", "900 mm wide or less", f"{D['overall_width']:.0f} mm over axle nuts", status(D["overall_width"], 900)),
     ("R7", "Step-over 50 mm or less; walking width 600 mm or more; hip bar 850 to 1,050 mm; skirt guards",
@@ -487,11 +523,11 @@ REQ = [
     ("R8", "Lift 450 mm or less, either side", f"{lift:.0f} mm", status(lift, 450)),
     ("R9", "Empty 35 kg or less (42 kg with assist)", f"{m_empty:.1f} kg ({m_empty_a:.1f} kg)",
      "not met" if (m_empty > 35 or m_empty_a > 42) else status(max(m_empty / 35, m_empty_a / 42), 1.0)),
-    ("R10", "Service brake while walking; park rated gross mass on 20 %", f"lock pin for parking; hand {hand_force(m_load_a * g * math.sin(math.atan(0.2)))[2]:.0f} N at the latch; friction needed up to {OUT[[k for k, *_ in OUT].index('mu_req_park')][1]}", "at risk"),
+    ("R10", "Service brake while walking; park rated gross mass on 20 %", f"lock pin for parking; hand {hand_force(m_load_a * g * math.sin(math.atan(0.2)))[2]:.0f} N at the latch; hold-to-release brake squeeze {squeeze:.0f} N, hold {hold_dm:.0f} N; friction needed up to {OUT[[k for k, *_ in OUT].index('mu_req_park')][1]}", "at risk"),
     ("R11", "First prototype, no assist, with mounting points: value-engineering target $450", f"${base:.0f}",
      f"{'over' if base > budget else 'under'} the target by ${abs(base - budget):.0f}"),
     ("R12", "Wear parts are standard 26 in bicycle parts", "100 mm drum hubs, 26 in rims, tires, tubes, cables, headsets", "at risk"),
-    ("R13", "Assist-ready to SwapCell interface v0.3", "mounting plate, torque-arm tab, sensor tab in the model; class V1 retention by test only", "not verifiable at TRL 3"),
+    ("R13", "Assist-ready to SwapCell interface v0.3", "mounting plate, torque-arm tabs on both rear forks, sensor tab in the model; class V1 retention by test only", "not verifiable at TRL 3"),
 ]
 for rid, target, value, st in REQ:
     print(f"  {rid:4s} {st:24s} {value}   [target: {target}]")

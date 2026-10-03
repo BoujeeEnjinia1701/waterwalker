@@ -310,3 +310,98 @@ Amish approved the build plan format on 2026-09-30 and asked for it in every rep
 ### Recommended next step
 
 Amish reviews WWK-DDR-003 and the three new items in WWK-DEC-001. **TRL 4 remains on hold.** For the record only, TRL 4 would start by buying the forks and drum hubs to confirm the items in WWK-DEC-001 Table 2, then building to WWK-BLD-001 and recording the first checks in a test report.
+
+## Session 2026-10-02: open decisions decided
+
+Amish, 2026-10-02: "APPROVED: The open decisions from the last wave (TremorTrace to ZeerBox) came in after the review and aren't on the page either." This approves the recommendation written for each open decision in the design decisions register (WWK-DEC-001), as he did for the other 555 open decisions ("i approve your recommendations for all 555 open decisions."). trl stays 3; no build or test work was done, and the model, BOM quantities and prices, and pictures are unchanged.
+
+### Decisions recorded
+
+Eight decisions, all moved to Decisions made in WWK-DEC-001, dated 2026-10-02:
+
+1. Design for construction accepted: the changes P1 to P16 of WWK-DDR-003, as made.
+2. R2 and R4: accepted as not met on paper by 0.8 N and 1.5 N; the puncture protection chosen on 2026-09-25 is kept, and the push limits are confirmed with users in co-design.
+3. Ground clearance: 125 mm under the cradle carrier accepted; a clearance figure is added to the requirements after the first route survey.
+4. First co-design partner and region: the Helpful Engineering network is the route to a first partner, a university engineering department or water and sanitation NGO in semi-arid eastern Kenya, where water is carried along sandy routes and dry riverbeds; Kitui County is the first candidate region.
+5. Dead-man brake: a hold-to-release (dead-man) brake is fitted on the first prototype: a spring applies both rear drum brakes unless the user holds a bail on the grips, kept alongside the service lever, parking latch and lock pin; users are asked about it in co-design, and it is dropped only if descent trials and users show the latch and pin are reliably used.
+6. Value-engineering target for the later assist prototype: about USD 450 for the two-motor assist kit (two rear hub motors with their controller and push sensor), with the shared SwapCell pack counted separately; the USD 260 one-motor kit is used only if sand trials show one motor meets R3.
+7. Weld fatigue: the frame joints are accepted without gussets until a fatigue test at TRL 4 (61 MPa stress range in the rail, below the 71 MPa reference), and the rear cross member and caster arm welds are inspected at every service until then.
+8. Appearance-model choices: the left brake cable along the hip bar, the hand holds in the cradle side walls and the rated load and slope plates are adopted; grip position and spacing are asked of users at the first co-design session.
+
+### Documents changed
+
+- `docs/06-design-decisions.md` (WWK-DEC-001 v0.2): open decisions moved to Decisions made.
+- `docs/decisions/0003-design-for-construction.md` (WWK-DDR-003 v0.2): acceptance recorded in the status line; A1 and A2 decided (record stays Draft).
+- `docs/decisions/0001-trl2-review-decisions.md` (WWK-DDR-001 v0.3): items 7 and 8 recorded as decided.
+- `docs/decisions/0002-recommendations-accepted.md` (WWK-DDR-002 v0.2): items 7, 8 and 14 recorded as decided.
+- `docs/01-problem.md` (WWK-PRB-001 v0.5): partner and region answered.
+- `docs/02-concept.md` (WWK-PRC-001 v0.6): brake choice, runaway safety note, assist target and partner.
+- `docs/03-requirements.md` (WWK-REQ-001 v0.6): R2 and R4 notes; no status changed.
+- `bom/bom-notes.md`: assist prototype target; dead-man brake noted as not yet a BOM line.
+- `README.md`: the build plan paragraph says the decisions are all made.
+
+### Follow-up actions to carry approved decisions into the design
+
+1. Decision 5 (model): Model the hold-to-release brake: a bail on the grips, a return spring and the cable route to both rear drums alongside the service lever, with clearance checks.
+2. Decision 5 (BOM): Add the hold-to-release brake parts (bail lever, spring, cable and splitter) to the BOM with a price basis.
+3. Decision 5 (calculations): Add the brake's mass to the roll-up and re-run the push forces (R2, R4, R9) and the descent and parking checks in WWK-CAL-001.
+4. Decision 5 (pictures): Add the dead-man brake to the general arrangement, the build plan's brake step, wiring and cable picture, and a safety stop that tests it before the first loaded descent.
+5. Decision 6 (model): Add a torque-arm tab to the left rear fork as well, so the two-motor assist kit bolts on, and update the assist mounting description.
+6. Decision 6 (calculations): State the assist prototype's value-engineering target (about USD 450, two motors, pack excluded) in WWK-CAL-001 and the concept cost row.
+7. Decision 7 (docs): Add a weld inspection of the rear cross member and caster arm joints to the build plan's checks and service notes, pending the TRL 4 fatigue test.
+8. Decision 8 (model): Add the hand holds in the cradle side walls, the left brake cable along the hip bar and the rated load and slope plates to the model and drawing.
+9. Decision 4 (docs): Approach a university engineering department or water and sanitation NGO in Kitui County through the Helpful Engineering network.
+
+### Points found in the review
+
+- A dead-man brake (item 5) adds a little mass, so R2 and R4 move slightly further from their limits; the push-force calculation needs re-running when it is modelled.
+- Item 6 is labeled a budget in WWK-DDR-002 item 14; under the 2026-10-01 rule it is a value-engineering target, not a limit.
+- The concept's assist description (one hub motor in a rear wheel, step 6) and BOM notes (USD 260 kit) describe one motor, while the calculation and R3 note say two are needed on the loosest sand.
+
+## Session 2026-10-02: approved follow-ups carried out
+
+Amish, 2026-10-02: "497 follow-up actions that need CAD, drawing, picture, BOM or calculation work ... APPROVED CHANGES, COMPLETE THESE", and for the renders: "Photoreal renders are out of date in most repos ... COMPLETE THESE". trl stays 3; nothing was built, bought or tested.
+
+### Follow-ups
+
+1. Decision 5 (model): **done.** `cad/src/model.py` adds the hold-to-release brake (BOM line 17): a bail lever clamped on the left grip tube, a spring unit (26 mm tube, 132 mm long, with toggle and cable yoke) held by two saddle clips on a 4 mm tab welded to the outer face of the left hip sleeve, a bail cable, the service lever cable along the front of the hip bar to the yoke, and a cable from the yoke to each rear drum, passing in front of and outside each rear head tube and down the front of the outer fork blade, inside the width over the axle nuts. 18 new constructability checks (bail on the grip tube and clear of the grip, unit on its tab and clear of the brackets, height pin, wheel, fork and collar, cables clear of frame, hip bar, wheels, forks, tabs, lock pin, guards, headsets, sensor and motors, cables meeting the unit): 104 of 104 pass. STEP and STL regenerated.
+2. Decision 5 (BOM): **done.** New line 17, USD 30, with a price basis per part; line 7 USD 20 to USD 16 (splitter replaced by the yoke); see `bom/bom-notes.md`.
+3. Decision 5 (calculations): **done.** WWK-CAL-001 v0.4: brake 0.60 kg in the roll-up; R2 61.2 N, R4 182.6 N, R9 40.3 kg; spring 390 N (hold on 10 % with the assisted mass, margin 1.25), holds up to 12 % alone, stops in about 2.6 m if let go at 1.0 m/s on 10 %; squeeze 98 N, hold 24 N (toggle factor is an estimate); parking on 20 % still needs the latch or lock pin (192 N latch, friction 0.41).
+4. Decision 5 (pictures): **done.** WWK-DWG-001 Rev P4; overview; new joint 11 (spring unit); step 8 (bail and grips) and new step 9 (spring unit and cables); old steps 9 to 11 are now 10 to 12; safety stop S4 tests the brake before the first loaded descent; WWK-BLD-001 v0.2 section 3.9 describes it.
+5. Decision 6 (model): **done.** Torque-arm tab on the left rear fork as well (checks: on the blade, clear of wheel, brake arm, lock pin tabs and pin); two hub motors in the assist kit; mounting description updated in WWK-PRC-001 v0.7 and WWK-DWG-105.
+6. Decision 6 (calculations): **done.** WWK-CAL-001 v0.4 section 5 and the precis: "Value-engineering target: USD 450. Estimated cost of the two-motor kit: USD 450 (on the target)", pack excluded; BOM line 9 quantity 2.
+7. Decision 7 (docs): **done.** Weld inspection of the rear cross member and caster arm joints added to the build plan's first checks and as safety stop S6 (every service until the TRL 4 fatigue test).
+8. Decision 8 (model): **done.** Hand holds (two 90 x 26 mm slots per side wall), the left brake cable along the hip bar (the service cable now crosses along the front of the pad to the left-side unit) and two rated load and slope plates (right rail outside, left rail inside) are in the model, the GA and WWK-DWG-108.
+9. Decision 4 (outreach): **not done:** outreach by Amish through the Helpful Engineering network.
+
+### Requirement status
+
+No status changed. R2 not met by 1.2 N (was 0.8 N), R4 by 2.6 N (was 1.5 N), R9 40.3 kg (49.6 kg with the two-motor kit), R10 at risk, R11 over the target by USD 42. With the second motor's mass counted, the two-motor kit leaves 154 N on the loosest sand, 4 N over R3 (144 N in v0.3); a motor of about 41 N·m closes it.
+
+### Cost and mass
+
+Value-engineering target: USD 450. Estimated cost of the constructable design: USD 492 (USD 42 over the target). Empty mass 40.3 kg; loaded 124.7 kg.
+
+### Documents changed and new versions
+
+`cad/src/model.py`; `cad/step/*`, `cad/stl/*`; `bom/bom.csv`, `bom/bom-notes.md`; `docs/04-calcs/sizing.py`, `results.csv`, WWK-CAL-001 v0.4; WWK-REQ-001 v0.7; WWK-PRC-001 v0.7; WWK-DEC-001 v0.3; WWK-BLD-001 v0.2; README; `cad/src/sheets.py` and WWK-DWG-001 Rev P4; `cad/src/build_plan_media.py` with WWK-DWG-101, 102, 105 and 108, overview, joints 1, 5, 7 and 11, steps 2, 4, 5 and 7 to 12; `cad/src/concept_media.py` (blueprint Rev P3, hero, exploded, flow, `model.glb`, `viewer.html`); `cad/src/product_model.py`. The drawing scripts share `patch_svg_export()` in `model.py`, which draws the few degenerate arcs the cables project to as short lines.
+
+### Appearance model and render scenes
+
+`cad/src/product_model.py` now builds the frame, brackets, carrier, forks, headsets, collars, tabs, guards, hip bar, brakes, cradle, plates, lock pin and assist kit directly from `model.build_components()`, so it matches the constructable design; wheels, jerrycans, straps, pad, grips, reflectors and end caps are drawn on model.py's dimensions. RENDER_VIEWS kept (hero, exploded, detail). Scenes exported to `/home/claude/renders/waterwalker` (one .npz and .json per view and `waterwalker__jobs.json`). Photoreal renders, `card.png` and `social-preview.png` are to be made on Amish's Mac. Proposed, awaiting Amish: the rubber grips and the mannequin's hands now sit on model.py's grips (230 to 100 mm behind the axle), so the figure stands about 165 mm further back than in the 2026-09-26 renders and its hips do not touch the pad; recommendation: keep, since grip position is asked of users at the first co-design session.
+
+### Cross-repo actions
+
+- SwapCell: the WaterWalker assist kit now draws up to 7.8 A from the pack through two controllers; no change to interface v0.3 is needed (for information only).
+
+### Safety
+
+The hold-to-release brake does not park on 20 %; the latch and lock pin remain the parking brakes. The hold force depends on an estimated toggle factor and must be measured at TRL 4 before users rely on it.
+
+### Recommended next step
+
+Amish reviews the renders made from the new scenes. TRL 4 remains on hold.
+
+## 2026-10-02: photoreal renders redone on the constructable design
+
+Rendered with Blender Cycles on Amish's Mac from the updated appearance model; captioned with `.kit/photo_caption.py`; `media/card.png` and `media/social-preview.png` regenerated with `.kit/cards.py`. Views: hero, exploded, detail. image_qc passes. Appearance deviations are those logged above as proposed, awaiting Amish.

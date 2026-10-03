@@ -11,7 +11,9 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parents[1] / ".kit"))
 sys.path.insert(0, str(HERE))
 from concept import ROOT, Part, _render, render_all  # noqa: E402
-from model import build_parts  # noqa: E402
+from model import build_parts, patch_svg_export  # noqa: E402
+
+patch_svg_export()
 
 raw = build_parts()
 # Hero, blueprint and 3D viewer show the approved first prototype: no assist, with mounting points.
@@ -21,12 +23,12 @@ parts_all = [Part(name, shape, color, bom, explode) for bom, name, shape, color,
 
 render_all(
     parts, project="WaterWalker", title="Walk-inside water carrier concept", dwg_no="WWK-DWG-010",
-    date="2026-10-02", rev="P2", cut=False,
+    date="2026-10-02", rev="P3", cut=False,
     key_figures=["80 L per trip (4 x 20 L jerrycans) or 40 L (2 clay pots)",
                  "26 in wheels, 898 mm wide, 2.2 m long, 3.7 m turning circle",
-                 "Push, firm path 24 to 61 N; loose sand 240 to 365 N (calc.)",
-                 "Empty 39.6 kg; first prototype parts $462 (no assist)",
-                 "Assist-ready (not fitted): SwapCell interface v0.3 mounts"],
+                 "Push, firm path 24 to 61 N; loose sand 241 to 367 N (calc.)",
+                 "Empty 40.3 kg; parts $492 (no assist); hold-to-release brake",
+                 "Assist-ready (not fitted): two-motor tabs, SwapCell v0.3"],
     flow={"title": "water delivered per trip and per day (estimates, WWK-CAL-001)", "unit": "",
           "stages": [("Water point", "fill 4 x 20 L"),
                      ("Load cradle", "lift 20 kg to 0.36 m"),

@@ -65,7 +65,16 @@ PARAMS = {
     "pack": (90.0, 340.0, 80.0),        # SwapCell body, x (depth), y (length), z (width)
     "pack_handle": 35.0, "pack_plug": 18.0,
     "rx_plate": (140.0, 300.0, 3.0),    # receiver mounting plate on the upper cross member
-    "motor_d": 180.0, "motor_w": 60.0,  # geared hub motor shell, right rear wheel
+    "motor_d": 180.0, "motor_w": 60.0,  # geared hub motor shell, one in each rear wheel (two-motor kit, 2026-10-02)
+    # Hold-to-release (dead-man) brake, decided 2026-10-02: a bail under the left grip holds a spring unit
+    # off; let go and the spring applies both rear drums through the cable yoke inside the unit
+    "dm_d": 26.0, "dm_x": (-20.0, 112.0), "dm_z": 775.0,   # spring unit: tube beside the left hip sleeve
+    "dm_tab": 4.0,           # 4 mm tab welded to the outer face of the left hip sleeve carries the unit
+    "bail_len": 120.0, "cable_r": 2.5,
+    # Rated load and slope plates (decided 2026-10-02): outer face of the right rail, inner face of the left rail
+    "plate": (150.0, 30.0, 1.0), "plate_x": 640.0,
+    # Hand holds in the cradle side walls (decided 2026-10-02): two slots per wall
+    "hold": (90.0, 26.0), "hold_top": 17.0,
 }
 P = PARAMS
 
@@ -151,6 +160,24 @@ def member_length(a, b):
     return math.dist(a, b)
 
 
+def patch_svg_export():
+    """The brake cables project to a few tiny elliptical arcs whose ends coincide, which build123d's SVG
+    writer rejects; draw those as a short straight line instead. Called by the drawing scripts."""
+    import build123d.exporters as bxp
+    if getattr(bxp.ExportSVG, "_ww_patched", False):
+        return
+    orig = bxp.ExportSVG._ellipse_segments
+
+    def safe(self, edge, reverse=False):
+        try:
+            return orig(self, edge, reverse)
+        except AssertionError:
+            a, c = self._path_point(edge.position_at(0)), self._path_point(edge.position_at(1))
+            return [bxp.PT.Line(a, c if c != a else a + 1e-6)]
+    bxp.ExportSVG._ellipse_segments = safe
+    bxp.ExportSVG._ww_patched = True
+
+
 # ------------------------------------------------------------------ geometry helpers
 def _b3d():
     import build123d as b
@@ -175,6 +202,17 @@ def zcyl(x, y, z0, z1, r):
 def xcyl(x0, x1, y, z, r):
     b = _b3d()
     return b.Pos((x0 + x1) / 2, y, z) * b.Rot(0, 90, 0) * b.Cylinder(r, abs(x1 - x0))
+
+
+def cable(points, r=2.5):
+    """A cable in its housing through `points`, as round rods with ball joints at the bends."""
+    b = _b3d()
+    out = []
+    for a, c in zip(points, points[1:]):
+        v = b.Vector(*c) - b.Vector(*a)
+        out.append(b.Solid.make_cylinder(r, v.length, b.Plane(origin=a, z_dir=v.normalized())))
+    out += [b.Pos(*q) * b.Sphere(r) for q in points[1:-1]]
+    return fuse(out)
 
 
 def fuse(shapes):
@@ -323,6 +361,9 @@ def build_components(p=PARAMS):
     sx0 = p["hip_x"] + p["sleeve"][0] / 2
     fr.append(bx(sx0, sx0 + 40, -ry - 2, -ry + 2, p["sleeve_top"] - 35, p["sleeve_top"] - 5)
               - ycyl(sx0 + 25, -ry - 3, -ry + 3, p["sleeve_top"] - 20, 3.25))
+    # spring unit tab: 4 mm plate on the outer face of the left sleeve, clear of the height pin line
+    ys0 = ry + p["sleeve"][0] / 2
+    fr.append(bx(p["hip_x"] - 14, p["hip_x"] + 14, ys0, ys0 + p["dm_tab"], p["dm_z"] - 25, p["dm_z"] + 25))
     frame = fuse(fr)
     for sy in (1, -1):
         _, _, u = _arm_ends(p, sy)
@@ -408,11 +449,13 @@ def build_components(p=PARAMS):
         tabs.append(tab)
     add("pin_tabs", "Lock pin tabs (left rear fork)", fuse(tabs), 15)
     tz = R + 60
-    yct = -(t2 + p["old"] / 2 + p["blade"][1] / 2)
-    tt = bx(-70, blade_x(p, 0.0, hx, tz), yct - 3, yct + 3, tz - 20, tz + 20)
-    tt -= blade_shape(p, 0.0, -t2, hx, -1) + bx(-11, 11, yct - 4, yct + 4, R - 20, R + 41)
-    tt -= ycyl(-50, yct - 4, yct + 4, tz, 5.5)
-    add("torque_tab", "Torque-arm tab (right rear fork)", tt, 1)
+    for sy, side in ((-1, "r"), (1, "l")):     # a tab on each rear fork so the two-motor kit bolts on
+        yct = sy * (t2 + p["old"] / 2 + p["blade"][1] / 2)
+        tt = bx(-70, blade_x(p, 0.0, hx, tz), yct - 3, yct + 3, tz - 20, tz + 20)
+        tt -= blade_shape(p, 0.0, sy * t2, hx, sy) + bx(-11, 11, yct - 4, yct + 4, R - 20, R + 41)
+        tt -= ycyl(-50, yct - 4, yct + 4, tz, 5.5)
+        add("torque_tab" if sy < 0 else "torque_tab_l",
+            "Torque-arm tab (" + ("right" if sy < 0 else "left") + " rear fork)", tt, 1)
 
     # ---- 8 skirt guards with a slot for the hub, two rail tabs and two clips on the inner blade
     for sy, side in ((1, "l"), (-1, "r")):
@@ -478,6 +521,48 @@ def build_components(p=PARAMS):
     lever += bx(lx + 2, lx + 14, -ry - 26, -ry - 14, hb_z - 12, hb_z + 4)
     add("lever", "Brake lever with parking latch", lever, 7, "bought")
 
+    # ---- 17 hold-to-release brake: bail under the left grip, spring unit with cable yoke, cables
+    bail = xcyl(lx, lx + 16, ry, hb_z, 16) - xcyl(lx - 1, lx + 17, ry, hb_z, p["grip_d"] / 2)
+    bail += bx(lx + 2, lx + 14, ry - 6, ry + 6, hb_z - 30, hb_z - 15)                  # pivot lug
+    bail += oriented_box((lx + 8, ry, hb_z - 24), (lx + 8 - p["bail_len"], ry, hb_z - 36), 12, 6, up=(0, 0, 1))
+    bail += bx(lx + 4 - p["bail_len"], lx + 16 - p["bail_len"], ry - 6, ry + 6, hb_z - 44, hb_z - 30)  # finger stop
+    add("bail", "Hold-to-release bail lever (left grip)", bail, 17, "bought")
+    dy = ry + p["sleeve"][0] / 2 + p["dm_tab"] + p["dm_d"] / 2   # unit axis, outside the tab on the sleeve
+    dz = p["dm_z"]
+    ux0, ux1 = p["dm_x"]
+    unit = xcyl(ux0, ux1, dy, dz, p["dm_d"] / 2)
+    unit += xcyl(ux1 - 6, ux1, dy, dz, p["dm_d"] / 2 + 2) + xcyl(ux0, ux0 + 6, dy, dz, p["dm_d"] / 2 + 2)  # end caps
+    ys = ry + p["sleeve"][0] / 2 + p["dm_tab"]
+    for x in (p["hip_x"] - 7, p["hip_x"] + 7):          # two saddle clips, M5 bolts into the tab
+        unit += bx(x - 4, x + 4, ys, dy, dz - 17, dz + 17) - xcyl(x - 5, x + 5, dy, dz, p["dm_d"] / 2 - 0.01)
+    add("dm_unit", "Spring unit with cable yoke (left hip sleeve)", unit, 17, "made")
+    cr = p["cable_r"]
+    yg = ry + 21                                          # cable line beside the grip tubes
+    bail_cable = [(ux1, dy, dz + 7), (ux1 + 23, dy, dz + 7), (100, ry + 30, 905), (25, yg, hb_z), (lx + 17, yg, hb_z)]
+    # service lever cable: from the right lever, under the right end of the hip bar, along the front of the pad
+    serv_cable = [(lx + 17, -yg, hb_z), (25, -yg, hb_z), (40, -ry - 25, 912), (110, -ry - 15, 925),
+                  (110, ry - 15, 925), (ux1 + 23, dy - 6, dz - 5), (ux1, dy - 6, dz - 5)]
+    # outputs from the yoke: left drum from the rear of the unit; right drum back along the hip bar. Each
+    # passes in front of and outside its rear head tube, in front of the fork crown and down the front of
+    # the outer fork blade, inside the width over the axle nuts.
+    fork_run = lambda sy: [(-27, sy * dy, dz), (-27, sy * (t2 - 5), dz), (-30, sy * (t2 + 27), dz),   # noqa: E731
+                           (-33, sy * (t2 + 56), 740.0), (-33, sy * (t2 + 56), 690.0),
+                           (blade_x(p, 0.0, hx, R + 150) + 18, sy * (t2 + 56), R + 150)]
+    left_out = [(ux0, dy, dz)] + fork_run(1)
+    right_out = [(ux1, dy + 6, dz - 5), (ux1 + 23, dy + 6, dz - 5), (118, ry - 10, 912), (118, -ry + 10, 912),
+                 (130, -ry - 50, 840), (100, -ry - 50, dz)] + fork_run(-1)
+    add("serv_cable", "Service brake cable (right lever to the yoke)", cable(serv_cable, cr), 7, "bought")
+    add("dm_cables", "Bail cable and drum cables", cable(bail_cable, cr) + cable(left_out, cr) + cable(right_out, cr), 17, "bought")
+
+    # ---- rated load and slope plates (in the hardware line)
+    pl, ph, pt_ = p["plate"]
+    xp = p["plate_x"]
+    yo = ry + p["main"][1] / 2
+    plates = bx(xp - pl / 2, xp + pl / 2, -yo - pt_, -yo, d["rail_z"] - ph / 2, d["rail_z"] + ph / 2)   # right rail, outside
+    plates += bx(xp - pl / 2, xp + pl / 2, ry - p["main"][1] / 2 - pt_, ry - p["main"][1] / 2,
+                 d["rail_z"] - ph / 2, d["rail_z"] + ph / 2)                                           # left rail, inside
+    add("plates", "Rated load and slope plates (2)", plates, 12, "made")
+
     # ---- 5 cradle: plywood floor and walls, rubber pad, zinc angle brackets, four bolts to the bearers
     x0, x1, hw = p["cr_x0"], d["cr_x1"], p["cr_hw"]
     zf0, zf1 = p["cr_z"], p["cr_z"] + p["floor_t"]
@@ -489,6 +574,12 @@ def build_components(p=PARAMS):
     for x in p["cradle_bolt_x"]:
         for sy in (1, -1):
             fl -= zcyl(x, sy * p["bearer_y"], zf0 - 1, zf1 + 1, 3.3)
+    hl, hh = p["hold"]
+    zt_ = zf1 + p["wall_h"] - p["hold_top"]
+    for i in (0, 1):                                   # hand holds: two slots in each side wall
+        for k in (0, 1):
+            xc_ = x0 + (x1 - x0) * (0.25 + 0.5 * k)
+            walls[i] -= bx(xc_ - hl / 2, xc_ + hl / 2, -hw - 1, hw + 1, zt_ - hh, zt_)
     add("cradle", "Cradle (floor and walls)", fuse([fl] + walls), 5)
     add("cradle_pad", "Cradle rubber pad", pad_, 5)
     br = []
@@ -528,8 +619,8 @@ def build_components(p=PARAMS):
     add("cans", "20 L jerrycans (user's own)", fuse(cans), 6, "context", "load")
 
     # ---- optional assist kit (second prototype)
-    motor = ycyl(0, -t2 - p["motor_w"] / 2, -t2 + p["motor_w"] / 2, R, p["motor_d"] / 2)
-    add("motor", "Optional hub motor, 250 W, 48 V", motor, 9, "bought", "assist")
+    motor = fuse([ycyl(0, sy * t2 - p["motor_w"] / 2, sy * t2 + p["motor_w"] / 2, R, p["motor_d"] / 2) for sy in (1, -1)])
+    add("motor", "Optional hub motors, 250 W, 48 V (2)", motor, 9, "bought", "assist")
     pk = p["pack"]
     px0 = p["front_x"] + p["main"][1] / 2 + 25
     pz0 = p["arm_z"] + 20 + rx[2] + 8
@@ -557,13 +648,14 @@ BOM_VIEW = {
     6: ("20 L jerrycan (x4, user's own)", "#E3B505", (0, 0, 650)),
     7: ("Brake lever with parking latch", "#6B7280", (-300, -300, 350)),
     8: ("Skirt guard (x2)", "#D1D5DB", (-120, 0, 0)),
-    9: ("Optional hub motor, 250 W, 48 V", "#111827", (-450, -620, 0)),
+    9: ("Optional hub motors, 250 W, 48 V (x2)", "#111827", (-450, 0, 0)),
     10: ("Optional SwapCell pack", "#C2410C", (250, 0, 420)),
     11: ("Optional push sensor and controller", "#2563EB", (450, -650, -150)),
-    12: ("Hardware", "#111827", (0, 0, 0)),
+    12: ("Rated load and slope plates", "#111827", (0, 0, 0)),
     13: ("Optional SwapCell receiver, V1", "#9A3412", (250, 0, 250)),
     15: ("Parking lock pin", "#DC2626", (-450, 520, 250)),
     16: ("Headsets and steering locks (4 sets)", "#1D4ED8", (0, 0, 200)),
+    17: ("Hold-to-release brake: bail, spring unit, cables", "#7C3AED", (-300, 350, 300)),
 }
 
 
@@ -573,7 +665,7 @@ def build_parts(p=PARAMS):
     C = build_components(p)
     lines = {}
     for c in C.values():
-        if c.bom == 12:
+        if c.bom == 12 and c.kind == "fixing":
             continue
         key = (c.bom, c.group)
         lines.setdefault(key, []).append(c.shape)
@@ -686,6 +778,37 @@ def checks(p=PARAMS):
     for s in ("l", "r"):
         side = "left" if s == "l" else "right"
         chk(f"Front fork and wheel ({side}) clear of the frame below the arm", S(f"front_wheel_{s}"), frame, 15.0)
+    # left torque-arm tab (two-motor assist kit, 2026-10-02)
+    chk("Torque-arm tab on the left rear fork blade", S("torque_tab_l"), S("rear_fork_l"), "touch")
+    chk("Torque-arm tab clear of the left rear wheel and brake plate", S("torque_tab_l"), S("rear_wheel_l"), 5.0)
+    chk("Torque-arm tab clear of the left brake arm", S("torque_tab_l"), S("brake_arm_l"), 2.0)
+    chk("Left torque-arm tab clear of the lock pin tabs and pin", S("torque_tab_l"), S("pin_tabs") + S("lock_pin"), 10.0)
+    chk("Hub motors in the rear dropouts (assist kit)", S("motor"), S("rear_fork_l") + S("rear_fork_r"), 0.0)
+    chk("Left hub motor clear of the parking lock pin", S("motor"), S("lock_pin"), 10.0)
+    # hold-to-release brake (2026-10-02)
+    rear = S("rear_wheel_l") + S("rear_wheel_r")
+    chk("Bail lever clamp on the left grip tube", S("bail"), S("hipbar"), "touch")
+    chk("Bail lever clear of the left grip (finger room)", S("bail"), S("pad_grips"), 1.0)
+    chk("Bail lever clear of the service brake lever", S("bail"), S("lever"), 100.0)
+    chk("Spring unit on its tab on the left sleeve", S("dm_unit"), frame, "touch")
+    chk("Spring unit clear of the rear head tube brackets", S("dm_unit"), S("rear_ht_l"), 2.0)
+    chk("Spring unit clear of the hip post and height pin", S("dm_unit"), S("hipbar") + S("hip_pins"), 2.0)
+    chk("Spring unit clear of the left rear wheel (2.1 in tire)", S("dm_unit"), S("rear_wheel_l"), 20.0)
+    chk("Spring unit clear of the left rear fork and lock collar", S("dm_unit"), S("rear_fork_l") + S("collars_rear"), 5.0)
+    cab = S("dm_cables") + S("serv_cable")
+    chk("Brake cables clear of the frame", cab, frame + S("rear_ht_l") + S("rear_ht_r") + S("carrier"), 0.5)
+    chk("Brake cables clear of the hip bar, posts, pad and grips", cab, S("hipbar") + S("pad_grips") + S("hip_pins"), 0.5)
+    chk("Brake cables clear of the rear wheels", cab, rear, 15.0)
+    chk("Brake cables clear of the rear forks, tabs and lock pin", cab,
+        S("rear_fork_l") + S("rear_fork_r") + S("pin_tabs") + S("torque_tab") + S("torque_tab_l") + S("lock_pin"), 1.0)
+    chk("Brake cables clear of the skirt guards and brake arms", cab,
+        S("guard_l") + S("guard_r") + S("brake_arm_l") + S("brake_arm_r"), 1.0)
+    chk("Brake cables clear of the rear headsets, collars and pins", cab, S("cups_rear") + S("collars_rear") + S("pins_rear"), 1.0)
+    chk("Brake cables clear of the optional sensor and motors", cab, S("sensor") + S("motor"), 1.0)
+    chk("Cables meet the spring unit ends", cab, S("dm_unit"), "touch", vol_tol=5.0)
+    chk("Rated load and slope plates on the rails", S("plates"), frame, "touch")
+    chk("Plates clear of the skirt guards and cradle", S("plates"), S("guard_l") + S("guard_r") + S("cradle"), 5.0)
+    chk("Jerrycans clear of the hand hold slots (cradle walls)", S("cans"), S("cradle"), 1.5)
     return rows
 
 

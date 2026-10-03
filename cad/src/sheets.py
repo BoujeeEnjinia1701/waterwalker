@@ -1,4 +1,4 @@
-"""WaterWalker general arrangement drawing WWK-DWG-001 (Rev P3).
+"""WaterWalker general arrangement drawing WWK-DWG-001 (Rev P4).
 
 Run from the repo root:  python cad/src/sheets.py
 Builds cad/drawings/WWK-DWG-001.svg, .pdf and .png from the parametric model.
@@ -12,7 +12,9 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / ".kit"))
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from drawing import Sheet, project_views  # noqa: E402
-from model import PARAMS as P, build_parts, compound, derived  # noqa: E402
+from model import PARAMS as P, build_parts, compound, derived, patch_svg_export  # noqa: E402
+
+patch_svg_export()
 
 D = derived()
 parts = build_parts()
@@ -21,11 +23,12 @@ work = ROOT / "cad/drawings/_views"
 views = project_views(asm, work)
 
 s = Sheet(project="WaterWalker", title="General arrangement, walk-inside water carrier", dwg_no="WWK-DWG-001",
-          rev="P3", author="Amish Chadha", date="2026-10-02", concept=True,
+          rev="P4", author="Amish Chadha", date="2026-10-02", concept=True,
           material="Mild steel tube frame; 26 in bicycle wheels and forks; plywood cradle. See bom/bom.csv",
           revisions=[("P1", "Preliminary GA from the parametric model (WWK-CAL-001)", "2026-09-25", "AC"),
                      ("P2", "1.2 mm main wall, thinner cradle, parking lock pin (WWK-DDR-002)", "2026-09-25", "AC"),
-                     ("P3", "Design for construction: carrier, brackets, headsets, fixings (WWK-DDR-003)", "2026-10-02", "AC")])
+                     ("P3", "Design for construction: carrier, brackets, headsets, fixings (WWK-DDR-003)", "2026-10-02", "AC"),
+                     ("P4", "Hold-to-release brake, left torque tab, plates, hand holds (WWK-DEC-001)", "2026-10-02", "AC")])
 s.add_ortho(views, ["front", "top", "right"])
 s.add_svg(views["iso"], 276, 38, 140, 76, label="Isometric view", sublabel="Not to scale; assist kit shown fitted")
 s.add_notes("Key dimensions (mm) and notes", [
@@ -36,14 +39,14 @@ s.add_notes("Key dimensions (mm) and notes", [
     "Headsets on all forks; rear pinned, front swivel",
     f"Caster sweep R{D['sweep_r']:.0f}; {D['riser_gap']:.0f} clear of front risers",
     f"Hip bar {P['hip_min']:.0f} to {P['hip_max']:.0f} above ground; open rear entry",
-    f"Cradle {D['cr_x1'] - P['cr_x0']:.0f} x {2 * P['cr_hw']:.0f}, floor {P['cr_z']:.0f} up, on two bearers",
-    f"Ground clearance under the bearers {D['clearance']:.0f}",
+    f"Cradle {D['cr_x1'] - P['cr_x0']:.0f} x {2 * P['cr_hw']:.0f} on two bearers; ground clearance {D['clearance']:.0f}",
     f"Lift over side rail {D['rail_top'] + 10:.0f} (R8 450 max)",
     "Main tube RHS 40 x 30 x 1.2; cross 25 x 25 x 1.5",
     "Making sketches WWK-DWG-101 to 108 (build plan WWK-BLD-001)",
-    "Parking lock pin, 10 mm, through left rear spokes",
-    "Optional later assist kit: SwapCell v0.3, class V1",
-    "Empty 39.6 kg; loaded 124 kg (WWK-CAL-001 v0.3)",
+    "Lock pin through left rear spokes; two rating plates",
+    "Hold-to-release brake: bail, spring unit on left sleeve",
+    "Optional assist: two hub motors, SwapCell v0.3, V1",
+    "Empty 40.3 kg; loaded 124.7 kg (WWK-CAL-001 v0.4)",
     "PRELIMINARY, NOT FOR FABRICATION",
 ], x=276, y=128, width=140)
 s.save(ROOT / "cad/drawings/WWK-DWG-001")

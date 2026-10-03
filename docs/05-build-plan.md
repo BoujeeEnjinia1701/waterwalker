@@ -3,7 +3,7 @@ doc_id: WWK-BLD-001
 title: WaterWalker prototype build plan
 project: WaterWalker
 doc_type: Build plan
-version: "0.1"
+version: "0.2"
 status: Draft
 date: '2026-10-02'
 author: Amish Chadha
@@ -13,6 +13,10 @@ revisions:
     date: '2026-10-02'
     author: Amish Chadha
     change: First build plan, with pictures by component and step; design made constructable (WWK-DDR-003)
+  - version: "0.2"
+    date: '2026-10-02'
+    author: Amish Chadha
+    change: Amish's decisions of 2026-10-02 carried in; hold-to-release brake (section 3.9, step 9, safety stop S4), torque-arm tabs on both rear forks, rating plates, cradle hand holds, weld inspection at every service; steps 9 to 11 renumbered 10 to 12
 ---
 
 # WaterWalker prototype build plan
@@ -25,13 +29,13 @@ revisions:
 
 *Figure 1. Every component pulled apart and numbered in build order.*
 
-The prototype is the first WaterWalker without assist: a welded mild steel frame on four 26 in bicycle wheels, open at the rear so the user walks in between the rear wheels and pushes on a padded hip bar, with a plywood cradle between the axles for four 20 L jerrycans. Figure 1 shows the 14 components in the order you make or fit them. Eight are made: the frame weldment, the two rear head tube brackets, the cradle carrier, four lock collars, the tabs welded to the rear forks, two skirt guards, the hip bar and the cradle. The rest are bought bicycle parts and fixings: four rigid forks, four built wheels (drum hubs at the rear), headsets, tires, a brake lever with a parking latch and cables, grips, a hip pad, lock pins and bolts. The work is sawing, drilling, coping and arc welding square and round steel tube, cutting plywood and plastic sheet, and fitting bicycle parts. The parts cost about USD 462 from the bill of materials. The assist mounting points are built in; the assist kit itself is a later prototype.
+The prototype is the first WaterWalker without assist: a welded mild steel frame on four 26 in bicycle wheels, open at the rear so the user walks in between the rear wheels and pushes on a padded hip bar, with a plywood cradle between the axles for four 20 L jerrycans. Figure 1 shows the 15 components in the order you make or fit them. Nine are made: the frame weldment, the two rear head tube brackets, the cradle carrier, four lock collars, the tabs welded to the rear forks, two skirt guards, the hip bar, the spring unit of the hold-to-release brake and the cradle. The rest are bought bicycle parts and fixings: four rigid forks, four built wheels (drum hubs at the rear), headsets, tires, a brake lever with a parking latch, a bail lever, cables, grips, a hip pad, lock pins, two rating plates and bolts. The work is sawing, drilling, coping and arc welding square and round steel tube, cutting plywood and plastic sheet, and fitting bicycle parts. The parts cost about USD 492 from the bill of materials. The assist mounting points are built in; the assist kit itself is a later prototype.
 
-> **Safety:** Loaded, the carrier weighs about 124 kg and rolls away on a slope if let go. Never load it before the safety stops of section 6 are passed, never leave it loaded on a slope without the parking lock pin in, and never carry a person in the cradle. Welding gives off fumes and ultraviolet light, and hot steel and sharp cut edges burn and cut: weld in a ventilated space with a welding helmet, gloves and cotton clothing, and deburr every cut. Steel fork blades must only be welded by a welder who has done it before, with short welds and no undercut.
+> **Safety:** Loaded, the carrier weighs about 125 kg and rolls away on a slope if let go. Never load it before the safety stops of section 6 are passed, never leave it loaded on a slope without the parking lock pin in, and never carry a person in the cradle. Welding gives off fumes and ultraviolet light, and hot steel and sharp cut edges burn and cut: weld in a ventilated space with a welding helmet, gloves and cotton clothing, and deburr every cut. Steel fork blades must only be welded by a welder who has done it before, with short welds and no undercut.
 
 ## 2. What changed to make it buildable
 
-The concept showed what the carrier does; many of its parts could not be made or fixed as drawn. Each change below keeps what the carrier does, and all of them are recorded in decision record WWK-DDR-003, open for Amish's review.
+The concept showed what the carrier does; many of its parts could not be made or fixed as drawn. Each change below keeps what the carrier does, and all of them are recorded in decision record WWK-DDR-003, which Amish accepted on 2026-10-02.
 
 *Table 1. Changes from the concept.*
 
@@ -48,6 +52,8 @@ The concept showed what the carrier does; many of its parts could not be made or
 | Skirt guards | No fixing; a round hub hole | Two bolts to rail tabs, two clips on the fork blade, a slot for the hub (Figures 14 and 15) | Fitted before the wheel; held at four points |
 | Brake reaction arm | Ending in the air | Clipped along the outer fork blade (Figure 13) | It must carry the brake torque |
 | Cradle | Walls overlapping, no fixings | End walls between the side walls; 14 angle brackets outside (Figures 18 and 19) | 4 mm plywood takes no screws in its edge |
+
+Amish's decisions of 2026-10-02 then added four things that the concept did not have: a hold-to-release brake (a bail under the left grip, a spring unit on the left hip sleeve and cables to both rear drums; section 3.9), a torque-arm tab on the left rear fork as well as the right, so that a later two-motor assist kit bolts on (section 3.5), two rated load and slope plates on the rails, and two hand holds in each cradle side wall (section 3.8).
 
 ## 3. Making the components
 
@@ -88,9 +94,10 @@ Make and check each component before the assembly step that needs it. Sizes are 
 4. Lay the upper cross member across the riser tops, centred, its ends 15 out past each riser. Weld it on.
 5. Jig each front head tube upright, 385 out from the centre line and 1,590 ahead of the rear axle line (440 ahead of the risers' centre), its bottom 730 above the ground (use blocks under the rails at the 313.5 rail bottom height). Fit each caster arm between the front face of the upper cross member over its riser and the side of its head tube; the arm angles 8.6 degrees outward. Cope the head tube end until it sits fully on the tube wall. Weld.
 6. Stand a hip sleeve on the top of each rail at its rear end, rear face flush with the rail end, square both ways. Weld only the outside corners first, then check that a hip post slides in; file out any weld that has pulled the bore in.
-7. Weld on the small parts: the receiver plate (140 x 300 x 3) on top of the upper cross member, lapping its front face by 15 and centred; a pin guide (14 mm tube, 39 long) upright on each caster arm, 45 back along the arm from the head tube axis, after drilling a 9 mm hole in the arm top under it; two guard tabs (25 x 5 flat bar, 40 long) flat on the outer face of each rail at 150 and 240 ahead of the rear axle line, then drilled 5 and tapped M6 through tab and rail wall; the sensor tab (40 x 30 x 4) standing forward from the right sleeve's front face, 785 to 815 up, with a 6.5 hole.
+7. Weld on the small parts: the receiver plate (140 x 300 x 3) on top of the upper cross member, lapping its front face by 15 and centred; a pin guide (14 mm tube, 39 long) upright on each caster arm, 45 back along the arm from the head tube axis, after drilling a 9 mm hole in the arm top under it; two guard tabs (25 x 5 flat bar, 40 long) flat on the outer face of each rail at 150 and 240 ahead of the rear axle line, then drilled 5 and tapped M6 through tab and rail wall; the sensor tab (40 x 30 x 4) standing forward from the right sleeve's front face, 785 to 815 up, with a 6.5 hole; the spring unit tab (28 x 50 x 4) flat on the outer face of the left sleeve, centred 775 up, drilled and tapped M5 at 53 and 67 ahead of the rear axle line for the saddle clips of section 3.9.
 8. Drill a 6.5 hole front to back through each sleeve, 775 up, for the height pin.
 9. Fit plastic end caps in every open tube end.
+10. After painting, stick or rivet the two rated load and slope plates (150 x 30) to the rails, centred 640 ahead of the rear axle line: one on the outer face of the right rail and one on the inner face of the left rail, where the user reads it when walking in.
 
 **How it fits the parts next to it.** The rear head tube brackets weld to the rear faces of the hip sleeves (section 3.2); the cradle carrier hangs from the front lower cross member and the rear cross member (section 3.3); the forks go up through the head tubes (step 2 and 5); the hip posts slide into the sleeves (section 3.7). The joints at the front corner:
 
@@ -183,14 +190,14 @@ The bearer tops are 150 above the ground; the cradle floor sits on them. The cra
 
 *Figure 11. Fork tabs making sketch (WWK-DWG-105).*
 
-**What it is and what it is made from.** Two tabs on the left rear fork that hold the parking lock pin at both ends, and one tab on the right rear fork for the torque arm of the later hub motor. Steel flat bar 30 x 6 mm, welded to bought steel forks.
+**What it is and what it is made from.** Two tabs on the left rear fork that hold the parking lock pin at both ends, and one tab on each rear fork for the torque arms of the two hub motors of the later assist kit. Steel flat bar 30 x 6 mm, welded to bought steel forks.
 
 **How to make it.**
 
 1. Lock pin tabs: cut two pieces about 40 long. Shape one end of each to sit on the back of the fork blade. Drill 10.5, 20 from that end.
 2. Strip the paint from the backs of the left rear fork's blades, 190 to 220 above the axle centre.
 3. Put a 10 mm bar through both tabs and hold them on the backs of the inner and outer blades, the holes 200 above and 60 behind the axle centre. Weld with short runs, letting the blade cool between them.
-4. Torque-arm tab: cut one piece 66 long, drill 11 at 50 behind the axle once fitted, and weld it to the back of the right rear fork's outer blade, centred 60 above the axle and in the blade's thickness.
+4. Torque-arm tabs: cut two pieces 66 long, drill 11 at 50 behind the axle once fitted, and weld one to the back of each rear fork's outer blade, centred 60 above the axle and in the blade's thickness. On the left fork it sits 140 below the outer lock pin tab.
 5. Paint the bare steel.
 
 **How it fits the parts next to it.**
@@ -201,9 +208,9 @@ The bearer tops are 150 above the ground; the cradle floor sits on them. The cra
 
 ![Figure 13. Joint 8: brake reaction arm and torque-arm tab](05-build-plan/joint-08.png)
 
-*Figure 13. Joint 8. The torque-arm tab sits behind the outer blade, clear of the drum brake's reaction arm.*
+*Figure 13. Joint 8. The torque-arm tab sits behind the outer blade, clear of the drum brake's reaction arm (right fork shown; the left is its mirror image).*
 
-**Check before moving on.** The 10 mm bar slides through both lock pin tabs without force; no crack shows at any weld under a bright lamp.
+**Check before moving on.** The 10 mm bar slides through both lock pin tabs without force; both torque-arm holes are at the same height; no crack shows at any weld under a bright lamp.
 
 ### 3.6 Skirt guards (make 2, mirror images)
 
@@ -251,7 +258,7 @@ The guard lies flat against the two tabs, 5 outside the rail, and 15 from the sp
 
 *Figure 17. Joint 5. Each post slides in its sleeve with about 1 mm clearance each side; a 6 mm pin through sleeve and post sets the height, passing between the two rear brackets.*
 
-The pad slides over the bar; a bicycle grip goes on the rear end of each grip tube, with the brake lever ahead of the right grip. The nine holes give a bar height of 850 to 1,050 above the ground in 25 steps; at 1,050, 150 of the post stays in the sleeve.
+The pad slides over the bar; a bicycle grip goes on the rear end of each grip tube, with the brake lever ahead of the right grip and the bail lever ahead of the left grip. The nine holes give a bar height of 850 to 1,050 above the ground in 25 steps; at 1,050, 150 of the post stays in the sleeve.
 
 **Check before moving on.** Both posts enter both sleeves together and slide without binding at every height.
 
@@ -266,12 +273,13 @@ The pad slides over the bar; a bicycle grip goes on the rear end of each grip tu
 **How to make it.**
 
 1. Cut the floor 780 x 430 (6 mm), two side walls 780 x 160 and two end walls 422 x 160 (4 mm).
-2. Seal every edge with exterior paint or varnish and let it dry.
+2. Seal every edge with exterior paint or varnish and let it dry (seal the hand hold edges after step 6).
 3. Stand the side walls on the floor's long edges, flush outside; fit the end walls between them, on the floor's short edges.
 4. Hold the joints with angle brackets outside: three along each side wall's bottom, two along each end wall's bottom, one up each corner. Drill through bracket and plywood and fit M4 bolts with washers both sides.
 5. Drill four 6.6 holes in the floor for the bearer bolts, 150 each side of the centre line, 50 and 730 from the rear edge; countersink them from the inside.
-6. Fit the two strap anchors: an M6 bolt with a large washer through each side wall, 20 above the floor, at 186 and 594 from the rear edge, with a webbing loop under its head.
-7. Cut the pad 772 x 422 and lay it loose on the floor.
+6. Cut two hand holds in each side wall: slots 90 long and 26 high, their top edge 17 below the wall top, centred 195 and 585 from the rear edge. Drill the slot ends and saw between, then round and seal the cut edges.
+7. Fit the two strap anchors: an M6 bolt with a large washer through each side wall, 20 above the floor, at 186 and 594 from the rear edge, with a webbing loop under its head.
+8. Cut the pad 772 x 422 and lay it loose on the floor.
 
 **How it fits the parts next to it.**
 
@@ -281,9 +289,28 @@ The pad slides over the bar; a bicycle grip goes on the rear end of each grip tu
 
 Four M6 countersunk bolts go down through the floor and the bearers, with nyloc nuts underneath. The jerrycans stand 2 x 2 on the pad with 2 mm to each wall.
 
-**Check before moving on.** The tray is square within 3 mm on its diagonals, and four jerrycans drop in and lift out by hand.
+**Check before moving on.** The tray is square within 3 mm on its diagonals, four jerrycans drop in and lift out by hand, and the empty tray lifts out by its hand holds.
 
-### 3.9 Bought components
+### 3.9 Hold-to-release brake: spring unit, bail and cables
+
+![Figure 20. Joint 11: spring unit on the left hip sleeve](05-build-plan/joint-11.png)
+
+*Figure 20. Joint 11. The spring unit lies along the outside of the left hip sleeve, bolted by two saddle clips to the tab on the sleeve, between the two rear brackets' levels and clear of the height pin.*
+
+**What it is and what it is made from.** A brake that comes on by itself if the user lets go. A spring in a short steel tube pulls both rear drum cables through a cable yoke; the user holds it off by holding a bail lever up against the left grip. The service lever on the right grip pulls the same yoke, so either one brakes both rear wheels. Steel tube 26 mm outside, 132 long, with two welded end caps; a compression spring of about 390 N preload and 10 N/mm; a toggle; a bought cable yoke that lets either input cable pull both output cables; two saddle clips with M5 bolts; a bought bail lever for 22.2 mm tube with a 120 mm blade.
+
+**How to make it.**
+
+1. Cut the tube 132 long and deburr it. Drill the front end cap for three cable housings (the bail and service cables in, the right drum cable out) and the rear end cap for one (the left drum cable out).
+2. Fit the yoke, the toggle and the spring inside, following the yoke maker's drawing, with the spring pushing the yoke toward the rear so that it pulls both drum cables.
+3. Weld the front end cap on; the rear end cap screws on so the spring can be reached.
+4. Bolt the unit to the tab on the left sleeve with the two saddle clips.
+
+**How it fits the parts next to it.** The unit's inner side sits on the 4 mm tab, so the height pin through the sleeve stays free. The bail cable runs from the bail along the outside of the left grip tube and down in front of the left post to the unit's front end. The service cable runs from the right lever under the right end of the hip bar and along the front of the pad to the unit. The right drum cable goes back along the front of the pad, down the outside of the right sleeve, in front of and outside the right rear head tube, in front of the fork crown and down the front of the outer blade to the drum; the left drum cable leaves the rear of the unit and does the same on the left. Every housing is tied to the tube it runs along, with a loop at each sleeve so the hip bar can be raised to its top hole. Nothing crosses the open rear, and no cable stands out past the axle nuts.
+
+**Check before moving on.** With the bail let go, both drums are on and the wheels will not turn by hand; squeezing the bail fully home releases both; with the bail held, the service lever still brakes both drums.
+
+### 3.10 Bought components
 
 Buy to specification, not brand. Line numbers are those of the bill of materials.
 
@@ -291,11 +318,12 @@ Buy to specification, not brand. Line numbers are those of the bill of materials
 - **Forks (lines 2 and 5).** Four rigid 26 in steel forks, 1 1/8 in steerer at least 170 mm above the crown, 100 mm dropouts, offset as near 60 mm as the market offers. All four are the same.
 - **Headset and lock sets (line 16).** Four 1 1/8 in external-cup headsets for a 34 mm bore, with top caps and star nuts; four 40 mm clamp collars for 28.6 mm (made into lock collars, section 3.4); four 8 mm steel pins 75 to 90 long with a ring and an R-clip.
 - **Tires (line 14).** Four 26 x 2.1 to 2.4 in puncture-resistant tires, thorn-resistant tubes and liners.
-- **Brakes (line 7).** One brake lever with a parking latch for 22.2 mm bars, a cable splitter, two cables and housing.
+- **Brakes (line 7).** One brake lever with a parking latch for 22.2 mm bars, with its cable and housing.
+- **Hold-to-release brake (line 17).** A bail lever for 22.2 mm bars with a long blade; a compression spring of about 390 N preload and about 10 N/mm; a cable yoke for two inputs and two outputs; three brake cables and housing.
 - **Hip bar parts (line 4).** A foam pad for a 32 mm bar, 480 long; two bicycle grips; two 6 mm pins with a ring and R-clip.
 - **Parking lock pin (line 15).** A 10 mm ball-lock pin with about 140 mm usable length, a pull ring and a lanyard.
 - **Skirt guard clips (line 8).** Four rubber-lined steel clips for the fork blade, with 5 mm spacers and M6 bolts.
-- **Fixings and finishes (line 12).** M6 and M4 bolts with nyloc nuts and washers, axle nuts, plastic tube end caps, primer and paint, red rear and white front reflectors, cable ties.
+- **Fixings and finishes (line 12).** M6, M5 and M4 bolts with nyloc nuts and washers, axle nuts, plastic tube end caps, primer and paint, red rear and white front reflectors, cable ties, two rated load and slope plates (150 x 30, engraved or printed with the rated load of 90 kg gross in the cradle and the steepest rated slope).
 
 ## 4. Putting it together
 
@@ -341,29 +369,35 @@ Fit tires as in step 5, then the front wheels, axle nuts to the hub maker's torq
 
 ![Step 7](05-build-plan/step-07.png)
 
-Slide the pad onto the bar and the grips onto the grip tubes (the right grip after step 8). Lower both posts into the sleeves together and fit the height pins front to back at the user's height.
+Slide the pad onto the bar and the grips onto the grip tubes (both grips after step 8). Lower both posts into the sleeves together and fit the height pins front to back at the user's height.
 
-### Step 8: brake lever and grip
+### Step 8: brake lever, bail lever and grips
 
 ![Step 8](05-build-plan/step-08.png)
 
-Slide the brake lever onto the right grip tube ahead of where the grip goes, then the grip. Run one cable from the lever to a splitter on the right sleeve and one cable from the splitter to each drum, along the rear brackets and down the outer fork blade, with no cable across the open rear. Adjust both drums to bite at the same lever travel.
+Slide the brake lever onto the right grip tube ahead of where the grip goes, then the grip. Do the same on the left with the bail lever, its blade under where the grip goes, then the left grip.
 
-### Step 9: cradle
+### Step 9: hold-to-release brake: spring unit and cables
 
 ![Step 9](05-build-plan/step-09.png)
 
-Lower the cradle between the cross members onto the bearers and fit four M6 countersunk bolts down through the floor and bearers with nyloc nuts underneath.
+Bolt the spring unit to the tab on the left sleeve with its two saddle clips. Run the cables as described in section 3.9 and tie them to the tubes. Connect the two drum cables to the drums with the spring backed off, then set the spring last. Adjust both drums to bite at the same travel, from the service lever and from the bail. **Hold point:** with the bail let go the wheels cannot be turned by hand; with it squeezed home they turn freely.
 
-### Step 10: parking lock pin
+### Step 10: cradle
 
 ![Step 10](05-build-plan/step-10.png)
 
-Tie the lanyard to the left sleeve. From the walking space, push the pin through the inner tab, the guard and between the spokes into the outer tab; roll the wheel a little if a spoke is in the way. It ends inside the axle nut.
+Lower the cradle between the cross members onto the bearers and fit four M6 countersunk bolts down through the floor and bearers with nyloc nuts underneath.
 
-### Step 11: first load
+### Step 11: parking lock pin
 
 ![Step 11](05-build-plan/step-11.png)
+
+Tie the lanyard to the left sleeve. From the walking space, push the pin through the inner tab, the guard and between the spokes into the outer tab; roll the wheel a little if a spoke is in the way. It ends inside the axle nut.
+
+### Step 12: first load
+
+![Step 12](05-build-plan/step-12.png)
 
 Only after safety stops S1 to S4 (section 6). Lift each jerrycan in from the side over the rail and stand them 2 x 2; strap each row down to the strap anchors.
 
@@ -381,10 +415,12 @@ These are the checks a TRL 4 test report would record; this plan only lists them
 | Turning circle | R5 | Turn 180 degrees about the inner rear wheel on a flat yard, casters free | Within a 4.0 m circle without lifting a wheel |
 | Lift height | R8 | Measure the rail top and lift a full jerrycan in from each side | 450 mm or less (364 mm by design) |
 | Brakes | R10, R4 | Lever pull on a 10 % ramp, loaded; push the lever latch on | Both drums lock at the same travel; the latch holds the lever |
+| Hold-to-release brake | R10, R4 | On a 10 % ramp, loaded, walking slowly downhill, let go of the bail with a second person ready; measure the squeeze and hold forces at the bail | The carrier stops and stays stopped; it stops within about 3 m from walking pace; squeeze and hold forces recorded (about 98 N and 24 N by estimate) |
 | Parking lock | R10 | Loaded on a 20 % ramp, latch off, lock pin in, facing downhill and uphill | The carrier does not move; the pin comes out by hand afterwards |
 | Push force | R2, R3, R4 | Force gauge at the hip bar, loaded, on firm level dirt, loose sand and a 10 % climb | Recorded against 60, 150 and 180 N |
-| Empty mass | R9 | Weigh the empty carrier | Recorded against 35 kg (39.6 kg estimated) |
+| Empty mass | R9 | Weigh the empty carrier | Recorded against 35 kg (40.3 kg estimated) |
 | Frame after first load | R1 | Load 90 kg in the cradle for 10 minutes; check every weld and the bearers | No crack, no lasting bend; bearers level within 2 mm |
+| Weld inspection at every service | R1 | Clean and look at the rear cross member welds and both caster arm welds under a bright lamp, with a magnifier; dye penetrant if available | No crack; any crack stops use until the joint is repaired. Repeat at every service until the fatigue test at TRL 4 shows the joints need no gussets |
 
 ## 6. Safety stops
 
@@ -393,14 +429,15 @@ Stop at each point. Carry on only when everything listed is true.
 - **S1. Before any load goes in the cradle.** Every weld inspected under a bright lamp, with no cracks or undercut at the caster arms, risers, rear brackets, hangers and the fork tabs. All four axle nuts at the hub maker's torque. Both rear forks pinned straight.
 - **S2. Before the carrier leaves the bench.** Both drums brake at the same lever travel and the latch holds. The lock pin goes in and out by hand. No sharp edge or tube end is open; every end cap fitted.
 - **S3. Before the first loaded push.** A flat, level yard with no road traffic and nobody in the swivel zone of the front wheels. Start with two jerrycans, then four. The user knows how to set the latch and the lock pin.
-- **S4. Before any slope.** The parking test of section 5 passed on the ramp. A second person stands downhill. Casters pinned straight on descents and cross-slopes.
-- **S5. Before anyone else uses it.** The rated load (90 kg gross in the cradle) and the steepest rated slope are marked on the frame where the user can read them.
+- **S4. Before any slope.** The parking test of section 5 passed on the ramp. The hold-to-release brake tested before the first loaded descent: on the 10 % ramp with two jerrycans and then four, the user lets go of the bail and the carrier stops and stays stopped, both drums biting. A second person stands downhill. Casters pinned straight on descents and cross-slopes.
+- **S5. Before anyone else uses it.** The two rated load and slope plates are fitted and readable: the rated load (90 kg gross in the cradle) and the steepest rated slope.
+- **S6. At every service until the TRL 4 fatigue test.** The rear cross member and caster arm welds inspected as in section 5; use stops at any crack.
 
 ## 7. Tools, skills and workspace
 
 **Tools.** Angle grinder with cutting, grinding and flap discs, or a metal cutting saw; bench vice; drill press or a drill in a stand; drills 3 to 14 mm and a 9 mm drill; M6 tap; hole saw or file for tube coping (a tube notcher if available); arc or MIG welder suited to 1.2 mm wall tube; welding magnets and clamps; steel rule, tape, square, protractor and spirit level; headset press or threaded bar; crown race setting tool; bicycle tools (spoke key, cone spanners, 15 mm axle spanner, tire levers, pump, Allen keys); jigsaw or handsaw for plywood; utility knife for the rubber and HDPE; torque wrench covering about 5 to 40 N·m; luggage scale or platform scale; force gauge for the first checks.
 
-**Skills.** A welder who can weld thin-wall tube without burning through and who has welded to steel bicycle forks; a bicycle mechanic for the headsets, wheels and brakes (or the same person with both skills); basic woodwork. No electrical work is part of this build.
+**Skills.** A welder who can weld thin-wall tube without burning through and who has welded to steel bicycle forks; a bicycle mechanic for the headsets, wheels, brakes and the hold-to-release brake's cables (or the same person with both skills); basic woodwork. No electrical work is part of this build.
 
 **Workspace.** A flat concrete floor about 3 x 2 m to build the frame on; a ventilated welding area away from anything that burns; a ramp or slope of known grade (10 % and 20 %) for the first checks.
 
@@ -408,10 +445,10 @@ Stop at each point. Carry on only when everything listed is true.
 
 ## 8. Where the numbers come from
 
-- Model and constructability checks: `cad/src/model.py` (`python cad/src/model.py --check`, 79 checks); STEP and STL exports in `cad/step/` and `cad/stl/`.
+- Model and constructability checks: `cad/src/model.py` (`python cad/src/model.py --check`, 104 checks); STEP and STL exports in `cad/step/` and `cad/stl/`.
 - Pictures: `cad/src/build_plan_media.py`, using `.kit/build_views.py`; written to `docs/05-build-plan/` and `cad/drawings/WWK-DWG-101` to `WWK-DWG-108`.
-- General arrangement: `cad/drawings/WWK-DWG-001.pdf`, Rev P3.
-- Calculations: `docs/04-calcs/01-sizing.md` (WWK-CAL-001 v0.3) and `docs/04-calcs/sizing.py`; mass section 3, frame and brackets section 7, brakes and parking section 6.
+- General arrangement: `cad/drawings/WWK-DWG-001.pdf`, Rev P4.
+- Calculations: `docs/04-calcs/01-sizing.md` (WWK-CAL-001 v0.4) and `docs/04-calcs/sizing.py`; mass section 3, frame and brackets section 7, brakes and parking section 6.
 - Bill of materials: `bom/bom.csv`.
-- Decisions: `docs/decisions/0003-design-for-construction.md` (WWK-DDR-003), with WWK-DDR-001 and WWK-DDR-002; open items in `docs/06-design-decisions.md` (WWK-DEC-001).
-- Requirements: `docs/03-requirements.md` (WWK-REQ-001 v0.5).
+- Decisions: `docs/decisions/0003-design-for-construction.md` (WWK-DDR-003), with WWK-DDR-001 and WWK-DDR-002; decisions made and items to confirm in `docs/06-design-decisions.md` (WWK-DEC-001).
+- Requirements: `docs/03-requirements.md` (WWK-REQ-001 v0.7).

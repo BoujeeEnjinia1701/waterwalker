@@ -3,9 +3,9 @@ doc_id: WWK-PRB-001
 title: WaterWalker problem statement
 project: WaterWalker
 doc_type: Problem statement
-version: "0.4"
+version: "0.5"
 status: Draft
-date: '2026-09-25'
+date: '2026-10-02'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -25,6 +25,10 @@ revisions:
   date: '2026-09-25'
   author: Amish Chadha
   change: Recommendations accepted by Amish (DDR-002); co-design questions updated for the lighter carrier and the parking lock pin
+- version: "0.5"
+  date: '2026-10-02'
+  author: Amish Chadha
+  change: Partner and region answered by Amish's decision of 2026-10-02 (WWK-DEC-001)
 ---
 
 # WaterWalker problem statement
@@ -44,9 +48,9 @@ This design is for communities the author is not part of, so requirements come f
 - [ ] Validate load, distance, terrain and cost assumptions in the field
 - [ ] Revise requirements (REQ) from findings before freezing the design
 
-The partner and region are still open. By Amish's portfolio rule of 2026-09-25, community designs pick co-design partners per area later (WWK-DDR-001 item 7).
+Partner and region: decided by Amish on 2026-10-02 (WWK-DEC-001). The Helpful Engineering network is the route to a first partner, a university engineering department or water and sanitation NGO in semi-arid eastern Kenya; Kitui County is the first candidate region. None has been approached yet.
 
-Questions to bring to the first sessions (proposed, awaiting Amish):
+Questions to bring to the first sessions:
 
 - Which containers are used: jerrycans, clay pots, buckets or a mix, and how often each?
 - Who fetches water, at what times, with whom, and would a shared carrier work for several households?
@@ -102,6 +106,6 @@ A household of five using about 20 L per person per day (a commonly used basic-a
 
 ## Open questions
 
-- Which partner and which region for the first co-design sessions? Proposed, awaiting Amish; partners are picked per area later.
+- Which partner and which region for the first co-design sessions? Decided by Amish, 2026-10-02 (WWK-DEC-001): through the Helpful Engineering network, with Kitui County, Kenya, as the first candidate region.
 - How common are clay pots relative to jerrycans in the first region, and what size are they? The cradle takes two pots of up to about 384 mm diameter (WWK-CAL-001).
 - What path width must the carrier fit? Proposed target 0.9 m, awaiting field data.
